@@ -55,8 +55,12 @@ abstract class DOMImpl {
     return doc.createElement(tag);
   }-*/;
 
-  public abstract NativeEvent createHtmlEvent(Document doc, String type,
-      boolean canBubble, boolean cancelable);
+  public native NativeEvent createHtmlEvent(Document doc, String type,
+                                            boolean canBubble, boolean cancelable) /*-{
+    var evt = doc.createEvent('HTMLEvents');
+    evt.initEvent(type, canBubble, cancelable);
+    return evt;
+  }-*/;
 
   public native InputElement createInputElement(Document doc, String type) /*-{
     var e = doc.createElement("INPUT");
@@ -64,7 +68,13 @@ abstract class DOMImpl {
     return e;
   }-*/;
 
-  public abstract InputElement createInputRadioElement(Document doc, String name);
+  public native InputElement createInputRadioElement(Document doc, String name) /*-{
+    var elem = doc.createElement("INPUT");
+    elem.type = 'radio';
+    elem.name = name;
+    elem.value = 'on';
+    return elem;
+  }-*/;
 
   public abstract NativeEvent createKeyCodeEvent(Document document,
                                                  String type, boolean ctrlKey, boolean altKey, boolean shiftKey,
@@ -79,10 +89,28 @@ abstract class DOMImpl {
       boolean ctrlKey, boolean altKey, boolean shiftKey, boolean metaKey,
       int charCode);
 
-  public abstract NativeEvent createMouseEvent(Document doc, String type,
-      boolean canBubble, boolean cancelable, int detail, int screenX,
-      int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
-      boolean shiftKey, boolean metaKey, int button, Element relatedTarget);
+  public native NativeEvent createMouseEvent(Document doc, String type,
+                                             boolean canBubble, boolean cancelable, int detail, int screenX,
+                                             int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
+                                             boolean shiftKey, boolean metaKey, int button, Element relatedTarget) /*-{
+    // Because Event.getButton() returns bitfield values [1, 4, 2] for [left,
+    // middle, right], we need to translate them to the standard [0, 1, 2]
+    // button constants.
+    if (button == 1) {
+      button = 0;
+    } else if (button == 4) {
+      button = 1;
+    } else {
+      button = 2;
+    }
+
+    var evt = doc.createEvent('MouseEvents');
+    evt.initMouseEvent(type, canBubble, cancelable, null, detail, screenX,
+      screenY, clientX, clientY, ctrlKey, altKey, shiftKey, metaKey, button,
+      relatedTarget);
+
+    return evt;
+  }-*/;
 
   public ScriptElement createScriptElement(Document doc, String source) {
     ScriptElement elem = (ScriptElement) createElement(doc, "script");
@@ -102,17 +130,30 @@ abstract class DOMImpl {
     style.opacity = value;
   }-*/;
 
-  public abstract void dispatchEvent(Element target, NativeEvent evt);
+  public native void dispatchEvent(Element target, NativeEvent evt) /*-{
+    target.dispatchEvent(evt);
+  }-*/;
 
   public native boolean eventGetAltKey(NativeEvent evt) /*-{
     return !!evt.altKey;
   }-*/;
 
   public native int eventGetButton(NativeEvent evt) /*-{
-    return evt.button | 0;
+      // All modern browsers return 0, 1, and 2 for left, middle, and right,
+      // respectively. Because eventGetButton() is expected to return the IE
+      // bitfield norms of 1, 4, and 2, we translate them here.
+      var button = evt.button;
+      if (button == 1) {
+          return 4;
+      } else if (button == 2) {
+          return 2;
+      }
+      return 1;
   }-*/;
 
-  public abstract int eventGetCharCode(NativeEvent evt);
+  public native int eventGetCharCode(NativeEvent evt) /*-{
+    return evt.charCode || 0;
+  }-*/;
 
   public int eventGetClientX(NativeEvent evt) {
     return toInt32(eventGetSubPixelClientX(evt));
@@ -140,7 +181,9 @@ abstract class DOMImpl {
 
   public abstract int eventGetMouseWheelVelocityY(NativeEvent evt);
 
-  public abstract EventTarget eventGetRelatedTarget(NativeEvent nativeEvent);
+  public native EventTarget eventGetRelatedTarget(NativeEvent evt) /*-{
+    return evt.relatedTarget;
+  }-*/;
 
   public native double eventGetRotation(NativeEvent evt) /*-{
     return evt.rotation;
@@ -162,13 +205,17 @@ abstract class DOMImpl {
     return !!evt.shiftKey;
   }-*/;
 
-  public abstract EventTarget eventGetTarget(NativeEvent evt);
+  public native EventTarget eventGetTarget(NativeEvent evt) /*-{
+    return evt.target;
+  }-*/;
 
   public final native String eventGetType(NativeEvent evt) /*-{
     return evt.type;
   }-*/;
 
-  public abstract void eventPreventDefault(NativeEvent evt);
+  public native void eventPreventDefault(NativeEvent evt) /*-{
+    evt.preventDefault();
+  }-*/;
 
   public native void eventSetKeyCode(NativeEvent evt, char key) /*-{
     evt.keyCode = key;
@@ -178,7 +225,9 @@ abstract class DOMImpl {
     evt.stopPropagation();
   }-*/;
 
-  public abstract String eventToString(NativeEvent evt);
+  public native String eventToString(NativeEvent evt) /*-{
+    return evt.toString();
+  }-*/;
 
   public int getAbsoluteLeft(Element elem) {
     return toInt32(getSubPixelAbsoluteLeft(elem));
@@ -215,20 +264,15 @@ abstract class DOMImpl {
     return elem.innerHTML;
   }-*/;
 
-  public native String getInnerText(Element node) /*-{
-    // To mimic IE's 'innerText' property in the W3C DOM, we need to recursively
-    // concatenate all child text nodes (depth first).
-    var text = '', child = node.firstChild;
-    while (child) {
-      // 1 == Element node
-      if (child.nodeType == 1) {
-        text += this.@com.google.gwt.dom.client.DOMImpl::getInnerText(Lcom/google/gwt/dom/client/Element;)(child);
-      } else if (child.nodeValue) {
-        text += child.nodeValue;
-      }
-      child = child.nextSibling;
-    }
-    return text;
+  /*
+   * textContent is used over innerText for two reasons:
+   * 1 - It is consistent across browsers. textContent
+   *     does not convert <br>'s to new lines.
+   * 2 - textContent is faster on retreival because WebKit
+   *     does not recalculate styles as it does for innerText.
+   */
+  public native String getInnerText(Element elem) /*-{
+      return elem.textContent;
   }-*/;
 
   public native Element getNextSiblingElement(Element elem) /*-{
@@ -301,7 +345,9 @@ abstract class DOMImpl {
     return elem.hasAttribute(name);
   }-*/;
 
-  public abstract boolean isOrHasChild(Node parent, Node child);
+  public native boolean isOrHasChild(Node parent, Node child) /*-{
+    return parent.contains(child);
+  }-*/;
 
   public native void scrollIntoView(Element elem) /*-{
     var left = elem.offsetLeft, top = elem.offsetTop;
@@ -364,15 +410,11 @@ abstract class DOMImpl {
     elem.draggable = draggable;
   }-*/;
 
+  /*
+   * See getInnerText for why textContent is used instead of innerText.
+   */
   public native void setInnerText(Element elem, String text) /*-{
-    // Remove all children first.
-    while (elem.firstChild) {
-      elem.removeChild(elem.firstChild);
-    }
-    // Add a new text node.
-    if (text != null) {
-      elem.appendChild(elem.ownerDocument.createTextNode(text));
-    }
+      elem.textContent = text || '';
   }-*/;
 
   public void setScrollLeft(Document doc, int left) {
@@ -398,9 +440,23 @@ abstract class DOMImpl {
     return scrollingElement != null ? scrollingElement : document.getDocumentElement();
   }
 
-  Element getDocumentScrollingElement(Document doc)  {
+  private Element getDocumentScrollingElement(Document doc) {
+    // Uses http://dev.w3.org/csswg/cssom-view/#dom-document-scrolling element to
+    // avoid trying to guess about browser behavior.
+    if (getNativeDocumentScrollingElement(doc) != null) {
+      return getNativeDocumentScrollingElement(doc);
+    }
+
+    return getLegacyDocumentScrollingElement(doc);
+  }
+
+  Element getLegacyDocumentScrollingElement(Document doc) {
     return doc.getViewportElement();
   }
+
+  final native Element getNativeDocumentScrollingElement(Document doc) /*-{
+      return doc.scrollingElement;
+  }-*/;
 
   public int touchGetClientX(Touch touch) {
     return toInt32(touchGetSubPixelClientX(touch));

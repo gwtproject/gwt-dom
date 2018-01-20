@@ -20,7 +20,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 /**
  * StandardBase implementation of {@link com.google.gwt.user.client.impl.DOMImpl}.
  */
-class DOMImplStandardBase extends DOMImplStandard {
+class DOMImplStandardBase extends DOMImpl {
 
   private static class ClientRect extends JavaScriptObject {
     

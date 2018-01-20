@@ -18,7 +18,7 @@ package com.google.gwt.dom.client;
 /**
  * Mozilla implementation of StandardBrowser.
  */
-class DOMImplMozilla extends DOMImplStandard {
+class DOMImplMozilla extends DOMImpl {
 
   private static native int getGeckoVersion() /*-{
     var result = /rv:([0-9]+)\.([0-9]+)(\.([0-9]+))?.*?/.exec(navigator.userAgent.toLowerCase());
