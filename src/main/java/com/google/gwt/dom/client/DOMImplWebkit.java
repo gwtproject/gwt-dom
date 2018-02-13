@@ -20,22 +20,6 @@ package com.google.gwt.dom.client;
  */
 class DOMImplWebkit extends DOMImplStandardBase {
 
-  /**
-   * Return true if using Webkit 525.x (Safari 3) or earlier.
-   * 
-   * @return true if using Webkit 525.x (Safari 3) or earlier.
-   */
-  private static native boolean isWebkit525OrBefore() /*-{
-    var result = /safari\/([\d.]+)/.exec(navigator.userAgent.toLowerCase());
-    if (result) {
-      var version = (parseFloat(result[1]));
-      if (version < 526) {
-        return true;
-      }
-    }
-    return false;
-  }-*/;
-
   @Override
   Element getLegacyDocumentScrollingElement(Document doc) {
     // Old WebKit needs body.scrollLeft in both quirks mode and strict mode.
