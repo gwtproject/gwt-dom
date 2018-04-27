@@ -18,6 +18,8 @@
 <!--                                                                        -->
 <module>
   <inherits name="com.google.gwt.core.Core"/>
+  <inherits name="jsinterop.base.Base"/>
+  <inherits name="elemental2.dom.Dom"/>
   <inherits name="org.gwtproject.canvas.dom.DOM"/>
   <inherits name="org.gwtproject.media.dom.DOM"/>
   <inherits name="com.google.gwt.safehtml.SafeHtml"/>

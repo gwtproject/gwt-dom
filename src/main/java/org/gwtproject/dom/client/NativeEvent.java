@@ -78,6 +78,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the Unicode codepoint.
    */
+  @Deprecated
   public final int getCharCode() {
     return DOMImpl.impl.eventGetCharCode(this);
   }
@@ -144,6 +145,7 @@ public class NativeEvent extends JavaScriptObject {
    * @return the key code
    * @see com.google.gwt.event.dom.client.KeyCodes
    */
+  @Deprecated
   public final int getKeyCode() {
     return DOMImpl.impl.eventGetKeyCode(this);
   }
@@ -189,6 +191,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the rotation in degrees since the gesture started
    */
+  @Deprecated
   public final double getRotation() {
     return DOMImpl.impl.eventGetRotation(this);
   }
@@ -198,6 +201,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the amount scaled since the gesture started
    */
+  @Deprecated
   public final double getScale() {
     return DOMImpl.impl.eventGetScale(this);
   }

@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     api 'com.google.gwt:gwt-user:2.8.2'
+    api 'com.google.elemental2:elemental2-dom:1.0.0-RC1'
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.google.gwt:gwt-user:2.8.2'
     testRuntimeOnly 'com.google.gwt:gwt-dev:2.8.2'

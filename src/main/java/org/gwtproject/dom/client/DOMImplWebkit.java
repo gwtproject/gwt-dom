@@ -15,34 +15,12 @@
  */
 package org.gwtproject.dom.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import elemental2.dom.ClientRect;
 
 /**
  * WebKit based implementation of {@link com.google.gwt.user.client.impl.DOMImpl}.
  */
 class DOMImplWebkit extends DOMImpl {
-
-  private static class ClientRect extends JavaScriptObject {
-    
-    protected ClientRect() {
-    }
-
-    public final int getLeft() {
-      return toInt32(getSubPixelLeft());
-    }
-
-    public final int getTop() {
-      return toInt32(getSubPixelTop());
-    }
-
-    private final native double getSubPixelLeft() /*-{
-      return this.left;
-    }-*/;
-
-    private final native double getSubPixelTop() /*-{
-      return this.top;
-    }-*/;
-  }
 
   private static native double getAbsoluteLeftUsingOffsets(Element elem) /*-{
     // Unattached elements and elements (or their ancestors) with style
@@ -146,87 +124,21 @@ class DOMImplWebkit extends DOMImpl {
     return element.getBoundingClientRect && element.getBoundingClientRect();
   }-*/;
 
-  /**
-   * The type property on a button element is read-only in safari, so we need to
-   * set it using setAttribute.
-   */
-  @Override
-  public native ButtonElement createButtonElement(Document doc, String type) /*-{
-    var e = doc.createElement("BUTTON");
-    e.setAttribute('type', type);
-    return e;
-  }-*/;
-
-  @Override
-  public native NativeEvent createKeyCodeEvent(Document doc, String type,
-                                                                         boolean ctrlKey, boolean altKey, boolean shiftKey, boolean metaKey,
-                                                                         int keyCode) /*-{
-    var evt = this.@org.gwtproject.dom.client.DOMImplWebkit::createKeyEvent(Lcom/google/gwt/dom/client/Document;Ljava/lang/String;ZZZZZZ)(doc, type, true, true, ctrlKey, altKey, shiftKey, metaKey)
-    evt.keyCode = keyCode;
-    return evt;
-  }-*/;
-
-  @Override
-  @Deprecated
-  public native NativeEvent createKeyEvent(Document doc, String type,
-                                                                     boolean canBubble, boolean cancelable, boolean ctrlKey, boolean altKey,
-                                                                     boolean shiftKey, boolean metaKey, int keyCode, int charCode) /*-{
-    var evt = this.@org.gwtproject.dom.client.DOMImplWebkit::createKeyEvent(Lcom/google/gwt/dom/client/Document;Ljava/lang/String;ZZZZZZ)(doc, type, canBubble, cancelable, ctrlKey, altKey, shiftKey, metaKey)
-    evt.keyCode = keyCode;
-    evt.charCode = charCode;
-    return evt;
-  }-*/;
-
-  @Override
-  public native NativeEvent createKeyPressEvent(Document doc,
-                                                                          boolean ctrlKey, boolean altKey, boolean shiftKey, boolean metaKey,
-                                                                          int charCode) /*-{
-    var evt = this.@org.gwtproject.dom.client.DOMImplWebkit::createKeyEvent(Lcom/google/gwt/dom/client/Document;Ljava/lang/String;ZZZZZZ)(doc, 'keypress', true, true, ctrlKey, altKey, shiftKey, metaKey)
-    evt.charCode = charCode;
-    return evt;
-  }-*/;
-
-  /**
-   * Safari 2 does not support {@link ScriptElement#setText(String)}.
-   */
-  @Override
-  public ScriptElement createScriptElement(Document doc, String source) {
-    ScriptElement elem = (ScriptElement) createElement(doc, "script");
-    elem.setInnerText(source);
-    return elem;
-  }
-
-  @Override
-  public native EventTarget eventGetCurrentTarget(NativeEvent event) /*-{
-    return event.currentTarget || $wnd;
-  }-*/;
-
-  @Override
-  public native int eventGetMouseWheelVelocityY(NativeEvent evt) /*-{
-    return Math.round(-evt.wheelDelta / 40) || 0;
-  }-*/;
-
   @Override
   public int getAbsoluteLeft(Element elem) {
     ClientRect rect = getBoundingClientRect(elem);
-    double left = rect != null ? rect.getSubPixelLeft()
-        + getScrollLeft(elem.getOwnerDocument())
-        : getAbsoluteLeftUsingOffsets(elem);
-    return toInt32(left);
+    return toInt32(rect.left + getScrollLeft(elem.getOwnerDocument()));
   }
 
   @Override
   public int getAbsoluteTop(Element elem) {
     ClientRect rect = getBoundingClientRect(elem);
-    double top = rect != null ? rect.getSubPixelTop()
-        + getScrollTop(elem.getOwnerDocument())
-        : getAbsoluteTopUsingOffsets(elem);
-    return toInt32(top);
+    return toInt32(rect.top + getScrollTop(elem.getOwnerDocument()));
   }
 
   @Override
   public int getScrollLeft(Element elem) {
-    if (!elem.hasTagName(BodyElement.TAG) && isRTL(elem)) {
+    if (!(elem.hasTagName(BodyElement.TAG) || elem.hasTagName("HTML")) && isRTL(elem)) {
       return super.getScrollLeft(elem)
           - (elem.getScrollWidth() - elem.getClientWidth());
     }
@@ -234,15 +146,8 @@ class DOMImplWebkit extends DOMImpl {
   }
 
   @Override
-  public native int getTabIndex(Element elem) /*-{
-    // tabIndex is undefined for divs and other non-focusable elements prior to
-    // Safari 4.
-    return typeof elem.tabIndex != 'undefined' ? elem.tabIndex : -1;
-  }-*/;
-
-  @Override
   public void setScrollLeft(Element elem, int left) {
-    if (!elem.hasTagName(BodyElement.TAG) && isRTL(elem)) {
+    if (!(elem.hasTagName(BodyElement.TAG) || elem.hasTagName("HTML")) && isRTL(elem)) {
       left += elem.getScrollWidth() - elem.getClientWidth();
     }
     super.setScrollLeft(elem, left);
@@ -252,25 +157,5 @@ class DOMImplWebkit extends DOMImpl {
     return elem.ownerDocument.defaultView.getComputedStyle(elem, '').direction == 'rtl';
   }-*/;
 
-  private native NativeEvent createKeyEvent(Document doc, String type,
-                                            boolean canBubble, boolean cancelable, boolean ctrlKey, boolean altKey,
-                                            boolean shiftKey, boolean metaKey) /*-{
-    // WebKit's KeyboardEvent cannot set or even initialize charCode, keyCode, etc.
-    // And UIEvent's charCode and keyCode are read-only.
-    // So we "fake" an event using a raw Event and expandos
-    var evt = doc.createEvent('Event');
-    evt.initEvent(type, canBubble, cancelable);
-    evt.ctrlKey = ctrlKey;
-    evt.altKey = altKey;
-    evt.shiftKey = shiftKey;
-    evt.metaKey = metaKey;
-    return evt;
-  }-*/;
-
-  @Override
-  Element getLegacyDocumentScrollingElement(Document doc) {
-    // Old WebKit needs body.scrollLeft in both quirks mode and strict mode.
-    return doc.getBody();
-  }
 }
 

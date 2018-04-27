@@ -432,6 +432,7 @@ public class Document extends Node {
    * @param cancelable <code>true</code> if the event should be cancelable
    * @return the event object
    */
+  @Deprecated
   public final NativeEvent createHtmlEvent(String type, boolean canBubble,
                                            boolean cancelable) {
     return DOMImpl.impl.createHtmlEvent(this, type, canBubble, cancelable);
@@ -591,6 +592,7 @@ public class Document extends Node {
    * @param charCode the char-code to be set on the event
    * @return the event object
    */
+  @Deprecated//do not use charcode
   public final NativeEvent createKeyPressEvent(boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int charCode) {
     return DOMImpl.impl.createKeyPressEvent(this, ctrlKey, altKey, shiftKey,

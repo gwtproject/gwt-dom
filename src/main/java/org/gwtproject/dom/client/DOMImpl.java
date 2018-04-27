@@ -17,8 +17,13 @@ package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
+import elemental2.dom.*;
+import elemental2.dom.CSSProperties.OpacityUnionType;
+import jsinterop.base.Any;
+import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 
-abstract class DOMImpl {
+class DOMImpl {
 
   static final DOMImpl impl = GWT.create(DOMImpl.class);
 
@@ -30,69 +35,106 @@ abstract class DOMImpl {
    * In particular, if x is outside the range [-2^31,2^31), then toInt32(x) would return a value
    * equivalent to x modulo 2^32, whereas (int) x would evaluate to either MIN_INT or MAX_INT.
    */
-  protected static native int toInt32(double val) /*-{
-    return val | 0;
-  }-*/;
+  protected static int toInt32(double val) {
+    return Js.coerceToInt(val);
+  }
 
-  public native void buttonClick(ButtonElement button) /*-{
-    button.click();
-  }-*/;
+  public void buttonClick(ButtonElement button) {
+    HTMLButtonElement elt = Js.uncheckedCast(button);
+    elt.click();
+  }
 
-  public native ButtonElement createButtonElement(Document doc, String type) /*-{
-    var e = doc.createElement("BUTTON");
+  public ButtonElement createButtonElement(Document doc, String type) {
+    HTMLButtonElement e = (HTMLButtonElement) Js.<HTMLDocument>uncheckedCast(doc).createElement("BUTTON");
     e.type = type;
-    return e;
-  }-*/;
+    return Js.uncheckedCast(e);
+  }
 
-  public native InputElement createCheckInputElement(Document doc) /*-{
-    var e = doc.createElement("INPUT");
-    e.type = 'checkbox';
-    e.value = 'on';
-    return e;
-  }-*/;
+  public InputElement createCheckInputElement(Document doc) {
+    HTMLInputElement e = (HTMLInputElement) Js.<HTMLDocument>uncheckedCast(doc).createElement("INPUT");
+    e.type = "checkbox";
+    e.value = "on";
+    return Js.uncheckedCast(e);
+  }
 
-  public native Element createElement(Document doc, String tag) /*-{
-    return doc.createElement(tag);
-  }-*/;
+  public Element createElement(Document doc, String tag) {
+    return (Element) (Object) Js.<HTMLDocument>uncheckedCast(doc).createElement(tag);
+  }
 
-  public native NativeEvent createHtmlEvent(Document doc, String type,
-                                            boolean canBubble, boolean cancelable) /*-{
-    var evt = doc.createEvent('HTMLEvents');
-    evt.initEvent(type, canBubble, cancelable);
-    return evt;
-  }-*/;
+  public NativeEvent createHtmlEvent(Document doc, String type,
+                                            boolean canBubble, boolean cancelable) {
+    EventInit details = EventInit.create();
+    details.setBubbles(canBubble);
+    details.setCancelable(cancelable);
+    Event evt = new Event(type, details);
+    return (NativeEvent) (Object) evt;
+  }
 
-  public native InputElement createInputElement(Document doc, String type) /*-{
-    var e = doc.createElement("INPUT");
+  public InputElement createInputElement(Document doc, String type) {
+    HTMLInputElement e = (HTMLInputElement) ((HTMLDocument) (Object) doc).createElement("INPUT");
     e.type = type;
-    return e;
-  }-*/;
+    return Js.uncheckedCast(e);
+  }
 
-  public native InputElement createInputRadioElement(Document doc, String name) /*-{
-    var elem = doc.createElement("INPUT");
-    elem.type = 'radio';
+  public InputElement createInputRadioElement(Document doc, String name) {
+    HTMLInputElement elem = (HTMLInputElement) ((HTMLDocument) (Object) doc).createElement("INPUT");
+    elem.type = "radio";
     elem.name = name;
-    elem.value = 'on';
-    return elem;
-  }-*/;
+    elem.value = "on";
+    return Js.uncheckedCast(elem);
+  }
 
-  public abstract NativeEvent createKeyCodeEvent(Document document,
+  public NativeEvent createKeyCodeEvent(Document document,
                                                  String type, boolean ctrlKey, boolean altKey, boolean shiftKey,
-                                                 boolean metaKey, int keyCode);
+                                                 boolean metaKey, int keyCode) {
+    KeyboardEventInit init = KeyboardEventInit.create();
+    init.setCtrlKey(ctrlKey);
+    init.setAltKey(altKey);
+    init.setShiftKey(shiftKey);
+    init.setMetaKey(metaKey);
+    Js.<JsPropertyMap<Integer>>uncheckedCast(init).set("keyCode", keyCode);
+
+    KeyboardEvent event = new KeyboardEvent(type, init);
+    return Js.uncheckedCast(event);
+  }
 
   @Deprecated
-  public abstract NativeEvent createKeyEvent(Document doc, String type,
+  public NativeEvent createKeyEvent(Document doc, String type,
       boolean canBubble, boolean cancelable, boolean ctrlKey, boolean altKey,
-      boolean shiftKey, boolean metaKey, int keyCode, int charCode);
+      boolean shiftKey, boolean metaKey, int keyCode, int charCode) {
+    KeyboardEventInit init = KeyboardEventInit.create();
+    init.setBubbles(canBubble);
+    init.setCancelable(cancelable);
+    init.setCtrlKey(ctrlKey);
+    init.setAltKey(altKey);
+    init.setShiftKey(shiftKey);
+    init.setMetaKey(metaKey);
+    Js.<JsPropertyMap<Integer>>uncheckedCast(init).set("keyCode", keyCode);
+    Js.<JsPropertyMap<Integer>>uncheckedCast(init).set("charCode", charCode);
 
-  public abstract NativeEvent createKeyPressEvent(Document document,
+    KeyboardEvent event = new KeyboardEvent(type, init);
+
+    return Js.uncheckedCast(event);
+  }
+
+  public NativeEvent createKeyPressEvent(Document document,
       boolean ctrlKey, boolean altKey, boolean shiftKey, boolean metaKey,
-      int charCode);
+      int charCode) {
+    final KeyboardEventInit init = KeyboardEventInit.create();
+    init.setCtrlKey(ctrlKey);
+    init.setAltKey(altKey);
+    init.setShiftKey(shiftKey);
+    init.setMetaKey(metaKey);
+    Js.<JsPropertyMap<Integer>>uncheckedCast(init).set("charCode", charCode);
 
-  public native NativeEvent createMouseEvent(Document doc, String type,
+    KeyboardEvent event = new KeyboardEvent("keypress", init);
+    return Js.uncheckedCast(event);
+  }
+
+  public NativeEvent createMouseEvent(Document doc, String type,
                                              boolean canBubble, boolean cancelable, int detail, int screenX,
                                              int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
-                                             boolean shiftKey, boolean metaKey, int button, Element relatedTarget) /*-{
+                                             boolean shiftKey, boolean metaKey, int button, Element relatedTarget) {
     // Because Event.getButton() returns bitfield values [1, 4, 2] for [left,
     // middle, right], we need to translate them to the standard [0, 1, 2]
     // button constants.
@@ -104,13 +146,22 @@ abstract class DOMImpl {
       button = 2;
     }
 
-    var evt = doc.createEvent('MouseEvents');
-    evt.initMouseEvent(type, canBubble, cancelable, null, detail, screenX,
-      screenY, clientX, clientY, ctrlKey, altKey, shiftKey, metaKey, button,
-      relatedTarget);
-
-    return evt;
-  }-*/;
+    MouseEventInit init = MouseEventInit.create();
+    init.setButton(button);
+    init.setBubbles(canBubble);
+    init.setCancelable(cancelable);
+    init.setDetail(detail);
+    init.setScreenX(screenX);
+    init.setScreenY(screenY);
+    init.setClientX(clientX);
+    init.setClientY(clientY);
+    init.setCtrlKey(ctrlKey);
+    init.setAltKey(altKey);
+    init.setShiftKey(shiftKey);
+    init.setMetaKey(metaKey);
+    init.setRelatedTarget(Js.uncheckedCast(relatedTarget));
+    return Js.uncheckedCast(new MouseEvent(type, init));
+  }
 
   public ScriptElement createScriptElement(Document doc, String source) {
     ScriptElement elem = (ScriptElement) createElement(doc, "script");
@@ -118,42 +169,42 @@ abstract class DOMImpl {
     return elem;
   }
 
-  public native void cssClearOpacity(Style style) /*-{
-    style.opacity = '';
-  }-*/;
+  public void cssClearOpacity(Style style) {
+    Js.<CSSStyleDeclaration>uncheckedCast(style).opacity = OpacityUnionType.of("");
+  }
 
   public String cssFloatPropertyName() {
     return "cssFloat";
   }
 
-  public native void cssSetOpacity(Style style, double value) /*-{
-    style.opacity = value;
-  }-*/;
+  public void cssSetOpacity(Style style, double value) {
+    Js.<CSSStyleDeclaration>uncheckedCast(style).opacity = OpacityUnionType.of(value);
+  }
 
-  public native void dispatchEvent(Element target, NativeEvent evt) /*-{
-    target.dispatchEvent(evt);
-  }-*/;
+  public void dispatchEvent(Element target, NativeEvent evt) {
+    Js.<HTMLElement>uncheckedCast(target).dispatchEvent(Js.uncheckedCast(evt));
+  }
 
-  public native boolean eventGetAltKey(NativeEvent evt) /*-{
-    return !!evt.altKey;
-  }-*/;
+  public boolean eventGetAltKey(NativeEvent evt) {
+    return Js.isTruthy((Js.<JsPropertyMap<Any>>uncheckedCast(evt).get("altKey")));
+  }
 
-  public native int eventGetButton(NativeEvent evt) /*-{
+  public int eventGetButton(NativeEvent evt) {
       // All modern browsers return 0, 1, and 2 for left, middle, and right,
       // respectively. Because eventGetButton() is expected to return the IE
       // bitfield norms of 1, 4, and 2, we translate them here.
-      var button = evt.button;
+      int button = Js.<JsPropertyMap<Any>>uncheckedCast(evt).get("button").asInt();
       if (button == 1) {
           return 4;
       } else if (button == 2) {
           return 2;
       }
       return 1;
-  }-*/;
+  }
 
-  public native int eventGetCharCode(NativeEvent evt) /*-{
-    return evt.charCode || 0;
-  }-*/;
+  public int eventGetCharCode(NativeEvent evt) {
+    return Js.coerceToInt(Js.<JsPropertyMap<Any>>uncheckedCast(evt).get("charCode"));
+  }
 
   public int eventGetClientX(NativeEvent evt) {
     return toInt32(eventGetSubPixelClientX(evt));
@@ -163,35 +214,38 @@ abstract class DOMImpl {
     return toInt32(eventGetSubPixelClientY(evt));
   }
 
-  public native boolean eventGetCtrlKey(NativeEvent evt) /*-{
-    return !!evt.ctrlKey;
-  }-*/;
+  public boolean eventGetCtrlKey(NativeEvent evt) {
+    return Js.isTruthy((Js.<JsPropertyMap<Any>>uncheckedCast(evt).get("ctrlKey")));
+  }
 
-  public native EventTarget eventGetCurrentTarget(NativeEvent event) /*-{
-    return event.currentTarget;
-  }-*/;
+  public EventTarget eventGetCurrentTarget(NativeEvent event) {
+    return Js.uncheckedCast(Js.<Event>uncheckedCast(event).currentTarget);
+  }
 
-  public final native int eventGetKeyCode(NativeEvent evt) /*-{
-    return evt.keyCode | 0;
-  }-*/;
+  public final int eventGetKeyCode(NativeEvent evt) {
+    return Js.coerceToInt(Js.<JsPropertyMap<Any>>uncheckedCast(evt).get("keyCode"));
+  }
 
-  public native boolean eventGetMetaKey(NativeEvent evt) /*-{
-    return !!evt.metaKey;
-  }-*/;
+  public boolean eventGetMetaKey(NativeEvent evt) {
+    return Js.isTruthy((Js.<JsPropertyMap<Any>>uncheckedCast(evt).get("metaKey")));
+  }
 
-  public abstract int eventGetMouseWheelVelocityY(NativeEvent evt);
+  public int eventGetMouseWheelVelocityY(NativeEvent evt) {
+    WheelEvent wheelEvent = Js.uncheckedCast(evt);
+    return toInt32(wheelEvent.deltaY);
+  }
 
-  public native EventTarget eventGetRelatedTarget(NativeEvent evt) /*-{
-    return evt.relatedTarget;
-  }-*/;
+  public EventTarget eventGetRelatedTarget(NativeEvent evt) {
+    return Js.uncheckedCast(Js.<MouseEvent>uncheckedCast(evt).relatedTarget);
+  }
 
-  public native double eventGetRotation(NativeEvent evt) /*-{
-    return evt.rotation;
-  }-*/;
+  public double eventGetRotation(NativeEvent evt) {
+    return Js.<JsPropertyMap<Any>>uncheckedCast(evt).get("rotation").asDouble();
+  }
 
-  public native double eventGetScale(NativeEvent evt) /*-{
-    return evt.scale;
-  }-*/;
+  public double eventGetScale(NativeEvent evt) {
+    return Js.<JsPropertyMap<Any>>uncheckedCast(evt).get("scale").asDouble();
+  }
 
   public int eventGetScreenX(NativeEvent evt) {
     return toInt32(eventGetSubPixelScreenX(evt));
@@ -201,33 +255,33 @@ abstract class DOMImpl {
     return toInt32(eventGetSubPixelScreenY(evt));
   }
 
-  public native boolean eventGetShiftKey(NativeEvent evt) /*-{
-    return !!evt.shiftKey;
-  }-*/;
+  public boolean eventGetShiftKey(NativeEvent evt) {
+    return Js.isTruthy((Js.<JsPropertyMap<Any>>uncheckedCast(evt).get("shiftKey")));
+  }
 
-  public native EventTarget eventGetTarget(NativeEvent evt) /*-{
-    return evt.target;
-  }-*/;
+  public EventTarget eventGetTarget(NativeEvent evt) {
+    return (EventTarget) Js.<Event>uncheckedCast(evt).target;
+  }
 
-  public final native String eventGetType(NativeEvent evt) /*-{
-    return evt.type;
-  }-*/;
+  public final String eventGetType(NativeEvent evt) {
+    return Js.<Event>uncheckedCast(evt).type;
+  }
 
-  public native void eventPreventDefault(NativeEvent evt) /*-{
-    evt.preventDefault();
-  }-*/;
+  public void eventPreventDefault(NativeEvent evt) {
+    Js.<Event>uncheckedCast(evt).preventDefault();
+  }
 
-  public native void eventSetKeyCode(NativeEvent evt, char key) /*-{
-    evt.keyCode = key;
-  }-*/;
+  public void eventSetKeyCode(NativeEvent evt, char key) {
+    Js.<JsPropertyMap<Any>>uncheckedCast(evt).set("keyCode", Js.asAny(key));
+  }
 
-  public native void eventStopPropagation(NativeEvent evt) /*-{
-    evt.stopPropagation();
-  }-*/;
+  public void eventStopPropagation(NativeEvent evt) {
+    Js.<Event>uncheckedCast(evt).stopPropagation();
+  }
 
-  public native String eventToString(NativeEvent evt) /*-{
-    return evt.toString();
-  }-*/;
+  public String eventToString(NativeEvent evt) {
+    return Js.<Event>uncheckedCast(evt).toString();
+  }
 
   public int getAbsoluteLeft(Element elem) {
     return toInt32(getSubPixelAbsoluteLeft(elem));
@@ -237,32 +291,33 @@ abstract class DOMImpl {
     return toInt32(getSubPixelAbsoluteTop(elem));
   }
 
-  public native String getAttribute(Element elem, String name) /*-{
-    return elem.getAttribute(name) || '';
-  }-*/;
+  public String getAttribute(Element elem, String name) {
+    String value = Js.<HTMLElement>uncheckedCast(elem).getAttribute(name);
+    return value != null ? value : "";
+  }
 
-  public native int getBodyOffsetLeft(Document doc) /*-{
-    return 0;
-  }-*/;
+  public int getBodyOffsetLeft(Document doc) {
+    return Js.<HTMLDocument>uncheckedCast(doc).documentElement.clientLeft;
+  }
 
-  public native int getBodyOffsetTop(Document doc) /*-{
-    return 0;
-  }-*/;
+  public int getBodyOffsetTop(Document doc) {
+    return Js.<HTMLDocument>uncheckedCast(doc).documentElement.clientTop;
+  }
 
-  public native JsArray<Touch> getChangedTouches(NativeEvent evt) /*-{
-    return evt.changedTouches;
-  }-*/;
+  public JsArray<Touch> getChangedTouches(NativeEvent evt) {
+    return Js.uncheckedCast(Js.<TouchEvent>uncheckedCast(evt).changedTouches);
+  }
 
-  public native Element getFirstChildElement(Element elem) /*-{
-    var child = elem.firstChild;
-    while (child && child.nodeType != 1)
+  public Element getFirstChildElement(Element elem) {
+    elemental2.dom.Node child = Js.<HTMLElement>uncheckedCast(elem).firstChild;
+    while (child != null && child.nodeType != 1)
       child = child.nextSibling;
-    return child;
-  }-*/;
+    return Js.uncheckedCast(child);
+  }
 
-  public native String getInnerHTML(Element elem) /*-{
-    return elem.innerHTML;
-  }-*/;
+  public String getInnerHTML(Element elem) {
+    return Js.<HTMLElement>uncheckedCast(elem).innerHTML;
+  }
 
   /*
    * textContent is used over innerText for two reasons:
@@ -271,20 +326,34 @@ abstract class DOMImpl {
    * 2 - textContent is faster on retreival because WebKit
    *     does not recalculate styles as it does for innerText.
    */
-  public native String getInnerText(Element elem) /*-{
-      return elem.textContent;
-  }-*/;
+  public String getInnerText(Element elem) {
+      return Js.<HTMLElement>uncheckedCast(elem).textContent;
+  }
 
-  public native Element getNextSiblingElement(Element elem) /*-{
-    var sib = elem.nextSibling;
-    while (sib && sib.nodeType != 1)
+  public Element getNextSiblingElement(Element elem) {
+    elemental2.dom.Node sib = Js.<HTMLElement>uncheckedCast(elem).nextSibling;
+    while (sib != null && sib.nodeType != 1) {
       sib = sib.nextSibling;
-    return sib;
-  }-*/;
+    }
+    return Js.uncheckedCast(sib);
+  }
 
-  public native int getNodeType(Node node) /*-{
-    return node.nodeType;
-  }-*/;
+  public int getNodeType(Node node) {
+
+    try {
+      return Js.<HTMLElement>uncheckedCast(node).nodeType;
+    } catch (Exception e) {
+      // Workaround for firefox bug:
+      //
+      // Give up on 'Permission denied to get property HTMLDivElement.nodeType'
+      // '0' is not a valid node type, which is appropriate in this case, since
+      // the node in question is completely inaccessible.
+      //
+      // See https://bugzilla.mozilla.org/show_bug.cgi?id=208427
+      // and http://code.google.com/p/google-web-toolkit/issues/detail?id=1909
+      return 0;
+    }
+  }
 
   /**
    * Returns a numeric style property (such as zIndex) that may need to be
@@ -294,20 +363,20 @@ abstract class DOMImpl {
     return getStyleProperty(style, name);
   }
 
-  public native Element getParentElement(Node node) /*-{
-    var parent = node.parentNode;
-    if (!parent || parent.nodeType != 1) {
+  public Element getParentElement(Node node) {
+    elemental2.dom.Node parent = Js.<elemental2.dom.Node>uncheckedCast(node).parentNode;
+    if (parent == null || parent.nodeType != 1) {
       parent = null;
     }
-    return parent;
-  }-*/;
+    return Js.uncheckedCast(parent);
+  }
 
-  public native Element getPreviousSiblingElement(Element elem) /*-{
-    var sib = elem.previousSibling;
-    while (sib && sib.nodeType != 1)
+  public Element getPreviousSiblingElement(Element elem) {
+    elemental2.dom.Node sib = Js.<HTMLElement>uncheckedCast(elem).previousSibling;
+    while (sib != null && sib.nodeType != 1)
       sib = sib.previousSibling;
-    return sib;
-  }-*/;
+    return Js.uncheckedCast(sib);
+  }
 
   public int getScrollLeft(Document doc) {
     return ensureDocumentScrollingElement(doc).getScrollLeft();
@@ -321,117 +390,121 @@ abstract class DOMImpl {
     return ensureDocumentScrollingElement(doc).getScrollTop();
   }
 
-  public native String getStyleProperty(Style style, String name) /*-{
-    return style[name];
-  }-*/;
+  public String getStyleProperty(Style style, String name) {
+    return Js.<JsPropertyMap<String>>uncheckedCast((style)).get(name);
+  }
 
-  public native int getTabIndex(Element elem) /*-{
-    return elem.tabIndex;
-  }-*/;
+  public int getTabIndex(Element elem) {
+    return Js.<HTMLElement>uncheckedCast(elem).tabIndex;
+  }
 
-  public native String getTagName(Element elem) /*-{
-    return elem.tagName;
-  }-*/;
+  public String getTagName(Element elem) {
+    return Js.<HTMLElement>uncheckedCast(elem).tagName;
+  }
 
-  public native JsArray<Touch> getTargetTouches(NativeEvent evt) /*-{
-    return evt.targetTouches;
-  }-*/;
+  public JsArray<Touch> getTargetTouches(NativeEvent evt) {
+    return Js.uncheckedCast(Js.<TouchEvent>uncheckedCast(evt).targetTouches);
+  }
 
-  public native JsArray<Touch> getTouches(NativeEvent evt) /*-{
-    return evt.touches;
-  }-*/;
+  public JsArray<Touch> getTouches(NativeEvent evt) {
+    return Js.uncheckedCast(Js.<TouchEvent>uncheckedCast(evt).touches);
+  }
 
-  public native boolean hasAttribute(Element elem, String name) /*-{
-    return elem.hasAttribute(name);
-  }-*/;
+  public boolean hasAttribute(Element elem, String name) {
+    return Js.<HTMLElement>uncheckedCast(elem).hasAttribute(name);
+  }
 
-  public native boolean isOrHasChild(Node parent, Node child) /*-{
-    return parent.contains(child);
-  }-*/;
+  public boolean isOrHasChild(Node parent, Node child) {
+    return Js.<HTMLElement>uncheckedCast(parent).contains(Js.<HTMLElement>uncheckedCast(child));
+  }
 
-  public native void scrollIntoView(Element elem) /*-{
-    var left = elem.offsetLeft, top = elem.offsetTop;
-    var width = elem.offsetWidth, height = elem.offsetHeight;
+  public void scrollIntoView(Element elem) {
+    HTMLElement e = Js.uncheckedCast(elem);
+    double left = e.offsetLeft, top = e.offsetTop;
+    double width = e.offsetWidth, height = e.offsetHeight;
 
-    if (elem.parentNode != elem.offsetParent) {
-      left -= elem.parentNode.offsetLeft;
-      top -= elem.parentNode.offsetTop;
+    if (e.parentNode != e.offsetParent && e.parentNode.nodeType == 1) {
+      left -= Js.<HTMLElement>uncheckedCast(e.parentNode).offsetLeft;
+      top -= Js.<HTMLElement>uncheckedCast(e.parentNode).offsetTop;
     }
 
-    var cur = elem.parentNode;
-    while (cur && (cur.nodeType == 1)) {
-      if (left < cur.scrollLeft) {
-        cur.scrollLeft = left;
+    elemental2.dom.Node cur = e.parentNode;
+    while (cur != null && (cur.nodeType == 1)) {
+      HTMLElement curEl = Js.uncheckedCast(cur);
+      if (left < curEl.scrollLeft) {
+        curEl.scrollLeft = left;
       }
-      if (left + width > cur.scrollLeft + cur.clientWidth) {
-        cur.scrollLeft = (left + width) - cur.clientWidth;
+      if (left + width > curEl.scrollLeft + curEl.clientWidth) {
+        curEl.scrollLeft = (left + width) - curEl.clientWidth;
       }
-      if (top < cur.scrollTop) {
-        cur.scrollTop = top;
+      if (top < curEl.scrollTop) {
+        curEl.scrollTop = top;
       }
-      if (top + height > cur.scrollTop + cur.clientHeight) {
-        cur.scrollTop = (top + height) - cur.clientHeight;
-      }
-
-      var offsetLeft = cur.offsetLeft, offsetTop = cur.offsetTop;
-      if (cur.parentNode != cur.offsetParent) {
-        offsetLeft -= cur.parentNode.offsetLeft;
-        offsetTop -= cur.parentNode.offsetTop;
+      if (top + height > curEl.scrollTop + curEl.clientHeight) {
+        curEl.scrollTop = (top + height) - curEl.clientHeight;
       }
 
-      left += offsetLeft - cur.scrollLeft;
-      top += offsetTop - cur.scrollTop;
-      cur = cur.parentNode;
+      double offsetLeft = curEl.offsetLeft, offsetTop = curEl.offsetTop;
+      if (curEl.parentNode != curEl.offsetParent && curEl.parentNode.nodeType == 1) {
+        offsetLeft -= Js.<HTMLElement>uncheckedCast(curEl.parentNode).offsetLeft;
+        offsetTop -= Js.<HTMLElement>uncheckedCast(curEl.parentNode).offsetTop;
+      }
+
+      left += offsetLeft - curEl.scrollLeft;
+      top += offsetTop - curEl.scrollTop;
+      cur = curEl.parentNode;
     }
-  }-*/;
+  }
 
-  public native void selectAdd(SelectElement select, OptionElement option,
-      OptionElement before) /*-{
-    select.add(option, before);
-  }-*/;
+  public void selectAdd(SelectElement select, OptionElement option,
+      OptionElement before) {
+    Js.<HTMLSelectElement>uncheckedCast(select).add(Js.uncheckedCast(option), Js.uncheckedCast(before));
+  }
 
-  public native void selectClear(SelectElement select) /*-{
-    select.options.length = 0;
-  }-*/;
+  public void selectClear(SelectElement select) {
+    Js.<HTMLSelectElement>uncheckedCast(select).options.length = 0;
+  }
 
-  public native int selectGetLength(SelectElement select) /*-{
-    return select.options.length;
-  }-*/;
+  public int selectGetLength(SelectElement select) {
+    return Js.<HTMLSelectElement>uncheckedCast(select).options.length;
+  }
 
-  public native NodeList<OptionElement> selectGetOptions(SelectElement select) /*-{
-    return select.options;
-  }-*/;
+  public NodeList<OptionElement> selectGetOptions(SelectElement select) {
+    return Js.uncheckedCast(Js.<HTMLSelectElement>uncheckedCast(select).options);
+  }
 
-  public native void selectRemoveOption(SelectElement select, int index) /*-{
-    select.remove(index);
-  }-*/;
+  public void selectRemoveOption(SelectElement select, int index) {
+    Js.<HTMLSelectElement>uncheckedCast(select).remove(index);
+  }
 
-  public native void setDraggable(Element elem, String draggable) /*-{
-    elem.draggable = draggable;
-  }-*/;
+  public void setDraggable(Element elem, String draggable) {
+    //TODO this is at least less wrong than the current implementation...
+    Js.<HTMLElement>uncheckedCast(elem).draggable = Element.DRAGGABLE_TRUE.equalsIgnoreCase(draggable);
+  }
 
   /*
    * See getInnerText for why textContent is used instead of innerText.
    */
-  public native void setInnerText(Element elem, String text) /*-{
-      elem.textContent = text || '';
-  }-*/;
+  public void setInnerText(Element elem, String text) {
+    Js.<HTMLElement>uncheckedCast(elem).textContent = text != null ? text : "";
+  }
 
   public void setScrollLeft(Document doc, int left) {
     ensureDocumentScrollingElement(doc).setScrollLeft(left);
   }
 
-  public native void setScrollLeft(Element elem, int left) /*-{
-    elem.scrollLeft = left;
-  }-*/;
+  public void setScrollLeft(Element elem, int left) {
+    Js.<HTMLElement>uncheckedCast(elem).scrollLeft = left;
+  }
 
   public void setScrollTop(Document doc, int top) {
     ensureDocumentScrollingElement(doc).setScrollTop(top);
   }
 
-  public native String toString(Element elem) /*-{
-    return elem.outerHTML;
-  }-*/;
+  public String toString(Element elem) {
+    //TODO HTMLElement is missing outerHTML
+    return Js.<JsPropertyMap<String>>uncheckedCast(elem).get("outerHTML");
+  }
 
   private Element ensureDocumentScrollingElement(Document document) {
     // In some case (e.g SVG document and old Webkit browsers), getDocumentScrollingElement can
@@ -454,9 +527,9 @@ abstract class DOMImpl {
     return doc.getViewportElement();
   }
 
-  final native Element getNativeDocumentScrollingElement(Document doc) /*-{
-      return doc.scrollingElement;
-  }-*/;
+  final Element getNativeDocumentScrollingElement(Document doc) {
+      return Js.uncheckedCast(Js.<HTMLDocument>uncheckedCast(doc).scrollingElement);
+  }
 
   public int touchGetClientX(Touch touch) {
     return toInt32(touchGetSubPixelClientX(touch));
@@ -466,9 +539,9 @@ abstract class DOMImpl {
     return toInt32(touchGetSubPixelClientY(touch));
   }
 
-  public native int touchGetIdentifier(Touch touch) /*-{
-    return touch.identifier;
-  }-*/;
+  public int touchGetIdentifier(Touch touch) {
+    return Js.<elemental2.dom.Touch>uncheckedCast(touch).identifier;
+  }
 
   public int touchGetPageX(Touch touch) {
     return toInt32(touchGetSubPixelPageX(touch));
@@ -486,81 +559,83 @@ abstract class DOMImpl {
     return toInt32(touchGetSubPixelScreenY(touch));
   }
 
-  public native EventTarget touchGetTarget(Touch touch) /*-{
-    return touch.target;
-  }-*/;
+  public EventTarget touchGetTarget(Touch touch) {
+    return Js.uncheckedCast(Js.<elemental2.dom.Touch>uncheckedCast(touch).target);
+  }
 
-  private native double getSubPixelAbsoluteLeft(Element elem) /*-{
-    var left = 0;
-    var curr = elem;
+  private double getSubPixelAbsoluteLeft(Element elem) {
+    int left = 0;
+    HTMLElement curr = Js.uncheckedCast(elem);
     // This intentionally excludes body which has a null offsetParent.
-    while (curr.offsetParent) {
+    while (curr.offsetParent != null) {
       left -= curr.scrollLeft;
-      curr = curr.parentNode;
+      curr = (HTMLElement) curr.parentNode;
     }
-    while (elem) {
-      left += elem.offsetLeft;
-      elem = elem.offsetParent;
+    curr = Js.uncheckedCast(elem);
+    while (curr != null) {
+      left += curr.offsetLeft;
+      curr = (HTMLElement) curr.offsetParent;
     }
     return left;
-  }-*/;
+  }
 
-  private native double getSubPixelAbsoluteTop(Element elem) /*-{
-    var top = 0;
-    var curr = elem;
+  private double getSubPixelAbsoluteTop(Element elem) {
+    int top = 0;
+    HTMLElement curr = Js.uncheckedCast(elem);
     // This intentionally excludes body which has a null offsetParent.
-    while (curr.offsetParent) {
+    while (curr.offsetParent != null) {
       top -= curr.scrollTop;
-      curr = curr.parentNode;
+      curr = (HTMLElement) curr.parentNode;
     }
-    while (elem) {
-      top += elem.offsetTop;
-      elem = elem.offsetParent;
+    curr = Js.uncheckedCast(elem);
+    while (curr != null) {
+      top += curr.offsetTop;
+      curr = (HTMLElement) curr.offsetParent;
     }
     return top;
-  }-*/;
+  }
 
-  private native double eventGetSubPixelScreenX(NativeEvent evt) /*-{
-    return evt.screenX || 0;
-  }-*/;
+  private double eventGetSubPixelScreenX(NativeEvent evt) {
+    return Js.<MouseEvent>uncheckedCast(evt).screenX;
+  }
 
-  private native double eventGetSubPixelScreenY(NativeEvent evt) /*-{
-    return evt.screenY || 0;
-  }-*/;
+  private double eventGetSubPixelScreenY(NativeEvent evt) {
+    return Js.<MouseEvent>uncheckedCast(evt).screenY;
+  }
 
-  private native double getSubPixelScrollLeft(Element elem) /*-{
-    return elem.scrollLeft || 0;
-  }-*/;
+  private double getSubPixelScrollLeft(Element elem) {
+    return Js.<HTMLElement>uncheckedCast(elem).scrollLeft;
+  }
 
-  private native double touchGetSubPixelClientX(Touch touch) /*-{
-    return touch.clientX || 0;
-  }-*/;
+  private double touchGetSubPixelClientX(Touch touch) {
+    return Js.<elemental2.dom.Touch>uncheckedCast(touch).clientX;
+  }
 
-  private native double touchGetSubPixelClientY(Touch touch) /*-{
-    return touch.clientY || 0;
-  }-*/;
+  private double touchGetSubPixelClientY(Touch touch) {
+    return Js.<elemental2.dom.Touch>uncheckedCast(touch).clientY;
+  }
 
-  private native double touchGetSubPixelPageX(Touch touch) /*-{
-    return touch.pageX || 0;
-  }-*/;
+  private double touchGetSubPixelPageX(Touch touch) {
+    return Js.<elemental2.dom.Touch>uncheckedCast(touch).pageX;
+  }
 
-  private native double touchGetSubPixelPageY(Touch touch) /*-{
-    return touch.pageY || 0;
-  }-*/;
+  private double touchGetSubPixelPageY(Touch touch) {
+    return Js.<elemental2.dom.Touch>uncheckedCast(touch).pageY;
+  }
 
-  private native double touchGetSubPixelScreenX(Touch touch) /*-{
-    return touch.screenX || 0;
-  }-*/;
+  private double touchGetSubPixelScreenX(Touch touch) {
+    return Js.<elemental2.dom.Touch>uncheckedCast(touch).screenX;
+  }
 
-  private native double touchGetSubPixelScreenY(Touch touch) /*-{
-    return touch.screenY || 0;
-  }-*/;
+  private double touchGetSubPixelScreenY(Touch touch) {
+    return Js.<elemental2.dom.Touch>uncheckedCast(touch).screenY;
+  }
 
-  private native double eventGetSubPixelClientX(NativeEvent evt) /*-{
-    return evt.clientX || 0;
-  }-*/;
+  private double eventGetSubPixelClientX(NativeEvent evt) {
+    return Js.<MouseEvent>uncheckedCast(evt).clientX;
+  }
 
-  private native double eventGetSubPixelClientY(NativeEvent evt) /*-{
-    return evt.clientY || 0;
-  }-*/;
+  private double eventGetSubPixelClientY(NativeEvent evt) {
+    return Js.<MouseEvent>uncheckedCast(evt).clientY;
+  }
 }
