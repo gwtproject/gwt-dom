@@ -32,9 +32,4 @@
     <when-property-is name="user.agent" value="safari"/>
   </replace-with>
 
-  <replace-with class="org.gwtproject.dom.client.DOMImplMozilla">
-    <when-type-is class="org.gwtproject.dom.client.DOMImpl"/>
-    <when-property-is name="user.agent" value="gecko1_8"/>
-  </replace-with>
-
 </module>

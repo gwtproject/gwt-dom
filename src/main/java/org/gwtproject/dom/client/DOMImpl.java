@@ -564,35 +564,13 @@ class DOMImpl {
   }
 
   private double getSubPixelAbsoluteLeft(Element elem) {
-    int left = 0;
-    HTMLElement curr = Js.uncheckedCast(elem);
-    // This intentionally excludes body which has a null offsetParent.
-    while (curr.offsetParent != null) {
-      left -= curr.scrollLeft;
-      curr = (HTMLElement) curr.parentNode;
-    }
-    curr = Js.uncheckedCast(elem);
-    while (curr != null) {
-      left += curr.offsetLeft;
-      curr = (HTMLElement) curr.offsetParent;
-    }
-    return left;
+    HTMLElement e = Js.uncheckedCast(elem);
+    return e.getBoundingClientRect().left + getScrollLeft(elem.getOwnerDocument());
   }
 
   private double getSubPixelAbsoluteTop(Element elem) {
-    int top = 0;
-    HTMLElement curr = Js.uncheckedCast(elem);
-    // This intentionally excludes body which has a null offsetParent.
-    while (curr.offsetParent != null) {
-      top -= curr.scrollTop;
-      curr = (HTMLElement) curr.parentNode;
-    }
-    curr = Js.uncheckedCast(elem);
-    while (curr != null) {
-      top += curr.offsetTop;
-      curr = (HTMLElement) curr.offsetParent;
-    }
-    return top;
+    HTMLElement e = Js.uncheckedCast(elem);
+    return e.getBoundingClientRect().top + getScrollTop(elem.getOwnerDocument());
   }
 
   private double eventGetSubPixelScreenX(NativeEvent evt) {
