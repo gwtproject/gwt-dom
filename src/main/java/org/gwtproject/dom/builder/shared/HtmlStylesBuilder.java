@@ -126,12 +126,12 @@ class HtmlStylesBuilder implements StylesBuilder {
 
   @Override
   public StylesBuilder borderWidth(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("border-width", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("border-width", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder bottom(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("bottom", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("bottom", value + unit.getType()));
   }
 
   @Override
@@ -156,7 +156,7 @@ class HtmlStylesBuilder implements StylesBuilder {
 
   @Override
   public StylesBuilder fontSize(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("font-size", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("font-size", value + unit.getType()));
   }
 
   @Override
@@ -171,17 +171,17 @@ class HtmlStylesBuilder implements StylesBuilder {
 
   @Override
   public StylesBuilder height(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("height", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("height", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder left(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("left", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("left", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder lineHeight(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("line-height", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("line-height", value + unit.getType()));
   }
 
   @Override
@@ -191,27 +191,27 @@ class HtmlStylesBuilder implements StylesBuilder {
 
   @Override
   public StylesBuilder margin(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("margin", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("margin", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder marginBottom(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("margin-bottom", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("margin-bottom", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder marginLeft(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("margin-left", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("margin-left", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder marginRight(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("margin-right", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("margin-right", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder marginTop(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("margin-top", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("margin-top", value + unit.getType()));
   }
 
   @Override
@@ -226,7 +226,7 @@ class HtmlStylesBuilder implements StylesBuilder {
 
   @Override
   public StylesBuilder outlineWidth(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("outline-width", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("outline-width", value + unit.getType()));
   }
 
   @Override
@@ -246,27 +246,27 @@ class HtmlStylesBuilder implements StylesBuilder {
 
   @Override
   public StylesBuilder padding(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("padding", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("padding", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder paddingBottom(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("padding-bottom", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("padding-bottom", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder paddingLeft(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("padding-left", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("padding-left", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder paddingRight(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("padding-right", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("padding-right", value + unit.getType()));
   }
 
   @Override
   public StylesBuilder paddingTop(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("padding-top", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("padding-top", value + unit.getType()));
   }
 
   @Override
@@ -276,7 +276,7 @@ class HtmlStylesBuilder implements StylesBuilder {
 
   @Override
   public StylesBuilder right(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("right", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("right", value + unit.getType()));
   }
 
   @Override
@@ -316,7 +316,7 @@ class HtmlStylesBuilder implements StylesBuilder {
 
   @Override
   public StylesBuilder top(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("top", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("top", value + unit.getType()));
   }
 
   @Override
@@ -347,7 +347,7 @@ class HtmlStylesBuilder implements StylesBuilder {
   @Override
   public StylesBuilder trustedProperty(String name, double value, Unit unit) {
     name = toHyphenatedForm(name);
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue(name, value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue(name, value + unit.getType()));
   }
 
   @Override
@@ -358,7 +358,7 @@ class HtmlStylesBuilder implements StylesBuilder {
 
   @Override
   public StylesBuilder verticalAlign(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("vertical-align", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("vertical-align", value + unit.getType()));
   }
 
   @Override
@@ -373,7 +373,7 @@ class HtmlStylesBuilder implements StylesBuilder {
 
   @Override
   public StylesBuilder width(double value, Unit unit) {
-    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("width", value + unit.name()));
+    return delegate.styleProperty(SafeStylesUtils.fromTrustedNameAndValue("width", value + unit.getType()));
   }
 
   @Override
