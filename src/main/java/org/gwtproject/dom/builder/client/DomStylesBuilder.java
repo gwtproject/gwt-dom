@@ -15,11 +15,12 @@
  */
 package org.gwtproject.dom.builder.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.safehtml.shared.SafeUri;
 import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 import org.gwtproject.dom.builder.shared.StylesBuilder;
 import org.gwtproject.dom.client.Style.*;
 import org.gwtproject.dom.client.Style.Float;
@@ -38,10 +39,10 @@ class DomStylesBuilder implements StylesBuilder {
    * frequently, so caching saves us from converting every style property name
    * from hyphenated to camelCase form.
    * 
-   * Use a {@link JavaScriptObject} to avoid the dynamic casts associated with
+   * Use a {@link JsPropertyMap} to avoid the dynamic casts associated with
    * the emulated version of {@link java.util.Map}.
    */
-  private static JavaScriptObject hyphenatedMap;
+  private static JsPropertyMap<String> hyphenatedMap;
 
   /**
    * Regex to match a word in a hyphenated phrase. A word starts with an a
@@ -61,7 +62,7 @@ class DomStylesBuilder implements StylesBuilder {
   static String toCamelCaseForm(String name) {
     // Static initializers.
     if (hyphenatedMap == null) {
-      hyphenatedMap = JavaScriptObject.createObject();
+      hyphenatedMap = Js.uncheckedCast(JsPropertyMap.of());
       maybeHyphenatedWord = RegExp.compile("([-]?)([a-z])([a-z0-9]*)", "g");
     }
 
@@ -111,9 +112,9 @@ class DomStylesBuilder implements StylesBuilder {
    * @param name the user specified style name
    * @return the camelCase name, or null if not set
    */
-  private static native String getCamelCaseName(JavaScriptObject map, String name) /*-{
-    return map[name] || null;
-  }-*/;
+  private static String getCamelCaseName(JsPropertyMap<String> map, String name) {
+    return map.get(name);
+  }
 
   /**
    * Save the camelCase form of a style name to a map.
@@ -121,9 +122,9 @@ class DomStylesBuilder implements StylesBuilder {
    * @param name the user specified style name
    * @param camelCase the camelCase name
    */
-  private static native void putCamelCaseName(JavaScriptObject map, String name, String camelCase) /*-{
-    map[name] = camelCase;
-  }-*/;
+  private static void putCamelCaseName(JsPropertyMap<String> map, String name, String camelCase) {
+    map.set(name, camelCase);
+  }
 
   private final DomBuilderImpl delegate;
 
