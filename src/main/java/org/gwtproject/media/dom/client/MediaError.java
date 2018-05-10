@@ -15,11 +15,13 @@
  */
 package org.gwtproject.media.dom.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * <p>
- * A {@link JavaScriptObject} indicating the type of error encountered by a
+ * Indicating the type of error encountered by a
  * {@link org.gwtproject.dom.client.MediaElement MediaElement}.
  * 
  * <p>
@@ -30,33 +32,34 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @see org.gwtproject.dom.client.MediaElement#getError()
  */
-public final class MediaError extends JavaScriptObject {
+@JsType(isNative = true, namespace = JsPackage.GLOBAL)
+public final class MediaError {
 
   /**
    * A constant returned by {@link #getCode} indicating that playback
    * was aborted at the user's request. 
    */
-  public static final int MEDIA_ERR_ABORTED = 1;
+  public static int MEDIA_ERR_ABORTED;
 
   /**
    * A constant returned by {@link #getCode} indicating that playback
    * was aborted due to a network error. 
    */
-  public static final int MEDIA_ERR_NETWORK = 2;
+  public static int MEDIA_ERR_NETWORK;
 
   /**
    * A constant returned by {@link #getCode} indicating that playback
    * was aborted due to an error in decoding. 
    */
-  public static final int MEDIA_ERR_DECODE = 3;
+  public static int MEDIA_ERR_DECODE;
 
   /**
    * A constant returned by {@link #getCode} indicating that the format
    * of the source stream was unsuitable for playback. 
    */
-  public static final int MEDIA_ERR_SRC_NOT_SUPPORTED = 4;
+  public static int MEDIA_ERR_SRC_NOT_SUPPORTED;
 
-  protected MediaError() {
+  private MediaError() {
   }
 
   /**
@@ -66,7 +69,6 @@ public final class MediaError extends JavaScriptObject {
    * {@link MediaError#MEDIA_ERR_NETWORK}, {@link MediaError#MEDIA_ERR_DECODE},
    * or {@link MediaError#MEDIA_ERR_SRC_NOT_SUPPORTED}
    */
-  public native int getCode() /*-{
-    return this.code;
-  }-*/;
+  @JsProperty
+  public native int getCode();
 }

@@ -15,11 +15,13 @@
  */
 package org.gwtproject.media.dom.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * <p>
- * A {@link JavaScriptObject} representing a time range returned from a
+ * Representing a time range returned from a
  * {@link org.gwtproject.dom.client.MediaElement MediaElement}.
  * 
  * <p>
@@ -32,9 +34,10 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @see org.gwtproject.dom.client.MediaElement#getPlayed()
  * @see org.gwtproject.dom.client.MediaElement#getSeekable()
  */
-public final class TimeRanges extends JavaScriptObject {
+@JsType(isNative = true, namespace = JsPackage.GLOBAL)
+public final class TimeRanges {
 
-  protected TimeRanges() {
+  private TimeRanges() {
   }
 
   /**
@@ -46,18 +49,15 @@ public final class TimeRanges extends JavaScriptObject {
    * 
    * @see #start(int)
    */
-  public native double end(int index) /*-{
-    return this.end(index);
-  }-*/;
+  public native double end(int index);
 
   /**
    * Returns the number of distinct ranges contained in this object.
    *
    * @return an integer number of ranges
    */
-  public native int length() /*-{
-    return this.length;
-  }-*/;
+  @JsProperty
+  public native int length();
   
   /**
    * Returns the start time of the range indexed by {@code index}.
@@ -68,7 +68,5 @@ public final class TimeRanges extends JavaScriptObject {
    * 
    * @see #end(int)
    */
-  public native double start(int index) /*-{
-    return this.start(index);
-  }-*/;
+  public native double start(int index);
 }
