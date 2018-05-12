@@ -15,6 +15,8 @@
  */
 package org.gwtproject.dom.client;
 
+import jsinterop.annotations.*;
+import jsinterop.base.Js;
 import org.gwtproject.canvas.dom.client.Context;
 import org.gwtproject.canvas.dom.client.Context2d;
 
@@ -23,12 +25,14 @@ import org.gwtproject.canvas.dom.client.Context2d;
  * 
  * @see <a href="http://www.w3.org/TR/html5/#canvas">W3C HTML 5 Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(CanvasElement.TAG)
 public class CanvasElement extends Element {
 
   /**
    * The tag for this element.
    */
+  @JsOverlay
   public static final String TAG = "canvas";
 
   protected CanvasElement() {
@@ -40,9 +44,7 @@ public class CanvasElement extends Element {
    * @param contextId the context id as a String
    * @return the canvas rendering context
    */
-  public final native Context getContext(String contextId) /*-{
-    return this.getContext(contextId);
-  }-*/;
+  public final native Context getContext(String contextId);
 
   /**
    * Returns a 2D rendering context.
@@ -51,9 +53,10 @@ public class CanvasElement extends Element {
    * 
    * @return a 2D canvas rendering context
    */
-  public final native Context2d getContext2d() /*-{
-    return this.getContext(@org.gwtproject.canvas.dom.client.Context2d::CONTEXT_ID);
-  }-*/;
+  @JsOverlay
+  public final Context2d getContext2d() {
+    return Js.uncheckedCast(this.getContext(Context2d.CONTEXT_ID));
+  }
 
   /**
    * Gets the height of the canvas.
@@ -61,9 +64,8 @@ public class CanvasElement extends Element {
    * @return the height, in pixels
    * @see #setHeight(int)
    */
-  public final native int getHeight() /*-{
-    return this.height;
-  }-*/;
+  @JsProperty
+  public final native int getHeight();
 
   /**
    * Gets the width of the canvas.
@@ -71,9 +73,8 @@ public class CanvasElement extends Element {
    * @return the width, in pixels
    * @see #setWidth(int)
    */
-  public final native int getWidth() /*-{
-    return this.width;
-  }-*/;
+  @JsProperty
+  public final native int getWidth();
 
   /**
    * Sets the height of the canvas.
@@ -81,9 +82,8 @@ public class CanvasElement extends Element {
    * @param height the height, in pixels
    * @see #getHeight()
    */
-  public final native void setHeight(int height) /*-{
-    this.height = height;
-  }-*/;
+  @JsProperty
+  public final native void setHeight(int height);
 
   /**
    * Sets the width of the canvas.
@@ -91,18 +91,16 @@ public class CanvasElement extends Element {
    * @param width the width, in pixels
    * @see #getWidth()
    */
-  public final native void setWidth(int width) /*-{
-    this.width = width;
-  }-*/;
+  @JsProperty
+  public final native void setWidth(int width);
 
   /**
    * Returns a data URL for the current content of the canvas element.
    * 
    * @return a data URL for the current content of this element.
    */
-  public final native String toDataUrl() /*-{
-    return this.toDataURL();
-  }-*/;
+  @JsMethod(name = "toDataURL")
+  public final native String toDataUrl();
 
   /**
    * Returns a data URL for the current content of the canvas element, with a specified type.
@@ -110,7 +108,6 @@ public class CanvasElement extends Element {
    * @param type the type of the data url, e.g., image/jpeg or image/png.
    * @return a data URL for the current content of this element with the specified type.
    */
-  public final native String toDataUrl(String type) /*-{
-    return this.toDataURL(type);
-  }-*/;
+  @JsMethod(name = "toDataURL")
+  public final native String toDataUrl(String type);
 }

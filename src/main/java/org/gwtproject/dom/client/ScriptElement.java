@@ -17,21 +17,28 @@ package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.safehtml.shared.annotations.IsTrustedResourceUri;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * Script statements.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/scripts.html#edef-SCRIPT">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(ScriptElement.TAG)
 public class ScriptElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "script";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static ScriptElement as(Element elem) {
     assert is(elem);
     return (ScriptElement) elem;
@@ -42,6 +49,7 @@ public class ScriptElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -54,6 +62,7 @@ public class ScriptElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -66,6 +75,7 @@ public class ScriptElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -78,66 +88,58 @@ public class ScriptElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/scripts.html#adef-defer">W3C HTML Specification</a>
    */
-  public final native String getDefer() /*-{
-     return this.defer;
-   }-*/;
+  @JsProperty
+  public final native String getDefer();
 
   /**
    * URI designating an external script.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/scripts.html#adef-src-SCRIPT">W3C HTML Specification</a>
    */
-  public final native String getSrc() /*-{
-     return this.src;
-   }-*/;
+  @JsProperty
+  public final native String getSrc();
 
   /**
    * The script content of the element.
    */
-  public final native String getText() /*-{
-     return this.text;
-   }-*/;
+  @JsProperty
+  public final native String getText();
 
   /**
    * The content type of the script language.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/scripts.html#adef-type-SCRIPT">W3C HTML Specification</a>
    */
-  public final native String getType() /*-{
-     return this.type;
-   }-*/;
+  @JsProperty
+  public final native String getType();
 
   /**
    * Indicates that the user agent can defer processing of the script.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/scripts.html#adef-defer">W3C HTML Specification</a>
    */
-  public final native void setDefer(String defer) /*-{
-     this.defer = defer;
-   }-*/;
+  @JsProperty
+  public final native void setDefer(String defer);
 
   /**
    * URI designating an external script.
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/scripts.html#adef-src-SCRIPT">W3C HTML Specification</a>
    */
-  public final native void setSrc(@IsTrustedResourceUri String src) /*-{
-     this.src = src;
-   }-*/;
+  @JsProperty
+  public final native void setSrc(@IsTrustedResourceUri String src);
 
   /**
    * The script content of the element.
    */
-  public final native void setText(String text) /*-{
-     this.text = text;
-   }-*/;
+  @JsProperty
+  public final native void setText(String text);
 
   /**
    * The content type of the script language.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/scripts.html#adef-type-SCRIPT">W3C HTML Specification</a>
    */
-  public final native void setType(String type) /*-{
-     this.type = type;
-   }-*/;
+  @JsProperty
+  public final native void setType(String type);
 }

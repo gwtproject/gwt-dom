@@ -16,21 +16,30 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import elemental2.dom.HTMLButtonElement;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * Push button.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#edef-BUTTON">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(ButtonElement.TAG)
 public class ButtonElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "button";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static ButtonElement as(Element elem) {
     assert is(elem);
     return (ButtonElement) elem;
@@ -41,6 +50,7 @@ public class ButtonElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +63,7 @@ public class ButtonElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +76,7 @@ public class ButtonElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -75,6 +87,7 @@ public class ButtonElement extends Element {
   /**
    * Simulate a mouse-click.
    */
+  @JsOverlay
   public final void click() {
     DOMImpl.impl.buttonClick(this);
   }
@@ -84,9 +97,8 @@ public class ButtonElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accesskey">W3C HTML Specification</a>
    */
-  public final native String getAccessKey() /*-{
-     return this.accessKey;
-   }-*/;
+  @JsProperty
+  public final native String getAccessKey();
 
   /**
    * The control is unavailable in this context.
@@ -94,72 +106,66 @@ public class ButtonElement extends Element {
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    * @deprecated use {@link #isDisabled()} instead.
    */
+  @JsProperty
   @Deprecated
-  public final native String getDisabled() /*-{
-     return this.disabled;
-   }-*/;
+  public final native String getDisabled();
 
   /**
    * Returns the FORM element containing this control. Returns null if this
    * control is not within the context of a form.
    */
-  public final native FormElement getForm() /*-{
-     return this.form;
-   }-*/;
+  @JsProperty
+  public final native FormElement getForm();
 
   /**
    * Form control or object name when submitted with a form.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-name-BUTTON">W3C HTML Specification</a>
    */
-  public final native String getName() /*-{
-     return this.name;
-   }-*/;
+  @JsProperty
+  public final native String getName();
 
   /**
    * The type of button (all lower case).
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-type-BUTTON">W3C HTML Specification</a>
    */
-  public final native String getType() /*-{
-     return this.type;
-   }-*/;
+  @JsProperty
+  public final native String getType();
 
   /**
    * The current form control value.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-BUTTON">W3C HTML Specification</a>
    */
-  public final native String getValue() /*-{
-     return this.value;
-   }-*/;
+  @JsProperty
+  public final native String getValue();
 
   /**
    * The control is unavailable in this context.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    */
-  public final native boolean isDisabled() /*-{
-     return !!this.disabled;
-   }-*/;
+  @JsOverlay
+  public final boolean isDisabled() {
+     return Js.isTruthy(Js.<HTMLButtonElement>uncheckedCast(this).disabled);
+   }
 
   /**
    * A single character access key to give access to the form control.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accesskey">W3C HTML Specification</a>
    */
-  public final native void setAccessKey(String accessKey) /*-{
-     this.accessKey = accessKey;
-   }-*/;
+  @JsProperty
+  public final native void setAccessKey(String accessKey);
 
   /**
    * The control is unavailable in this context.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    */
-  public final native void setDisabled(boolean disabled) /*-{
-     this.disabled = disabled;
-   }-*/;
+  @JsProperty
+  public final native void setDisabled(boolean disabled);
 
   /**
    * The control is unavailable in this context.
@@ -167,26 +173,23 @@ public class ButtonElement extends Element {
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    * @deprecated use {@link #setDisabled(boolean)} instead
    */
+  @JsProperty
   @Deprecated
-  public final native void setDisabled(String disabled) /*-{
-     this.disabled = disabled;
-   }-*/;
+  public final native void setDisabled(String disabled);
 
   /**
    * Form control or object name when submitted with a form.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-name-BUTTON">W3C HTML Specification</a>
    */
-  public final native void setName(String name) /*-{
-     this.name = name;
-   }-*/;
+  @JsProperty
+  public final native void setName(String name);
 
   /**
    * The current form control value.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-BUTTON">W3C HTML Specification</a>
    */
-  public final native void setValue(String value) /*-{
-     this.value = value;
-   }-*/;
+  @JsProperty
+  public final native void setValue(String value);
 }

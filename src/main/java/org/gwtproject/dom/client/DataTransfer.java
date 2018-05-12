@@ -16,6 +16,8 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.*;
+import jsinterop.base.Js;
 
 import java.util.Locale;
 
@@ -32,6 +34,7 @@ import java.util.Locale;
  *      href="http://www.w3.org/TR/html5/dnd.html#the-datatransfer-interface">W3C
  *      HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class DataTransfer extends JavaScriptObject {
 
   /**
@@ -47,9 +50,7 @@ public class DataTransfer extends JavaScriptObject {
    *      href="http://www.w3.org/TR/html5/dnd.html#dom-datatransfer-cleardata">W3C
    *      Specification</a>
    */
-  public final native void clearData() /*-{
-    this.clearData();
-  }-*/;
+  public final native void clearData();
 
   /**
    * Remove the data for the specified format for all drag events in the current
@@ -62,9 +63,7 @@ public class DataTransfer extends JavaScriptObject {
    *      href="http://www.w3.org/TR/html5/dnd.html#dom-datatransfer-cleardata">W3C
    *      Specification</a>
    */
-  public final native void clearData(String format) /*-{
-    this.clearData(format);
-  }-*/;
+  public final native void clearData(String format);
 
   /**
    * Get the data for the specified format. The data may have been set in a
@@ -77,9 +76,7 @@ public class DataTransfer extends JavaScriptObject {
    *      href="http://www.w3.org/TR/html5/dnd.html#dom-datatransfer-getdata">W3C
    *      Specification</a>
    */
-  public final native String getData(String format) /*-{
-    return this.getData(format);
-  }-*/;
+  public final native String getData(String format);
 
   /**
    * Set the data for the specified format to associate with all drag events in
@@ -98,9 +95,7 @@ public class DataTransfer extends JavaScriptObject {
    *      href="http://www.w3.org/TR/html5/dnd.html#dom-datatransfer-setdata">W3C
    *      Specification</a>
    */
-  public final native void setData(String format, String data) /*-{
-    this.setData(format, data);
-  }-*/;
+  public final native void setData(String format, String data);
 
   /**
    * Specify the element to use to update the drag feedback.
@@ -112,17 +107,25 @@ public class DataTransfer extends JavaScriptObject {
    *      href="http://www.w3.org/TR/html5/dnd.html#dom-datatransfer-setdragimage">W3C
    *      Specification</a>
    */
-  public final native void setDragImage(Element element, int x, int y) /*-{
-    if (this.setDragImage) {
-      this.setDragImage(element, x, y);
+  @JsOverlay
+  public final void setDragImage(Element element, int x, int y) {
+    if (this.getSetDragImage() != null) {
+      this.callSetDragImage(element, x, y);
     }
-  }-*/;
+  }
+
+  @JsProperty(name = "setDragImage")
+  private native Object getSetDragImage();
+
+  @JsMethod(name = "setDragImage")
+  private native void callSetDragImage(Element element, int x, int y);
 
   /**
    * Specify the drop effect to use on dragenter or dragover events.
    *
    * @param dropEffect the drop effect to display.
    */
+  @JsOverlay
   public final void setDropEffect(DropEffect dropEffect) {
     this.setDropEffect(dropEffect.name().toLowerCase(Locale.ROOT));
   }
@@ -132,11 +135,12 @@ public class DataTransfer extends JavaScriptObject {
    *
    * @param dropEffect the drop effect to display.
    */
-  private native void setDropEffect(String dropEffect) /*-{
-    if (this.dropEffect) {
-      this.dropEffect = dropEffect;
+  @JsOverlay
+  private void setDropEffect(String dropEffect) {
+    if (Js.isTruthy(Js.<elemental2.dom.DataTransfer>uncheckedCast(this).dropEffect)) {
+      Js.<elemental2.dom.DataTransfer>uncheckedCast(this).dropEffect = dropEffect;
     }
-  }-*/;
+  }
 
   /**
    * Used to specify the drop effect to use on dragenter or dragover events.

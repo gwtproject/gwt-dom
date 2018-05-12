@@ -15,15 +15,22 @@
  */
 package org.gwtproject.dom.client;
 
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+
 /**
  * The Text interface represents textual content.
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class Text extends Node {
 
   /**
    * Assert that the given {@link Node} is of type {@link Node#TEXT_NODE} and
    * automatically typecast it.
    */
+  @JsOverlay
   public static Text as(Node node) {
     assert node.getNodeType() == Node.TEXT_NODE;
     return (Text) node;
@@ -35,51 +42,40 @@ public class Text extends Node {
   /**
    * Deletes data at the given [offset, length] range.
    */
-  public final native void deleteData(int offset, int length) /*-{
-    this.deleteData(offset, length);
-  }-*/;
+  public final native void deleteData(int offset, int length);
 
   /**
    * The character data of this text node.
    */
-  public final native String getData() /*-{
-    return this.data;
-  }-*/;
+  @JsProperty
+  public final native String getData();
 
   /**
    * The number of characters available through the data property.
    */
-  public final native int getLength() /*-{
-    return this.length;
-  }-*/;
+  @JsProperty
+  public final native int getLength();
 
   /**
    * Inserts character data at the given offset.
    */
-  public final native void insertData(int offset, String data) /*-{
-    this.insertData(offset, data);
-  }-*/;
+  public final native void insertData(int offset, String data);
 
   /**
    * Replaces data at the given [offset, length] range with the given string.
    */
-  public final native void replaceData(int offset, int length, String data) /*-{
-    this.replaceData(offset, length, data);
-  }-*/;
+  public final native void replaceData(int offset, int length, String data);
 
   /**
    * The character data of this text node.
    */
-  public final native void setData(String data) /*-{
-    this.data = data;
-  }-*/;
+  @JsProperty
+  public final native void setData(String data);
 
   /**
    * Splits the data in this node into two separate text nodes. The text
    * before the split offset is kept in this node, and a new sibling node is
    * created to contain the text after the offset.
    */
-  public final native Text splitText(int offset) /*-{
-    return this.splitText(offset);
-  }-*/;
+  public final native Text splitText(int offset);
 }

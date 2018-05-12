@@ -16,21 +16,27 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 
 /**
  * Table caption.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#edef-CAPTION">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(TableCaptionElement.TAG)
 public class TableCaptionElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "caption";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static TableCaptionElement as(Element elem) {
     assert is(elem);
     return (TableCaptionElement) elem;
@@ -41,6 +47,7 @@ public class TableCaptionElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +60,7 @@ public class TableCaptionElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +73,7 @@ public class TableCaptionElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }

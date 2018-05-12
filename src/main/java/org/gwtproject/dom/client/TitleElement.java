@@ -16,21 +16,28 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * The document title.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#edef-TITLE">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(TitleElement.TAG)
 public class TitleElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "title";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static TitleElement as(Element elem) {
     assert is(elem);
     return (TitleElement) elem;
@@ -41,6 +48,7 @@ public class TitleElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +61,7 @@ public class TitleElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +74,7 @@ public class TitleElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -75,14 +85,12 @@ public class TitleElement extends Element {
   /**
    * The specified title as a string.
    */
-  public final native String getText() /*-{
-     return this.text;
-   }-*/;
+  @JsProperty
+  public final native String getText();
 
   /**
    * The specified title as a string.
    */
-  public final native void setText(String text) /*-{
-     this.text = text;
-   }-*/;
+  @JsProperty
+  public final native void setText(String text);
 }

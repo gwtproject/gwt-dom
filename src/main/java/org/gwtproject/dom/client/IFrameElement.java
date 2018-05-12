@@ -18,21 +18,30 @@ package org.gwtproject.dom.client;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.safehtml.shared.SafeUri;
 import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
+import org.w3c.dom.html.HTMLIFrameElement;
 
 /**
  * Inline subwindows.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#edef-IFRAME">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(IFrameElement.TAG)
 public class IFrameElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "iframe";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static IFrameElement as(Element elem) {
     assert is(elem);
     return (IFrameElement) elem;
@@ -43,6 +52,7 @@ public class IFrameElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -55,6 +65,7 @@ public class IFrameElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -67,6 +78,7 @@ public class IFrameElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -78,133 +90,125 @@ public class IFrameElement extends Element {
    * The document this frame contains, if there is any and it is available, or
    * null otherwise.
    */
-  public final native Document getContentDocument() /*-{
-     // This is known to work on all modern browsers.
-     return this.contentWindow.document;
-   }-*/;
+  // This is known to work on all modern browsers.
+  @JsProperty(name = "contentWindow.document")
+  public final native Document getContentDocument();
 
   /**
    * Request frame borders.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-frameborder">W3C HTML Specification</a>
    */
-  public final native int getFrameBorder() /*-{
-     return this.frameBorder;
-   }-*/;
+  @JsProperty
+  public final native int getFrameBorder();
 
   /**
    * Frame margin height, in pixels.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-marginheight">W3C HTML Specification</a>
    */
-  public final native int getMarginHeight() /*-{
-     return this.marginHeight;
-   }-*/;
+  @JsProperty
+  public final native int getMarginHeight();
 
   /**
    * Frame margin width, in pixels.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-marginwidth">W3C HTML Specification</a>
    */
-  public final native int getMarginWidth() /*-{
-     return this.marginWidth;
-   }-*/;
+  @JsProperty
+  public final native int getMarginWidth();
 
   /**
    * The frame name (object of the target attribute).
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-name-FRAME">W3C HTML Specification</a>
    */
-  public final native String getName() /*-{
-     return this.name;
-   }-*/;
+  @JsProperty
+  public final native String getName();
 
   /**
    * Specify whether or not the frame should have scrollbars.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-scrolling">W3C HTML Specification</a>
    */
-  public final native String getScrolling() /*-{
-     return this.scrolling;
-   }-*/;
+  @JsProperty
+  public final native String getScrolling();
 
   /**
    * A URI designating the initial frame contents.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-src-FRAME">W3C HTML Specification</a>
    */
-  public final native String getSrc() /*-{
-     return this.src;
-   }-*/;
+  @JsProperty
+  public final native String getSrc();
 
   /**
    * When true, forbid user from resizing frame.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-noresize">W3C HTML Specification</a>
    */
-  public final native boolean isNoResize() /*-{
-     return !!this.noResize;
-   }-*/;
+  @JsOverlay
+  public final boolean isNoResize() {
+    return Js.isTruthy(noResize);
+  }
+
+  @JsProperty
+  private boolean noResize;
 
   /**
    * Request frame borders.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-frameborder">W3C HTML Specification</a>
    */
-  public final native void setFrameBorder(int frameBorder) /*-{
-     this.frameBorder = frameBorder;
-   }-*/;
+  @JsProperty
+  public final native void setFrameBorder(int frameBorder);
 
   /**
    * Frame margin height, in pixels.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-marginheight">W3C HTML Specification</a>
    */
-  public final native void setMarginHeight(int marginHeight) /*-{
-     this.marginHeight = marginHeight;
-   }-*/;
+  @JsProperty
+  public final native void setMarginHeight(int marginHeight);
 
   /**
    * Frame margin width, in pixels.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-marginwidth">W3C HTML Specification</a>
    */
-  public final native void setMarginWidth(int marginWidth) /*-{
-     this.marginWidth = marginWidth;
-   }-*/;
+  @JsProperty
+  public final native void setMarginWidth(int marginWidth);
 
   /**
    * The frame name (object of the target attribute).
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-name-FRAME">W3C HTML Specification</a>
    */
-  public final native void setName(String name) /*-{
-     this.name = name;
-   }-*/;
+  @JsProperty
+  public final native void setName(String name);
 
   /**
    * When true, forbid user from resizing frame.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-noresize">W3C HTML Specification</a>
    */
-  public final native void setNoResize(boolean noResize) /*-{
-     this.noResize = noResize;
-   }-*/;
+  @JsProperty
+  public final native void setNoResize(boolean noResize);
 
   /**
    * Specify whether or not the frame should have scrollbars.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-scrolling">W3C HTML Specification</a>
    */
-  public final native void setScrolling(String scrolling) /*-{
-     this.scrolling = scrolling;
-   }-*/;
+  @JsProperty
+  public final native void setScrolling(String scrolling);
 
   /**
    * A URI designating the initial frame contents.
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-src-FRAME">W3C HTML Specification</a>
    */
+  @JsOverlay
   public final void setSrc(SafeUri src) {
     setSrc(src.asString());
   }
@@ -214,7 +218,6 @@ public class IFrameElement extends Element {
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-src-FRAME">W3C HTML Specification</a>
    */
-  public final native void setSrc(@IsSafeUri String src) /*-{
-     this.src = src;
-   }-*/;
+  @JsProperty
+  public final native void setSrc(@IsSafeUri String src);
 }

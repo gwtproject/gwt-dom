@@ -16,21 +16,28 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * Form field label text.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#edef-LABEL">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(LabelElement.TAG)
 public class LabelElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "label";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static LabelElement as(Element elem) {
     assert is(elem);
     return (LabelElement) elem;
@@ -41,6 +48,7 @@ public class LabelElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +61,7 @@ public class LabelElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +74,7 @@ public class LabelElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -77,42 +87,37 @@ public class LabelElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accesskey">W3C HTML Specification</a>
    */
-  public final native String getAccessKey() /*-{
-    return this.accessKey;
-  }-*/;
+  @JsProperty
+  public final native String getAccessKey();
 
   /**
    * Returns the FORM element containing this control. Returns null if this
    * control is not within the context of a form.
    */
-  public final native FormElement getForm() /*-{
-     return this.form;
-   }-*/;
+  @JsProperty
+  public final native FormElement getForm();
 
   /**
    * This attribute links this label with another form control by id attribute.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-for">W3C HTML Specification</a>
    */
-  public final native String getHtmlFor() /*-{
-    return this.htmlFor;
-  }-*/;
+  @JsProperty
+  public final native String getHtmlFor();
 
   /**
    * A single character access key to give access to the form control.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accesskey">W3C HTML Specification</a>
    */
-  public final native void setAccessKey(String accessKey) /*-{
-    this.accessKey = accessKey;
-  }-*/;
+  @JsProperty
+  public final native void setAccessKey(String accessKey);
 
   /**
    * This attribute links this label with another form control by id attribute.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-for">W3C HTML Specification</a>
    */
-  public final native void setHtmlFor(String htmlFor) /*-{
-    this.htmlFor = htmlFor;
-  }-*/;
+  @JsProperty
+  public final native void setHtmlFor(String htmlFor);
 }

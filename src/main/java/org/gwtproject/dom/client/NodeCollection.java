@@ -16,6 +16,11 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * An ElementCollection is a list of nodes. An individual node may be accessed by
@@ -26,6 +31,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  *
  * @param <T> the type of contained node
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class NodeCollection<T extends Node> extends JavaScriptObject {
 
   protected NodeCollection() {
@@ -39,16 +45,16 @@ public class NodeCollection<T extends Node> extends JavaScriptObject {
    * @return The element at the corresponding position upon success. A value of
    *         null is returned if the index is out of range.
    */
-  public final native T getItem(int index) /*-{
-    return this[index];
-  }-*/;
+  @JsOverlay
+  public final T getItem(int index) {
+    return Js.uncheckedCast(Js.asArrayLike(this).getAt(index));
+  }
 
   /**
    * This attribute specifies the length or size of the list.
    */
-  public final native int getLength() /*-{
-    return this.length;
-  }-*/;
+  @JsProperty
+  public final native int getLength();
 
   /**
    * This method retrieves a Node using a name. With [HTML 4.01] documents, it
@@ -64,7 +70,8 @@ public class NodeCollection<T extends Node> extends JavaScriptObject {
    *         the specified string. Upon failure (e.g., no element with this name
    *         exists), returns null.
    */
-  public final native T getNamedItem(String name) /*-{
-    return this[name];
-  }-*/;
+  @JsOverlay
+  public final T getNamedItem(String name) {
+    return Js.uncheckedCast(Js.asPropertyMap(this).get(name));
+  }
 }

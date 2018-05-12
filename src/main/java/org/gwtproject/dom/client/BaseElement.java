@@ -16,21 +16,28 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * Document base URI.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#edef-BASE">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(BaseElement.TAG)
 public class BaseElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "base";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static BaseElement as(Element elem) {
     assert is(elem);
     return (BaseElement) elem;
@@ -41,6 +48,7 @@ public class BaseElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +61,7 @@ public class BaseElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +74,7 @@ public class BaseElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -78,18 +88,16 @@ public class BaseElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-href-BASE">W3C HTML Specification</a>
    */
-  public final native String getHref() /*-{
-     return this.href;
-   }-*/;
+  @JsProperty
+  public final native String getHref();
 
   /**
    * The default target frame.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-target">W3C HTML Specification</a>
-   */ 
-  public final native String getTarget() /*-{
-     return this.target;
-   }-*/;
+   */
+  @JsProperty
+  public final native String getTarget();
 
   /**
    * The base URI See the href attribute definition in HTML
@@ -97,16 +105,14 @@ public class BaseElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-href-BASE">W3C HTML Specification</a>
    */
-  public final native void setHref(String href) /*-{
-     this.href = href;
-   }-*/;
+  @JsProperty
+  public final native void setHref(String href);
 
   /**
    * The default target frame.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-target">W3C HTML Specification</a>
-   */ 
-  public final native void setTarget(String target) /*-{
-     this.target = target;
-   }-*/;
+   */
+  @JsProperty
+  public final native void setTarget(String target);
 }

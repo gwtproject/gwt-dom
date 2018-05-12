@@ -16,21 +16,29 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * Embedded image.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#edef-IMG">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(ImageElement.TAG)
 public class ImageElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "img";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static ImageElement as(Element elem) {
     assert is(elem);
     return (ImageElement) elem;
@@ -41,6 +49,7 @@ public class ImageElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +62,7 @@ public class ImageElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +75,7 @@ public class ImageElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -78,45 +89,45 @@ public class ImageElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-alt">W3C HTML Specification</a>
    */
-  public final native String getAlt() /*-{
-    return this.alt;
-  }-*/;
+  @JsProperty
+  public final native String getAlt();
 
   /**
    * Height of the image in pixels.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-height-IMG">W3C HTML Specification</a>
    */
-  public final native int getHeight() /*-{
-    return this.height;
-  }-*/;
+  @JsProperty
+  public final native int getHeight();
 
   /**
    * URI designating the source of this image.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-src-IMG">W3C HTML Specification</a>
    */
-  public final native String getSrc() /*-{
-    return this.src;
-  }-*/;
+  @JsProperty
+  public final native String getSrc();
 
   /**
    * The width of the image in pixels.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-width-IMG">W3C HTML Specification</a>
    */
-  public final native int getWidth() /*-{
-    return this.width;
-  }-*/;
+  @JsProperty
+  public final native int getWidth();
 
   /**
    * Use server-side image map.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-ismap">W3C HTML Specification</a>
    */
-  public final native boolean isMap() /*-{
-     return !!this.isMap;
-   }-*/;
+  @JsOverlay
+  public final boolean isMap() {
+    return Js.isTruthy(this.isMap);
+  }
+
+  @JsProperty
+  private boolean isMap;
   
   /**
    * Alternate text for user agents not rendering the normal content of this
@@ -124,61 +135,58 @@ public class ImageElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-alt">W3C HTML Specification</a>
    */
-  public final native void setAlt(String alt) /*-{
-    this.alt = alt;
-  }-*/;
+  @JsProperty
+  public final native void setAlt(String alt);
 
   /**
    * Height of the image in pixels.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-height-IMG">W3C HTML Specification</a>
    */
-  public final native void setHeight(int height) /*-{
-    this.height = height;
-  }-*/;
+  @JsProperty
+  public final native void setHeight(int height);
 
   /**
    * Use server-side image map.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-ismap">W3C HTML Specification</a>
    */
-  public final native void setIsMap(boolean isMap) /*-{
-     this.isMap = isMap;
-   }-*/;
+  @JsProperty
+  public final native void setIsMap(boolean isMap);
 
   /**
    * URI designating the source of this image.
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-src-IMG">W3C HTML Specification</a>
    */
-  public final native void setSrc(String src) /*-{
-    this.src = src;
-  }-*/;
+  @JsProperty
+  public final native void setSrc(String src);
 
   /**
    * Use client-side image map.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-usemap">W3C HTML Specification</a>
    */
-  public final native void setUseMap(boolean useMap) /*-{
-     this.useMap = useMap;
-   }-*/;
+  @JsProperty
+  public final native void setUseMap(boolean useMap);
 
   /**
    * The width of the image in pixels.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-width-IMG">W3C HTML Specification</a>
    */
-  public final native void setWidth(int width) /*-{
-      this.width = width;
-  }-*/;
+  @JsProperty
+  public final native void setWidth(int width);
 
   /**
    * Use client-side image map.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-usemap">W3C HTML Specification</a>
    */
-  public final native boolean useMap() /*-{
-     return !!this.useMap;
-   }-*/;
+  public final boolean useMap() {
+    return Js.isTruthy(this.useMap);
+  }
+
+  @JsProperty
+  private boolean useMap;
 }

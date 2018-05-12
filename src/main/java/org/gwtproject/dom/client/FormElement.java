@@ -18,6 +18,10 @@ package org.gwtproject.dom.client;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.safehtml.shared.SafeUri;
 import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * The FORM element encompasses behavior similar to a collection and an element.
@@ -26,15 +30,18 @@ import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#edef-FORM">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(FormElement.TAG)
 public class FormElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "form";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static FormElement as(Element elem) {
     assert is(elem);
     return (FormElement) elem;
@@ -45,6 +52,7 @@ public class FormElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -57,6 +65,7 @@ public class FormElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -69,6 +78,7 @@ public class FormElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -81,25 +91,22 @@ public class FormElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accept-charset">W3C HTML Specification</a>
    */
-  public final native String getAcceptCharset() /*-{
-    return this.acceptCharset;
-  }-*/;
+  @JsProperty
+  public final native String getAcceptCharset();
 
   /**
    * Server-side form handler.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-action">W3C HTML Specification</a>
    */
-  public final native String getAction() /*-{
-    return this.action;
-  }-*/;
+  @JsProperty
+  public final native String getAction();
 
   /**
    * Returns a collection of all form control elements in the form.
    */
-  public final native NodeCollection<Element> getElements() /*-{
-    return this.elements;
-  }-*/;
+  @JsProperty
+  public final native NodeCollection<Element> getElements();
 
   /**
    * The content type of the submitted form, generally
@@ -111,57 +118,51 @@ public class FormElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-enctype">W3C HTML Specification</a>
    */
-  public final native String getEnctype() /*-{
-    return this.enctype;
-  }-*/;
+  @JsProperty
+  public final native String getEnctype();
 
   /**
    * HTTP method [IETF RFC 2616] used to submit form.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-method">W3C HTML Specification</a>
    */
-  public final native String getMethod() /*-{
-    return this.method;
-  }-*/;
+  @JsProperty
+  public final native String getMethod();
 
   /**
    * Names the form.
    */
-  public final native String getName() /*-{
-    return this.name;
-  }-*/;
+  @JsProperty
+  public final native String getName();
 
   /**
    * Frame to render the resource in.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-target">W3C HTML Specification</a>
    */
-  public final native String getTarget() /*-{
-    return this.target;
-  }-*/;
+  @JsProperty
+  public final native String getTarget();
 
   /**
    * Restores a form element's default values. It performs the same action as a
    * reset button.
    */
-  public final native void reset() /*-{
-    this.reset();
-  }-*/;
+  public final native void reset();
 
   /**
    * List of character sets supported by the server.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accept-charset">W3C HTML Specification</a>
    */
-  public final native void setAcceptCharset(String acceptCharset) /*-{
-    this.acceptCharset = acceptCharset;
-  }-*/;
+  @JsProperty
+  public final native void setAcceptCharset(String acceptCharset);
 
   /**
    * Server-side form handler.
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-action">W3C HTML Specification</a>
    */
+  @JsOverlay
   public final void setAction(SafeUri action) {
     setAction(action.asString());
   }
@@ -171,9 +172,8 @@ public class FormElement extends Element {
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-action">W3C HTML Specification</a>
    */
-  public final native void setAction(@IsSafeUri String action) /*-{
-    this.action = action;
-  }-*/;
+  @JsProperty
+  public final native void setAction(@IsSafeUri String action);
 
   /**
    * The content type of the submitted form, generally
@@ -185,39 +185,33 @@ public class FormElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-enctype">W3C HTML Specification</a>
    */
-  public final native void setEnctype(String enctype) /*-{
-    this.enctype = enctype;
-  }-*/;
+  @JsProperty
+  public final native void setEnctype(String enctype);
 
   /**
    * HTTP method [IETF RFC 2616] used to submit form.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-method">W3C HTML Specification</a>
    */
-  public final native void setMethod(String method) /*-{
-    this.method = method;
-  }-*/;
+  @JsProperty
+  public final native void setMethod(String method);
 
   /**
    * Names the form.
    */
-  public final native void setName(String name) /*-{
-    this.name = name;
-  }-*/;
+  @JsProperty
+  public final native void setName(String name);
 
   /**
    * Frame to render the resource in.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-target">W3C HTML Specification</a>
    */
-  public final native void setTarget(String target) /*-{
-    this.target = target;
-  }-*/;
+  @JsProperty
+  public final native void setTarget(String target);
 
   /**
    * Submits the form. It performs the same action as a submit button.
    */
-  public final native void submit() /*-{
-    this.submit();
-  }-*/;
+  public final native void submit();
 }

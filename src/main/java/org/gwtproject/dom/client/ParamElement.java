@@ -16,21 +16,28 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * Parameters fed to the OBJECT element.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#edef-PARAM">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(ParamElement.TAG)
 public class ParamElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "param";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static ParamElement as(Element elem) {
     assert is(elem);
     return (ParamElement) elem;
@@ -41,6 +48,7 @@ public class ParamElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +61,7 @@ public class ParamElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +74,7 @@ public class ParamElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -77,34 +87,30 @@ public class ParamElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-name-PARAM">W3C HTML Specification</a>
    */
-  public final native String getName() /*-{
-     return this.name;
-   }-*/;
+  @JsProperty
+  public final native String getName();
 
   /**
    * The value of a run-time parameter.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-value-PARAM">W3C HTML Specification</a>
    */
-  public final native String getValue() /*-{
-     return this.value;
-   }-*/;
+  @JsProperty
+  public final native String getValue();
 
   /**
    * The name of a run-time parameter.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-name-PARAM">W3C HTML Specification</a>
    */
-  public final native void setName(String name) /*-{
-     this.name = name;
-   }-*/;
+  @JsProperty
+  public final native void setName(String name);
 
   /**
    * The value of a run-time parameter.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-value-PARAM">W3C HTML Specification</a>
    */
-  public final native void setValue(String value) /*-{
-     this.value = value;
-   }-*/;
+  @JsProperty
+  public final native void setValue(String value);
 }

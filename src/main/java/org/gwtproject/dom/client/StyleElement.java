@@ -16,6 +16,12 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import elemental2.dom.HTMLStyleElement;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * Style information.
@@ -24,15 +30,18 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @see <a href="http://www.w3.org/TR/DOM-Level-2-HTML/references.html#DOMStyle">W3C HTML Specification</a>
  * @see <a href="http://www.w3.org/TR/DOM-Level-2-HTML/references.html#DOMStyle-inf">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(StyleElement.TAG)
 public class StyleElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "style";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static StyleElement as(Element elem) {
     assert is(elem);
     return (StyleElement) elem;
@@ -44,6 +53,7 @@ public class StyleElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -56,6 +66,7 @@ public class StyleElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -68,6 +79,7 @@ public class StyleElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -78,73 +90,68 @@ public class StyleElement extends Element {
   /**
    * The CSS text.
    */
-  public final native String getCssText() /*-{
-    return this.cssText;
-  }-*/;
+  @JsProperty
+  public final native String getCssText();
 
   /**
    * Enables/disables the style sheet.
    * @deprecated use {@link #isDisabled()} instead
    */
+  @JsOverlay
   @Deprecated
-  public final native boolean getDisabled() /*-{
-     return !!this.disabled;
-   }-*/;
+  public final boolean getDisabled() {
+    return Js.isTruthy(Js.<HTMLStyleElement>uncheckedCast(this).disabled);
+  }
 
   /**
    * Designed for use with one or more target media.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/styles.html#adef-media">W3C HTML Specification</a>
    */
-  public final native String getMedia() /*-{
-     return this.media;
-   }-*/;
+  @JsProperty
+  public final native String getMedia();
 
   /**
    * The content type of the style sheet language.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/styles.html#adef-type-STYLE">W3C HTML Specification</a>
    */
-  public final native String getType() /*-{
-     return this.type;
-   }-*/;
+  @JsProperty
+  public final native String getType();
 
   /**
    * Enables/disables the style sheet.
    */
-  public final native boolean isDisabled() /*-{
-     return !!this.disabled;
-   }-*/;
+  @JsOverlay
+  public final boolean isDisabled() {
+    return Js.isTruthy(Js.<HTMLStyleElement>uncheckedCast(this).disabled);
+  }
 
   /**
    * Sets the CSS text.
    */
-  public final native void setCssText(String cssText) /*-{
-    this.cssText = cssText;
-  }-*/;
+  @JsProperty
+  public final native void setCssText(String cssText);
 
   /**
    * Enables/disables the style sheet.
    */
-  public final native void setDisabled(boolean disabled) /*-{
-     this.disabled = disabled;
-   }-*/;
+  @JsProperty
+  public final native void setDisabled(boolean disabled);
 
   /**
    * Designed for use with one or more target media.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/styles.html#adef-media">W3C HTML Specification</a>
    */
-  public final native void setMedia(String media) /*-{
-     this.media = media;
-   }-*/;
+  @JsProperty
+  public final native void setMedia(String media);
 
   /**
    * The content type of the style sheet language.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/styles.html#adef-type-STYLE">W3C HTML Specification</a>
    */
-  public final native void setType(String type) /*-{
-     this.type = type;
-   }-*/;
+  @JsProperty
+  public final native void setType(String type);
 }

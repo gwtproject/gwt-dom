@@ -16,21 +16,30 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import elemental2.dom.HTMLOptionElement;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * A selectable choice.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#edef-OPTION">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(OptionElement.TAG)
 public class OptionElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "option";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static OptionElement as(Element elem) {
     assert is(elem);
     return (OptionElement) elem;
@@ -41,6 +50,7 @@ public class OptionElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +63,7 @@ public class OptionElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +76,7 @@ public class OptionElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -76,41 +88,36 @@ public class OptionElement extends Element {
    * Returns the FORM element containing this control. Returns null if this
    * control is not within the context of a form.
    */
-  public final native FormElement getForm() /*-{
-    return this.form;
-  }-*/;
+  @JsProperty
+  public final native FormElement getForm();
 
   /**
    * The index of this OPTION in its parent SELECT, starting from 0.
    */
-  public final native int getIndex() /*-{
-    return this.index;
-  }-*/;
+  @JsProperty
+  public final native int getIndex();
 
   /**
    * Option label for use in hierarchical menus.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTION">W3C HTML Specification</a>
    */
-  public final native String getLabel() /*-{
-    return this.label;
-  }-*/;
+  @JsProperty
+  public final native String getLabel();
 
   /**
    * The text contained within the option element.
    */
-  public final native String getText() /*-{
-    return this.text;
-  }-*/;
+  @JsProperty
+  public final native String getText();
 
   /**
    * The current form control value.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-OPTION">W3C HTML Specification</a>
    */
-  public final native String getValue() /*-{
-    return this.value;
-  }-*/;
+  @JsProperty
+  public final native String getValue();
 
   /**
    * Represents the value of the HTML selected attribute. The value of this
@@ -119,18 +126,20 @@ public class OptionElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-selected">W3C HTML Specification</a>
    */
-  public final native boolean isDefaultSelected() /*-{
-    return !!this.defaultSelected;
-  }-*/;
+  @JsOverlay
+  public final boolean isDefaultSelected() {
+    return Js.isTruthy(Js.<HTMLOptionElement>uncheckedCast(this).defaultSelected);
+  }
 
   /**
    * The control is unavailable in this context.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    */
-  public final native boolean isDisabled() /*-{
-    return !!this.disabled;
-  }-*/;
+  @JsOverlay
+  public final boolean isDisabled() {
+    return Js.isTruthy(Js.<HTMLOptionElement>uncheckedCast(this).disabled);
+  }
 
   /**
    * Represents the current state of the corresponding form control, in an
@@ -138,9 +147,10 @@ public class OptionElement extends Element {
    * form control, but does not change the value of the HTML selected attribute
    * of the element.
    */
-  public final native boolean isSelected() /*-{
-    return !!this.selected;
-  }-*/;
+  @JsOverlay
+  public final boolean isSelected() {
+    return Js.isTruthy(Js.<HTMLOptionElement>uncheckedCast(this).selected);
+  }
 
   /**
    * Represents the value of the HTML selected attribute. The value of this
@@ -149,27 +159,24 @@ public class OptionElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-selected">W3C HTML Specification</a>
    */
-  public final native void setDefaultSelected(boolean selected) /*-{
-    this.defaultSelected = selected;
-  }-*/;
+  @JsProperty
+  public final native void setDefaultSelected(boolean selected);
 
   /**
    * The control is unavailable in this context.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    */
-  public final native void setDisabled(boolean disabled) /*-{
-    this.disabled = disabled;
-  }-*/;
+  @JsProperty
+  public final native void setDisabled(boolean disabled);
 
   /**
    * Option label for use in hierarchical menus.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTION">W3C HTML Specification</a>
    */
-  public final native void setLabel(String label) /*-{
-    this.label = label;
-  }-*/;
+  @JsProperty
+  public final native void setLabel(String label);
 
   /**
    * Represents the current state of the corresponding form control, in an
@@ -177,23 +184,20 @@ public class OptionElement extends Element {
    * form control, but does not change the value of the HTML selected attribute
    * of the element.
    */
-  public final native void setSelected(boolean selected) /*-{
-    this.selected = selected;
-  }-*/;
+  @JsProperty
+  public final native void setSelected(boolean selected);
 
   /**
    * The text contained within the option element.
    */
-  public final native void setText(String text) /*-{
-    this.text = text;
-  }-*/;
+  @JsProperty
+  public final native void setText(String text);
 
   /**
    * The current form control value.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-OPTION">W3C HTML Specification</a>
    */
-  public final native void setValue(String value) /*-{
-    this.value = value;
-  }-*/;
+  @JsProperty
+  public final native void setValue(String value);
 }

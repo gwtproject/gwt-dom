@@ -16,18 +16,25 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.GWT;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * A Document is the root of the HTML hierarchy and holds the entire content.
  * Besides providing access to the hierarchy, it also provides some convenience
  * methods for accessing certain sets of information from the document.
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class Document extends Node {
 
   /**
    * We cache Document.nativeGet() in DevMode, because crossing the JSNI
    * boundary thousands of times just to read a constant value is slow. 
    */
+  @JsOverlay
   private static Document doc;
   
   /**
@@ -36,6 +43,7 @@ public class Document extends Node {
    * 
    * @return the default document
    */
+  @JsOverlay
   public static Document get() {
     if (GWT.isScript()) {
       return nativeGet();
@@ -48,9 +56,8 @@ public class Document extends Node {
     return doc;
   }
 
-  private static native Document nativeGet() /*-{
-    return $doc;
-  }-*/;
+  @JsProperty(name = "$doc", namespace = "<window>")
+  private static native Document nativeGet();
 
   protected Document() {
   }
@@ -60,6 +67,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final AnchorElement createAnchorElement() {
     return (AnchorElement) DOMImpl.impl.createElement(this, AnchorElement.TAG);
   }
@@ -69,6 +77,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final AreaElement createAreaElement() {
     return (AreaElement) DOMImpl.impl.createElement(this, AreaElement.TAG);
   }
@@ -78,6 +87,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final AudioElement createAudioElement() {
     return (AudioElement) DOMImpl.impl.createElement(this, AudioElement.TAG);
   }
@@ -87,6 +97,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final BaseElement createBaseElement() {
     return (BaseElement) DOMImpl.impl.createElement(this, BaseElement.TAG);
   }
@@ -96,6 +107,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final QuoteElement createBlockQuoteElement() {
     return (QuoteElement) DOMImpl.impl.createElement(this,
         QuoteElement.TAG_BLOCKQUOTE);
@@ -104,6 +116,7 @@ public class Document extends Node {
   /**
    * Creates a 'blur' event.
    */
+  @JsOverlay
   public final NativeEvent createBlurEvent() {
     return createHtmlEvent(BrowserEvents.BLUR, false, false);
   }
@@ -113,6 +126,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final BRElement createBRElement() {
     return (BRElement) DOMImpl.impl.createElement(this, BRElement.TAG);
   }
@@ -128,6 +142,7 @@ public class Document extends Node {
    *             {@link #createResetButtonElement()} or
    *             {@link #createSubmitButtonElement()} instead.
    */
+  @JsOverlay
   @Deprecated
   public final ButtonElement createButtonElement() {
     return (ButtonElement) DOMImpl.impl.createElement(this, ButtonElement.TAG);
@@ -138,6 +153,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final InputElement createButtonInputElement() {
     return DOMImpl.impl.createInputElement(this, "button");
   }
@@ -147,6 +163,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final CanvasElement createCanvasElement() {
     return (CanvasElement) DOMImpl.impl.createElement(this, CanvasElement.TAG);
   }
@@ -156,6 +173,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TableCaptionElement createCaptionElement() {
     return (TableCaptionElement) DOMImpl.impl.createElement(this,
         TableCaptionElement.TAG);
@@ -164,6 +182,7 @@ public class Document extends Node {
   /**
    * Creates a 'change' event.
    */
+  @JsOverlay
   public final NativeEvent createChangeEvent() {
     return createHtmlEvent(BrowserEvents.CHANGE, false, true);
   }
@@ -173,6 +192,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final InputElement createCheckInputElement() {
     return DOMImpl.impl.createCheckInputElement(this);
   }
@@ -196,6 +216,7 @@ public class Document extends Node {
    * @param metaKey <code>true</code> if the meta key is depressed
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createClickEvent(int detail, int screenX,
       int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey) {
@@ -211,6 +232,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TableColElement createColElement() {
     return (TableColElement) DOMImpl.impl.createElement(this,
         TableColElement.TAG_COL);
@@ -221,6 +243,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TableColElement createColGroupElement() {
     return (TableColElement) DOMImpl.impl.createElement(this,
         TableColElement.TAG_COLGROUP);
@@ -234,6 +257,7 @@ public class Document extends Node {
    * 
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createContextMenuEvent() {
     return createHtmlEvent(BrowserEvents.CONTEXTMENU, true, true);
   }
@@ -262,6 +286,7 @@ public class Document extends Node {
    * @param metaKey <code>true</code> if the meta key is depressed
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createDblClickEvent(int detail, int screenX,
       int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey) {
@@ -277,6 +302,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final ModElement createDelElement() {
     return (ModElement) DOMImpl.impl.createElement(this, ModElement.TAG_DEL);
   }
@@ -286,6 +312,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final DivElement createDivElement() {
     return (DivElement) DOMImpl.impl.createElement(this, DivElement.TAG);
   }
@@ -295,6 +322,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final DListElement createDLElement() {
     return (DListElement) DOMImpl.impl.createElement(this, DListElement.TAG);
   }
@@ -305,6 +333,7 @@ public class Document extends Node {
    * @param tagName the tag name of the element to be created
    * @return the newly created element
    */
+  @JsOverlay
   public final Element createElement(String tagName) {
     return DOMImpl.impl.createElement(this, tagName);
   }
@@ -314,6 +343,7 @@ public class Document extends Node {
    * 
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createErrorEvent() {
     return createHtmlEvent(BrowserEvents.ERROR, false, false);
   }
@@ -323,6 +353,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final FieldSetElement createFieldSetElement() {
     return (FieldSetElement) DOMImpl.impl.createElement(this,
         FieldSetElement.TAG);
@@ -333,6 +364,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final InputElement createFileInputElement() {
     return DOMImpl.impl.createInputElement(this, "file");
   }
@@ -342,6 +374,7 @@ public class Document extends Node {
    * 
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createFocusEvent() {
     return createHtmlEvent(BrowserEvents.FOCUS, false, false);
   }
@@ -351,6 +384,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final FormElement createFormElement() {
     return (FormElement) DOMImpl.impl.createElement(this, FormElement.TAG);
   }
@@ -360,6 +394,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final FrameElement createFrameElement() {
     return (FrameElement) DOMImpl.impl.createElement(this, FrameElement.TAG);
   }
@@ -369,6 +404,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final FrameSetElement createFrameSetElement() {
     return (FrameSetElement) DOMImpl.impl.createElement(this,
         FrameSetElement.TAG);
@@ -379,6 +415,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final HeadElement createHeadElement() {
     return (HeadElement) DOMImpl.impl.createElement(this, HeadElement.TAG);
   }
@@ -389,6 +426,7 @@ public class Document extends Node {
    * @param n the type of heading, from 1 to 6 inclusive
    * @return the newly created element
    */
+  @JsOverlay
   public final HeadingElement createHElement(int n) {
     assert (n >= 1) && (n <= 6);
     return (HeadingElement) DOMImpl.impl.createElement(this, "h" + n);
@@ -399,6 +437,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final InputElement createHiddenInputElement() {
     return DOMImpl.impl.createInputElement(this, "hidden");
   }
@@ -408,6 +447,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final HRElement createHRElement() {
     return (HRElement) DOMImpl.impl.createElement(this, HRElement.TAG);
   }
@@ -432,6 +472,7 @@ public class Document extends Node {
    * @param cancelable <code>true</code> if the event should be cancelable
    * @return the event object
    */
+  @JsOverlay
   @Deprecated
   public final NativeEvent createHtmlEvent(String type, boolean canBubble,
                                            boolean cancelable) {
@@ -443,6 +484,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final IFrameElement createIFrameElement() {
     return (IFrameElement) DOMImpl.impl.createElement(this, IFrameElement.TAG);
   }
@@ -452,6 +494,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final ImageElement createImageElement() {
     return (ImageElement) DOMImpl.impl.createElement(this, ImageElement.TAG);
   }
@@ -461,6 +504,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final InputElement createImageInputElement() {
     return DOMImpl.impl.createInputElement(this, "image");
   }
@@ -468,6 +512,7 @@ public class Document extends Node {
   /**
    * Creates an 'input' event.
    */
+  @JsOverlay
   public final NativeEvent createInputEvent() {
     return createHtmlEvent(BrowserEvents.INPUT, true, false);
   }
@@ -477,6 +522,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final ModElement createInsElement() {
     return (ModElement) DOMImpl.impl.createElement(this, ModElement.TAG_INS);
   }
@@ -499,6 +545,7 @@ public class Document extends Node {
    * @param keyCode the key-code to be set on the event
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createKeyCodeEvent(String type, boolean ctrlKey,
                                               boolean altKey, boolean shiftKey, boolean metaKey, int keyCode) {
     return DOMImpl.impl.createKeyCodeEvent(this, type, ctrlKey, altKey,
@@ -515,6 +562,7 @@ public class Document extends Node {
    * @param keyCode the key-code to be set on the event
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createKeyDownEvent(boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int keyCode) {
     return createKeyCodeEvent(BrowserEvents.KEYDOWN, ctrlKey, altKey, shiftKey, metaKey,
@@ -535,6 +583,7 @@ public class Document extends Node {
    * @deprecated as of GWT2.1 (keydown events don't have a charCode), use
    *             {@link #createKeyDownEvent(boolean, boolean, boolean, boolean, int)}
    */
+  @JsOverlay
   @Deprecated
   public final NativeEvent createKeyDownEvent(boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int keyCode, int charCode) {
@@ -574,6 +623,7 @@ public class Document extends Node {
    *             or
    *             {@link #createKeyPressEvent(boolean, boolean, boolean, boolean, int)}
    */
+  @JsOverlay
   @Deprecated
   public final NativeEvent createKeyEvent(String type, boolean canBubble,
                                           boolean cancelable, boolean ctrlKey, boolean altKey, boolean shiftKey,
@@ -592,6 +642,7 @@ public class Document extends Node {
    * @param charCode the char-code to be set on the event
    * @return the event object
    */
+  @JsOverlay
   @Deprecated//do not use charcode
   public final NativeEvent createKeyPressEvent(boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int charCode) {
@@ -613,6 +664,7 @@ public class Document extends Node {
    * @deprecated as of GWT 2.1 (keypress events don't have a keyCode), use
    *             {@link #createKeyPressEvent(boolean, boolean, boolean, boolean, int)}
    */
+  @JsOverlay
   @Deprecated
   public final NativeEvent createKeyPressEvent(boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int keyCode, int charCode) {
@@ -630,6 +682,7 @@ public class Document extends Node {
    * @param keyCode the key-code to be set on the event
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createKeyUpEvent(boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int keyCode) {
     return createKeyCodeEvent(BrowserEvents.KEYUP, ctrlKey, altKey, shiftKey, metaKey,
@@ -650,6 +703,7 @@ public class Document extends Node {
    * @deprecated as of GWT 2.1 (keyup events don't have a charCode), use
    *             {@link #createKeyUpEvent(boolean, boolean, boolean, boolean, int)}
    */
+  @JsOverlay
   @Deprecated
   public final NativeEvent createKeyUpEvent(boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int keyCode, int charCode) {
@@ -662,6 +716,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final LabelElement createLabelElement() {
     return (LabelElement) DOMImpl.impl.createElement(this, LabelElement.TAG);
   }
@@ -671,6 +726,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final LegendElement createLegendElement() {
     return (LegendElement) DOMImpl.impl.createElement(this, LegendElement.TAG);
   }
@@ -680,6 +736,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final LIElement createLIElement() {
     return (LIElement) DOMImpl.impl.createElement(this, LIElement.TAG);
   }
@@ -689,6 +746,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final LinkElement createLinkElement() {
     return (LinkElement) DOMImpl.impl.createElement(this, LinkElement.TAG);
   }
@@ -698,6 +756,7 @@ public class Document extends Node {
    * 
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createLoadEvent() {
     return createHtmlEvent(BrowserEvents.LOAD, false, false);
   }
@@ -707,6 +766,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final MapElement createMapElement() {
     return (MapElement) DOMImpl.impl.createElement(this, MapElement.TAG);
   }
@@ -716,6 +776,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final MetaElement createMetaElement() {
     return (MetaElement) DOMImpl.impl.createElement(this, MetaElement.TAG);
   }
@@ -736,6 +797,7 @@ public class Document extends Node {
    *          {@link NativeEvent#BUTTON_LEFT} et al)
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createMouseDownEvent(int detail, int screenX,
       int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int button) {
@@ -777,6 +839,7 @@ public class Document extends Node {
    *          mouseover and mouseout events)
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createMouseEvent(String type, boolean canBubble,
                                             boolean cancelable, int detail, int screenX, int screenY, int clientX,
                                             int clientY, boolean ctrlKey, boolean altKey, boolean shiftKey,
@@ -802,6 +865,7 @@ public class Document extends Node {
    *          {@link NativeEvent#BUTTON_LEFT} et al)
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createMouseMoveEvent(int detail, int screenX,
       int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int button) {
@@ -829,6 +893,7 @@ public class Document extends Node {
    * @param relatedTarget the event's related target
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createMouseOutEvent(int detail, int screenX,
       int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int button, Element relatedTarget) {
@@ -857,6 +922,7 @@ public class Document extends Node {
    * @param relatedTarget the event's related target
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createMouseOverEvent(int detail, int screenX,
       int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int button, Element relatedTarget) {
@@ -881,6 +947,7 @@ public class Document extends Node {
    *          {@link NativeEvent#BUTTON_LEFT} et al)
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createMouseUpEvent(int detail, int screenX,
       int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int button) {
@@ -893,6 +960,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final ObjectElement createObjectElement() {
     return (ObjectElement) DOMImpl.impl.createElement(this, ObjectElement.TAG);
   }
@@ -902,6 +970,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final OListElement createOLElement() {
     return (OListElement) DOMImpl.impl.createElement(this, OListElement.TAG);
   }
@@ -911,6 +980,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final OptGroupElement createOptGroupElement() {
     return (OptGroupElement) DOMImpl.impl.createElement(this,
         OptGroupElement.TAG);
@@ -921,6 +991,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final OptionElement createOptionElement() {
     return (OptionElement) DOMImpl.impl.createElement(this, OptionElement.TAG);
   }
@@ -930,6 +1001,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final ParamElement createParamElement() {
     return (ParamElement) DOMImpl.impl.createElement(this, ParamElement.TAG);
   }
@@ -939,6 +1011,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final InputElement createPasswordInputElement() {
     return DOMImpl.impl.createInputElement(this, "password");
   }
@@ -948,6 +1021,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final ParagraphElement createPElement() {
     return (ParagraphElement) DOMImpl.impl.createElement(this,
         ParagraphElement.TAG);
@@ -958,6 +1032,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final PreElement createPreElement() {
     return (PreElement) DOMImpl.impl.createElement(this, PreElement.TAG);
   }
@@ -967,6 +1042,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final ButtonElement createPushButtonElement() {
     return DOMImpl.impl.createButtonElement(this, "button");
   }
@@ -976,6 +1052,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final QuoteElement createQElement() {
     return (QuoteElement) DOMImpl.impl.createElement(this, QuoteElement.TAG_Q);
   }
@@ -986,6 +1063,7 @@ public class Document extends Node {
    * @param name the name of the radio input (used for grouping)
    * @return the newly created element
    */
+  @JsOverlay
   public final InputElement createRadioInputElement(String name) {
     return DOMImpl.impl.createInputRadioElement(this, name);
   }
@@ -995,6 +1073,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final ButtonElement createResetButtonElement() {
     return DOMImpl.impl.createButtonElement(this, "reset");
   }
@@ -1004,6 +1083,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final InputElement createResetInputElement() {
     return DOMImpl.impl.createInputElement(this, "reset");
   }
@@ -1013,6 +1093,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final ScriptElement createScriptElement() {
     return (ScriptElement) DOMImpl.impl.createElement(this, ScriptElement.TAG);
   }
@@ -1023,6 +1104,7 @@ public class Document extends Node {
    * @param source the source code to set inside the element
    * @return the newly created element
    */
+  @JsOverlay
   public final ScriptElement createScriptElement(String source) {
     return DOMImpl.impl.createScriptElement(this, source);
   }
@@ -1035,6 +1117,7 @@ public class Document extends Node {
    * 
    * @return the event object
    */
+  @JsOverlay
   public final NativeEvent createScrollEvent() {
     return createHtmlEvent(BrowserEvents.SCROLL, false, false);
   }
@@ -1044,6 +1127,7 @@ public class Document extends Node {
    *
    * @return the newly created element
    */
+  @JsOverlay
   public final SelectElement createSelectElement() {
     return (SelectElement) DOMImpl.impl.createElement(this, SelectElement.TAG);
   }
@@ -1057,6 +1141,7 @@ public class Document extends Node {
    * @deprecatred use {@link #createSelectElement()} and call
    *              {@link SelectElement#setMultiple(boolean)} to configure multiple-selection.
    */
+  @JsOverlay
   @Deprecated
   public final SelectElement createSelectElement(boolean multiple) {
     SelectElement el = createSelectElement();
@@ -1069,6 +1154,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final SourceElement createSourceElement() {
     return (SourceElement) DOMImpl.impl.createElement(this, SourceElement.TAG);
   }
@@ -1078,6 +1164,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final SpanElement createSpanElement() {
     return (SpanElement) DOMImpl.impl.createElement(this, SpanElement.TAG);
   }
@@ -1087,6 +1174,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final StyleElement createStyleElement() {
     return (StyleElement) DOMImpl.impl.createElement(this, StyleElement.TAG);
   }
@@ -1096,6 +1184,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final ButtonElement createSubmitButtonElement() {
     return DOMImpl.impl.createButtonElement(this, "submit");
   }
@@ -1105,6 +1194,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final InputElement createSubmitInputElement() {
     return DOMImpl.impl.createInputElement(this, "submit");
   }
@@ -1114,6 +1204,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TableElement createTableElement() {
     return (TableElement) DOMImpl.impl.createElement(this, TableElement.TAG);
   }
@@ -1123,6 +1214,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TableSectionElement createTBodyElement() {
     return (TableSectionElement) DOMImpl.impl.createElement(this,
         TableSectionElement.TAG_TBODY);
@@ -1133,6 +1225,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TableCellElement createTDElement() {
     return (TableCellElement) DOMImpl.impl.createElement(this,
         TableCellElement.TAG_TD);
@@ -1143,6 +1236,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TextAreaElement createTextAreaElement() {
     return (TextAreaElement) DOMImpl.impl.createElement(this,
         TextAreaElement.TAG);
@@ -1153,6 +1247,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final InputElement createTextInputElement() {
     return DOMImpl.impl.createInputElement(this, "text");
   }
@@ -1163,6 +1258,7 @@ public class Document extends Node {
    * @param data the text node's initial text
    * @return the newly created element
    */
+  @JsOverlay
   public final native Text createTextNode(String data) /*-{
     return this.createTextNode(data);
   }-*/;
@@ -1172,6 +1268,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TableSectionElement createTFootElement() {
     return (TableSectionElement) DOMImpl.impl.createElement(this,
         TableSectionElement.TAG_TFOOT);
@@ -1182,6 +1279,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TableSectionElement createTHeadElement() {
     return (TableSectionElement) DOMImpl.impl.createElement(this,
         TableSectionElement.TAG_THEAD);
@@ -1192,6 +1290,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TableCellElement createTHElement() {
     return (TableCellElement) DOMImpl.impl.createElement(this,
         TableCellElement.TAG_TH);
@@ -1202,6 +1301,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TitleElement createTitleElement() {
     return (TitleElement) DOMImpl.impl.createElement(this, TitleElement.TAG);
   }
@@ -1211,6 +1311,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final TableRowElement createTRElement() {
     return (TableRowElement) DOMImpl.impl.createElement(this,
         TableRowElement.TAG);
@@ -1221,6 +1322,7 @@ public class Document extends Node {
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final UListElement createULElement() {
     return (UListElement) DOMImpl.impl.createElement(this, UListElement.TAG);
   }
@@ -1232,21 +1334,26 @@ public class Document extends Node {
    * 
    * @return a unique identifier
    */
-  public final native String createUniqueId() /*-{
+  @JsOverlay
+  public final String createUniqueId() {
     // In order to force uid's to be document-unique across multiple modules,
     // we hang a counter from the document.
-    if (!this.gwt_uid) {
-      this.gwt_uid = 1;
+    if (Js.isFalsy(this.gwtUid)) {
+      this.gwtUid = 1;
     }
 
-    return "gwt-uid-" + this.gwt_uid++;
-  }-*/;
+    return "gwt-uid-" + this.gwtUid++;
+  }
+
+  @JsProperty(name = "gwt_uid")
+  private double gwtUid;
 
   /**
    * Creates a &lt;video&gt; element.
    * 
    * @return the newly created element
    */
+  @JsOverlay
   public final VideoElement createVideoElement() {
     return (VideoElement) DOMImpl.impl.createElement(this, VideoElement.TAG);
   }
@@ -1256,6 +1363,7 @@ public class Document extends Node {
    * 
    * @param enable whether scrolling should be enabled or disabled
    */
+  @JsOverlay
   public final void enableScrolling(boolean enable) {
     getViewportElement().getStyle().setProperty("overflow",
         enable ? "auto" : "hidden");
@@ -1267,9 +1375,8 @@ public class Document extends Node {
    * 
    * @return the document's body
    */
-  public final native BodyElement getBody() /*-{
-    return this.body;
-  }-*/;
+  @JsProperty
+  public final native BodyElement getBody();
 
   /**
    * Returns the left offset between the absolute coordinate system and the
@@ -1298,6 +1405,7 @@ public class Document extends Node {
    * 
    * @return the left offset of the body's positioning coordinate system
    */
+  @JsOverlay
   public final int getBodyOffsetLeft() {
     return DOMImpl.impl.getBodyOffsetLeft(this);
   }
@@ -1310,6 +1418,7 @@ public class Document extends Node {
    * @return the top offset of the body's positioning coordinate system
    * @see #getBodyOffsetLeft()
    */
+  @JsOverlay
   public final int getBodyOffsetTop() {
     return DOMImpl.impl.getBodyOffsetTop(this);
   }
@@ -1319,6 +1428,7 @@ public class Document extends Node {
    * 
    * @return the document's client height
    */
+  @JsOverlay
   public final int getClientHeight() {
     return getViewportElement().getClientHeight();
   }
@@ -1328,6 +1438,7 @@ public class Document extends Node {
    * 
    * @return the document's client width
    */
+  @JsOverlay
   public final int getClientWidth() {
     return getViewportElement().getClientWidth();
   }
@@ -1338,18 +1449,16 @@ public class Document extends Node {
    * 
    * @return one of "BackCompat" or "CSS1Compat"
    */
-  public final native String getCompatMode() /*-{
-    return this.compatMode;
-  }-*/;
+  @JsProperty
+  public final native String getCompatMode();
 
   /**
    * Gets the document's element. This is typically the &lt;html&gt; element.
    * 
    * @return the document element
    */
-  public final native Element getDocumentElement() /*-{
-    return this.documentElement;
-  }-*/;
+  @JsProperty
+  public final native Element getDocumentElement();
 
   /**
    * The domain name of the server that served the document, or null if the
@@ -1357,9 +1466,8 @@ public class Document extends Node {
    * 
    * @return the document's domain, or <code>null</code> if none exists
    */
-  public final native String getDomain() /*-{
-    return this.domain;
-  }-*/;
+  @JsProperty
+  public final native String getDomain();
 
   /**
    * Returns the {@link Element} whose id is given by elementId. If no such
@@ -1369,9 +1477,7 @@ public class Document extends Node {
    * @param elementId the unique id value for an element
    * @return the matching element
    */
-  public final native Element getElementById(String elementId) /*-{
-    return this.getElementById(elementId);
-  }-*/;
+  public final native Element getElementById(String elementId);
 
   /**
    * Returns a {@link NodeList} of all the {@link Element Elements} with a given
@@ -1382,9 +1488,7 @@ public class Document extends Node {
    *          <code>"*"</code> matches all tags)
    * @return a list containing all the matched elements
    */
-  public final native NodeList<Element> getElementsByTagName(String tagName) /*-{
-    return this.getElementsByTagName(tagName);
-  }-*/;
+  public final native NodeList<Element> getElementsByTagName(String tagName);
 
   /**
    * The element that contains metadata about the document, including links to or
@@ -1392,9 +1496,8 @@ public class Document extends Node {
    *
    * @return the document's head
    */
-  public final native HeadElement getHead() /*-{
-    return this.head;
-  }-*/;
+  @JsProperty
+  public final native HeadElement getHead();
 
   /**
    * Returns the URI of the page that linked to this page. The value is an empty
@@ -1403,15 +1506,15 @@ public class Document extends Node {
    * 
    * @return the referrer URI
    */
-  public final native String getReferrer() /*-{
-    return this.referrer;
-  }-*/;
+  @JsProperty
+  public final native String getReferrer();
 
   /**
    * The height of the scrollable area of the document.
    * 
    * @return the height of the document's scrollable area
    */
+  @JsOverlay
   public final int getScrollHeight() {
     // TODO(dramaix): Use document.scrollingElement when its available. See getScrollLeft().
     return getViewportElement().getScrollHeight();
@@ -1427,6 +1530,7 @@ public class Document extends Node {
    * 
    * @return the document's left scroll position
    */
+  @JsOverlay
   public final int getScrollLeft() {
     return DOMImpl.impl.getScrollLeft(this);
   }
@@ -1436,6 +1540,7 @@ public class Document extends Node {
    * 
    * @return the document's top scroll position
    */
+  @JsOverlay
   public final int getScrollTop() {
     return DOMImpl.impl.getScrollTop(this);
   }
@@ -1445,6 +1550,7 @@ public class Document extends Node {
    * 
    * @return the width of the document's scrollable area
    */
+  @JsOverlay
   public final int getScrollWidth() {
     // TODO(dramaix): Use document.scrollingElement when its available. See getScrollLeft().
     return getViewportElement().getScrollWidth();
@@ -1456,18 +1562,16 @@ public class Document extends Node {
    * 
    * @return the document's title
    */
-  public final native String getTitle() /*-{
-    return this.title;
-  }-*/;
+  @JsProperty
+  public final native String getTitle();
 
   /**
    * Gets the absolute URI of this document.
    * 
    * @return the document URI
    */
-  public final native String getURL() /*-{
-    return this.URL;
-  }-*/;
+  @JsProperty
+  public final native String getURL();
 
   /**
    * Imports a node from another document to this document.
@@ -1490,9 +1594,7 @@ public class Document extends Node {
    *          specified node; if <code>false</code>, import only the node
    *          itself, as explained above
    */
-  public final native void importNode(Node node, boolean deep) /*-{
-    this.importNode(node, deep);
-  }-*/;
+  public final native void importNode(Node node, boolean deep);
 
   /**
    * Determines whether the document's "compatMode" is "CSS1Compat". This is
@@ -1500,6 +1602,7 @@ public class Document extends Node {
    * 
    * @return <code>true</code> if the document is in CSS1Compat mode
    */
+  @JsOverlay
   public final boolean isCSS1Compat() {
     return getCompatMode().equals("CSS1Compat");
   }
@@ -1510,6 +1613,7 @@ public class Document extends Node {
    * 
    * @param left the document's left scroll position
    */
+  @JsOverlay
   public final void setScrollLeft(int left) {
     DOMImpl.impl.setScrollLeft(this, left);
   }
@@ -1520,6 +1624,7 @@ public class Document extends Node {
    * 
    * @param top the document's top scroll position
    */
+  @JsOverlay
   public final void setScrollTop(int top) {
     DOMImpl.impl.setScrollTop(this, top);
   }
@@ -1530,9 +1635,8 @@ public class Document extends Node {
    * 
    * @param title the document's new title
    */
-  public final native void setTitle(String title) /*-{
-    this.title = title;
-  }-*/;
+  @JsProperty
+  public final native void setTitle(String title);
 
   /**
    * Gets the document's viewport element. This is the element that should be
@@ -1544,6 +1648,7 @@ public class Document extends Node {
    * 
    * @return the document's viewport element
    */
+  @JsOverlay
   final Element getViewportElement() {
     return isCSS1Compat() ? getDocumentElement() : getBody();
   }

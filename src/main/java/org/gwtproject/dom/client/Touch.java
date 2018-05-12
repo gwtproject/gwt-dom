@@ -16,12 +16,16 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 
 /**
  * Class representing touches.
  *
  * See {@link <a href="http://developer.apple.com/library/safari/#documentation/UserExperience/Reference/TouchClassReference/Touch/Touch.html">Safari Touch Documentation</a>}
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class Touch extends JavaScriptObject {
 
   protected Touch() {
@@ -32,6 +36,7 @@ public class Touch extends JavaScriptObject {
    *
    * @return the touch x-position
    */
+  @JsOverlay
   public final int getClientX() {
     return DOMImpl.impl.touchGetClientX(this);
   }
@@ -41,6 +46,7 @@ public class Touch extends JavaScriptObject {
    *
    * @return the touch y-position
    */
+  @JsOverlay
   public final int getClientY() {
     return DOMImpl.impl.touchGetClientY(this);
   }
@@ -50,6 +56,7 @@ public class Touch extends JavaScriptObject {
    *
    * @return the unique identifier for this touch
    */
+  @JsOverlay
   public final int getIdentifier() {
     return DOMImpl.impl.touchGetIdentifier(this);
   }
@@ -59,6 +66,7 @@ public class Touch extends JavaScriptObject {
    *
    * @return the touch x-position
    */
+  @JsOverlay
   public final int getPageX() {
     return DOMImpl.impl.touchGetPageX(this);
   }
@@ -68,6 +76,7 @@ public class Touch extends JavaScriptObject {
    *
    * @return the touch y-position
    */
+  @JsOverlay
   public final int getPageY() {
     return DOMImpl.impl.touchGetPageY(this);
   }
@@ -78,6 +87,7 @@ public class Touch extends JavaScriptObject {
    * @param target the element whose coordinate system is to be used
    * @return the relative x-position
    */
+  @JsOverlay
   public final int getRelativeX(Element target) {
     return getClientX() - target.getAbsoluteLeft() + target.getScrollLeft()
         + target.getOwnerDocument().getScrollLeft();
@@ -89,6 +99,7 @@ public class Touch extends JavaScriptObject {
    * @param target the element whose coordinate system is to be used
    * @return the relative y-position
    */
+  @JsOverlay
   public final int getRelativeY(Element target) {
     return getClientY() - target.getAbsoluteTop() + target.getScrollTop()
         + target.getOwnerDocument().getScrollTop();
@@ -99,6 +110,7 @@ public class Touch extends JavaScriptObject {
    *
    * @return the touch x-position
    */
+  @JsOverlay
   public final int getScreenX() {
     return DOMImpl.impl.touchGetScreenX(this);
   }
@@ -108,6 +120,7 @@ public class Touch extends JavaScriptObject {
    *
    * @return the touch y-position
    */
+  @JsOverlay
   public final int getScreenY() {
     return DOMImpl.impl.touchGetScreenY(this);
   }
@@ -117,6 +130,7 @@ public class Touch extends JavaScriptObject {
    *
    * @return the target element
    */
+  @JsOverlay
   public final EventTarget getTarget() {
     return DOMImpl.impl.touchGetTarget(this);
   }

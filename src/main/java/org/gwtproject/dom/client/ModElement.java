@@ -18,6 +18,10 @@ package org.gwtproject.dom.client;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.safehtml.shared.SafeUri;
 import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * Notice of modification to part of a document.
@@ -25,16 +29,20 @@ import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/text.html#edef-ins">W3C HTML Specification</a>
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/text.html#edef-del">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName({ModElement.TAG_INS, ModElement.TAG_DEL})
 public class ModElement extends Element {
 
+  @JsOverlay
   public static final String TAG_INS = "ins";
+  @JsOverlay
   public static final String TAG_DEL = "del";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static ModElement as(Element elem) {
     assert is(elem);
     return (ModElement) elem;
@@ -45,6 +53,7 @@ public class ModElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -57,6 +66,7 @@ public class ModElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -69,6 +79,7 @@ public class ModElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null &&
         ( elem.getTagName().equalsIgnoreCase(TAG_INS) ||
@@ -83,24 +94,23 @@ public class ModElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/">W3C HTML Specification</a>
    */
-  public final native String getCite() /*-{
-    return this.cite;
-  }-*/;
+  @JsProperty
+  public final native String getCite();
 
   /**
    * The date and time of the change.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/text.html#adef-datetime">W3C HTML Specification</a>
    */
-  public final native String getDateTime() /*-{
-    return this.dateTime;
-  }-*/;
+  @JsProperty
+  public final native String getDateTime();
 
   /**
    * A URI designating a document that describes the reason for the change.
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/">W3C HTML Specification</a>
    */
+  @JsOverlay
   public final void setCite(SafeUri cite) {
     setCite(cite.asString());
   }
@@ -110,16 +120,14 @@ public class ModElement extends Element {
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/">W3C HTML Specification</a>
    */
-  public final native void setCite(@IsSafeUri String cite) /*-{
-    this.cite = cite;
-  }-*/;
+  @JsProperty
+  public final native void setCite(@IsSafeUri String cite);
 
   /**
    * The date and time of the change.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/text.html#adef-datetime">W3C HTML Specification</a>
    */
-  public final native void setDateTime(String dateTime) /*-{
-    this.dateTime = dateTime;
-  }-*/;
+  @JsProperty
+  public final native void setDateTime(String dateTime);
 }

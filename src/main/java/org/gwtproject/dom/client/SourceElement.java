@@ -16,6 +16,10 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * The SOURCE element specifies one of potentially multiple source file in a
@@ -24,15 +28,18 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @see <a href="http://www.w3.org/TR/html5/video.html#the-source-element">W3C
  *      HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(SourceElement.TAG)
 public class SourceElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "source";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static SourceElement as(Element elem) {
     assert is(elem);
     return (SourceElement) elem;
@@ -43,6 +50,7 @@ public class SourceElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -55,6 +63,7 @@ public class SourceElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -67,6 +76,7 @@ public class SourceElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -81,9 +91,8 @@ public class SourceElement extends Element {
    * 
    * @see #setSrc(String)
    */
-  public final native String getSrc() /*-{
-    return this.src;
-  }-*/;
+  @JsProperty
+  public final native String getSrc();
 
   /**
    * Returns the type of media represented by the src, or {@code null} if none
@@ -93,9 +102,8 @@ public class SourceElement extends Element {
    * 
    * @see #setType(String)
    */
-  public final native String getType() /*-{
-    return this.type;
-  }-*/;
+  @JsProperty
+  public final native String getType();
 
   /**
    * Sets the source URL for the media.
@@ -104,9 +112,8 @@ public class SourceElement extends Element {
    * 
    * @see #getSrc()
    */
-  public final native void setSrc(String url) /*-{
-    this.src = url;
-  }-*/;
+  @JsProperty
+  public final native void setSrc(String url);
 
   /**
    * Sets the type of media represented by the src. The browser will look at the
@@ -129,7 +136,6 @@ public class SourceElement extends Element {
    * 
    * @see #getType()
    */
-  public final native void setType(String type) /*-{
-    this.type = type;
-  }-*/;
+  @JsProperty
+  public final native void setType(String type);
 }

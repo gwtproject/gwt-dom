@@ -16,25 +16,35 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * The THEAD, TFOOT, and TBODY elements.
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName({TableSectionElement.TAG_TBODY, TableSectionElement.TAG_TFOOT,
   TableSectionElement.TAG_THEAD})
 public class TableSectionElement extends Element {
-  
+
+  @JsOverlay
   static final String[] TAGS = {TableSectionElement.TAG_TBODY, TableSectionElement.TAG_TFOOT, 
     TableSectionElement.TAG_THEAD};
 
+  @JsOverlay
   public static final String TAG_TBODY = "tbody";
+  @JsOverlay
   public static final String TAG_TFOOT = "tfoot";
+  @JsOverlay
   public static final String TAG_THEAD = "thead";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static TableSectionElement as(Element elem) {
     assert is(elem);
     return (TableSectionElement) elem;
@@ -45,6 +55,7 @@ public class TableSectionElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -57,6 +68,7 @@ public class TableSectionElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -69,6 +81,7 @@ public class TableSectionElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && 
         (  elem.getTagName().equalsIgnoreCase(TAG_THEAD)
@@ -86,50 +99,43 @@ public class TableSectionElement extends Element {
    *          row. This index starts from 0 and is relative only to the rows
    *          contained inside this section, not all the rows in the table.
    */
-  public final native void deleteRow(int index) /*-{
-    this.deleteRow(index);
-  }-*/;
+  public final native void deleteRow(int index);
 
   /**
    * Horizontal alignment of data in cells. See the align attribute for
    * HTMLTheadElement for details.
    */
-  public final native String getAlign() /*-{
-    return this.align;
-  }-*/;
+  @JsProperty
+  public final native String getAlign();
 
   /**
    * Alignment character for cells in a column.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-char">W3C HTML Specification</a>
    */
-  public final native String getCh() /*-{
-     return this.ch;
-   }-*/;
+  @JsProperty
+  public final native String getCh();
 
   /**
    * Offset of alignment character.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-charoff">W3C HTML Specification</a>
    */
-  public final native String getChOff() /*-{
-     return this.chOff;
-   }-*/;
+  @JsProperty
+  public final native String getChOff();
 
   /**
    * The collection of rows in this table section.
    */
-  public final native NodeList<TableRowElement> getRows() /*-{
-    return this.rows;
-  }-*/;
+  @JsProperty
+  public final native NodeList<TableRowElement> getRows();
 
   /**
    * Vertical alignment of data in cells. See the valign attribute for
    * HTMLTheadElement for details.
    */
-  public final native String getVAlign() /*-{
-    return this.vAlign;
-  }-*/;
+  @JsProperty
+  public final native String getVAlign();
 
   /**
    * Insert a row into this section. The new row is inserted immediately before
@@ -141,41 +147,35 @@ public class TableSectionElement extends Element {
    *          section, not all the rows in the table.
    * @return The newly created row.
    */
-  public final native TableRowElement insertRow(int index) /*-{
-    return this.insertRow(index);
-  }-*/;
+  public final native TableRowElement insertRow(int index);
 
   /**
    * Horizontal alignment of data in cells. See the align attribute for
    * HTMLTheadElement for details.
    */
-  public final native void setAlign(String align) /*-{
-    this.align = align;
-  }-*/;
+  @JsProperty
+  public final native void setAlign(String align);
 
   /**
    * Alignment character for cells in a column.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-char">W3C HTML Specification</a>
    */
-  public final native void setCh(String ch) /*-{
-     this.ch = ch;
-   }-*/;
+  @JsProperty
+  public final native void setCh(String ch);
 
   /**
    * Offset of alignment character.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-charoff">W3C HTML Specification</a>
    */
-  public final native void setChOff(String chOff) /*-{
-     this.chOff = chOff;
-   }-*/;
+  @JsProperty
+  public final native void setChOff(String chOff);
 
   /**
    * Vertical alignment of data in cells. See the valign attribute for
    * HTMLTheadElement for details.
    */
-  public final native void setVAlign(String vAlign) /*-{
-    this.vAlign = vAlign;
-  }-*/;
+  @JsProperty
+  public final native void setVAlign(String vAlign);
 }

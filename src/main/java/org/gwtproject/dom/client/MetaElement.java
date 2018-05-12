@@ -16,21 +16,28 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * This contains generic meta-information about the document.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#edef-META">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(MetaElement.TAG)
 public class MetaElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "meta";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static MetaElement as(Element elem) {
     assert is(elem);
     return (MetaElement) elem;
@@ -41,6 +48,7 @@ public class MetaElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +61,7 @@ public class MetaElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +74,7 @@ public class MetaElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -77,52 +87,46 @@ public class MetaElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-content">W3C HTML Specification</a>
    */
-  public final native String getContent() /*-{
-     return this.content;
-   }-*/;
+  @JsProperty
+  public final native String getContent();
 
   /**
    * HTTP response header name [IETF RFC 2616].
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-http-equiv">W3C HTML Specification</a>
    */
-  public final native String getHttpEquiv() /*-{
-     return this.httpEquiv;
-   }-*/;
+  @JsProperty
+  public final native String getHttpEquiv();
 
   /**
    * Meta information name.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-name-META">W3C HTML Specification</a>
    */
-  public final native String getName() /*-{
-     return this.name;
-   }-*/;
+  @JsProperty
+  public final native String getName();
 
   /**
    * Associated information.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-content">W3C HTML Specification</a>
    */
-  public final native void setContent(String content) /*-{
-     this.content = content;
-   }-*/;
+  @JsProperty
+  public final native void setContent(String content);
 
   /**
    * HTTP response header name [IETF RFC 2616].
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-http-equiv">W3C HTML Specification</a>
    */
-  public final native void setHttpEquiv(String httpEquiv) /*-{
-     this.httpEquiv = httpEquiv;
-   }-*/;
+  @JsProperty
+  public final native void setHttpEquiv(String httpEquiv);
 
   /**
    * Meta information name.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-name-META">W3C HTML Specification</a>
    */
-  public final native void setName(String name) /*-{
-     this.name = name;
-   }-*/;
+  @JsProperty
+  public final native void setName(String name);
 }

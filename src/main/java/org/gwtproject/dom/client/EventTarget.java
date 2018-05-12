@@ -16,6 +16,8 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 
 /**
  * Represents the target of a JavaScript event.
@@ -32,6 +34,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  * IDL (dispatchEvent, addEventListener, and removeEventListener).
  * </p>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class EventTarget extends JavaScriptObject {
 
   protected EventTarget() {

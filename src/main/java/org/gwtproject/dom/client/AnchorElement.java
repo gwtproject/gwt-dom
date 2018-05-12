@@ -18,21 +18,28 @@ package org.gwtproject.dom.client;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.safehtml.shared.SafeUri;
 import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * The anchor element.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#edef-A">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(AnchorElement.TAG)
 public class AnchorElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "a";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static AnchorElement as(Element elem) {
     assert is(elem);
     return (AnchorElement) elem;
@@ -43,6 +50,7 @@ public class AnchorElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -55,6 +63,7 @@ public class AnchorElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -67,6 +76,7 @@ public class AnchorElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -80,78 +90,71 @@ public class AnchorElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accesskey">W3C HTML Specification</a>
    */
-  public final native String getAccessKey() /*-{
-    return this.accessKey;
-  }-*/;
+  @JsProperty
+  public final native String getAccessKey();
 
   /**
    * The absolute URI of the linked resource.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-href">W3C HTML Specification</a>
    */
-  public final native String getHref() /*-{
-    return this.href;
-  }-*/;
+  @JsProperty
+  public final native String getHref();
 
   /**
    * Language code of the linked resource.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-hreflang">W3C HTML Specification</a>
    */
-  public final native String getHreflang() /*-{
-     return this.hreflang;
-   }-*/;
+  @JsProperty
+  public final native String getHreflang();
 
   /**
    * Anchor name.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-name-A">W3C HTML Specification</a>
    */
-  public final native String getName() /*-{
-     return this.name;
-   }-*/;
+  @JsProperty
+  public final native String getName();
 
   /**
    * Forward link type.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-rel">W3C HTML Specification</a>
    */
-  public final native String getRel() /*-{
-     return this.rel;
-   }-*/;
+  @JsProperty
+  public final native String getRel();
 
   /**
    * Frame to render the resource in.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-target">W3C HTML Specification</a>
    */
-  public final native String getTarget() /*-{
-    return this.target;
-  }-*/;
+  @JsProperty
+  public final native String getTarget();
 
   /**
    * Advisory content type.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-type-A">W3C HTML Specification</a>
    */
-  public final native String getType() /*-{
-     return this.type;
-   }-*/;
+  @JsProperty
+  public final native String getType();
 
   /**
    * A single character access key to give access to the form control.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accesskey">W3C HTML Specification</a>
    */
-  public final native void setAccessKey(String accessKey) /*-{
-    this.accessKey = accessKey;
-  }-*/;
+  @JsProperty
+  public final native void setAccessKey(String accessKey);
 
   /**
    * The absolute URI of the linked resource.
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-href">W3C HTML Specification</a>
    */
+  @JsOverlay
   public final void setHref(SafeUri href) {
     setHref(href.asString());
   }
@@ -161,52 +164,46 @@ public class AnchorElement extends Element {
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-href">W3C HTML Specification</a>
    */
-  public final native void setHref(@IsSafeUri String href) /*-{
-    this.href = href;
-  }-*/;
+  @JsProperty
+  public final native void setHref(@IsSafeUri String href);
 
   /**
    * Language code of the linked resource.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-hreflang">W3C HTML Specification</a>
    */
-  public final native void setHreflang(String hreflang) /*-{
-     this.hreflang = hreflang;
-   }-*/;
+  @JsProperty
+  public final native void setHreflang(String hreflang);
 
   /**
    * Anchor name.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-name-A">W3C HTML Specification</a>
    */
-  public final native void setName(String name) /*-{
-     this.name = name;
-   }-*/;
+  @JsProperty
+  public final native void setName(String name);
 
   /**
    * Forward link type.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-rel">W3C HTML Specification</a>
    */
-  public final native void setRel(String rel) /*-{
-     this.rel = rel;
-   }-*/;
+  @JsProperty
+  public final native void setRel(String rel);
 
   /**
    * Frame to render the resource in.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-target">W3C HTML Specification</a>
    */
-  public final native void setTarget(String target) /*-{
-    this.target = target;
-  }-*/;
+  @JsProperty
+  public final native void setTarget(String target);
 
   /**
    * Advisory content type.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-type-A">W3C HTML Specification</a>
    */
-  public final native void setType(String type) /*-{
-     this.type = type;
-   }-*/;
+  @JsProperty
+  public final native void setType(String type);
 }

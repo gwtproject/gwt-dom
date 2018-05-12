@@ -16,6 +16,10 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * The create* and delete* methods on the table allow authors to construct and
@@ -26,15 +30,18 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#edef-TABLE">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(TableElement.TAG)
 public class TableElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "table";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static TableElement as(Element elem) {
     assert is(elem);
     return (TableElement) elem;
@@ -45,6 +52,7 @@ public class TableElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -57,6 +65,7 @@ public class TableElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -69,6 +78,7 @@ public class TableElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -81,34 +91,26 @@ public class TableElement extends Element {
    * 
    * @return A CAPTION element.
    */
-  public final native TableCaptionElement createCaption() /*-{
-    return this.createCaption();
-  }-*/;
+  public final native TableCaptionElement createCaption();
 
   /**
    * Create a table footer row or return an existing one.
    * 
    * @return A footer element (TFOOT)
    */
-  public final native TableSectionElement createTFoot() /*-{
-    return this.createTFoot();
-  }-*/;
+  public final native TableSectionElement createTFoot();
 
   /**
    * Create a table header row or return an existing one.
    * 
    * @return A new table header element (THEAD)
    */
-  public final native TableSectionElement createTHead() /*-{
-    return this.createTHead();
-  }-*/;
+  public final native TableSectionElement createTHead();
 
   /**
    * Delete the table caption, if one exists.
    */
-  public final native void deleteCaption() /*-{
-    this.deleteCaption();
-  }-*/;
+  public final native void deleteCaption();
 
   /**
    * Delete a table row.
@@ -118,39 +120,31 @@ public class TableElement extends Element {
    *          the rows contained inside the table. If the index is -1 the last
    *          row in the table is deleted
    */
-  public final native void deleteRow(int index) /*-{
-    this.deleteRow(index);
-  }-*/;
+  public final native void deleteRow(int index);
 
   /**
    * Delete the header from the table, if one exists.
    */
-  public final native void deleteTFoot() /*-{
-    this.deleteTFoot();
-  }-*/;
+  public final native void deleteTFoot();
 
   /**
    * Delete the header from the table, if one exists.
    */
-  public final native void deleteTHead() /*-{
-    this.deleteTHead();
-  }-*/;
+  public final native void deleteTHead();
 
   /**
    * The width of the border around the table.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-border-TABLE">W3C HTML Specification</a>
    */
-  public final native int getBorder() /*-{
-    return this.border;
-  }-*/;
+  @JsProperty
+  public final native int getBorder();
 
   /**
    * The table's CAPTION, or null if none exists.
    */
-  public final native TableCaptionElement getCaption() /*-{
-     return this.caption;
-   }-*/;
+  @JsProperty
+  public final native TableCaptionElement getCaption();
 
   /**
    * Specifies the horizontal and vertical space between cell content and cell
@@ -158,74 +152,65 @@ public class TableElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-cellpadding">W3C HTML Specification</a>
    */
-  public final native int getCellPadding() /*-{
-    return this.cellPadding;
-  }-*/;
+  @JsProperty
+  public final native int getCellPadding();
 
   /**
    * Specifies the horizontal and vertical separation between cells.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-cellspacing">W3C HTML Specification</a>
    */
-  public final native int getCellSpacing() /*-{
-    return this.cellSpacing;
-  }-*/;
+  @JsProperty
+  public final native int getCellSpacing();
 
   /**
    * Specifies which external table borders to render.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-frame">W3C HTML Specification</a>
    */
-  public final native String getFrame() /*-{
-    return this.frame;
-  }-*/;
+  @JsProperty
+  public final native String getFrame();
 
   /**
    * Returns a collection of all the rows in the table, including all in THEAD,
    * TFOOT, all TBODY elements.
    */
-  public final native NodeList<TableRowElement> getRows() /*-{
-    return this.rows;
-  }-*/;
+  @JsProperty
+  public final native NodeList<TableRowElement> getRows();
 
   /**
    * Specifies which internal table borders to render.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-rules">W3C HTML Specification</a>
    */
-  public final native String getRules() /*-{
-    return this.rules;
-  }-*/;
+  @JsProperty
+  public final native String getRules();
 
   /**
    * Returns a collection of the table bodies (including implicit ones).
    */
-  public final native NodeList<TableSectionElement> getTBodies() /*-{
-    return this.tBodies;
-  }-*/;
+  @JsProperty
+  public final native NodeList<TableSectionElement> getTBodies();
 
   /**
    * The table's TFOOT, or null if none exists.
    */
-  public final native TableSectionElement getTFoot() /*-{
-     return this.tFoot;
-   }-*/;
+  @JsProperty
+  public final native TableSectionElement getTFoot();
 
   /**
    * The table's THEAD, or null if none exists.
    */
-  public final native TableSectionElement getTHead() /*-{
-     return this.tHead;
-   }-*/;
+  @JsProperty
+  public final native TableSectionElement getTHead();
 
   /**
    * Specifies the desired table width.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-width-TABLE">W3C HTML Specification</a>
    */
-  public final native String getWidth() /*-{
-     return this.width;
-   }-*/;
+  @JsProperty
+  public final native String getWidth();
 
   /**
    * Insert a new empty row in the table. The new row is inserted immediately
@@ -241,25 +226,21 @@ public class TableElement extends Element {
    *          of all the rows contained inside the table
    * @return The newly created row
    */
-  public final native TableRowElement insertRow(int index) /*-{
-    return this.insertRow(index);
-  }-*/;
+  public final native TableRowElement insertRow(int index);
 
   /**
    * The width of the border around the table.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-border-TABLE">W3C HTML Specification</a>
    */
-  public final native void setBorder(int border) /*-{
-    this.border = border;
-  }-*/;
+  @JsProperty
+  public final native void setBorder(int border);
 
   /**
    * The table's CAPTION, or null if none exists.
    */
-  public final native void setCaption(TableCaptionElement caption) /*-{
-     this.caption = caption;
-   }-*/;
+  @JsProperty
+  public final native void setCaption(TableCaptionElement caption);
 
   /**
    * Specifies the horizontal and vertical space between cell content and cell
@@ -267,57 +248,50 @@ public class TableElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-cellpadding">W3C HTML Specification</a>
    */
-  public final native void setCellPadding(int cellPadding) /*-{
-    this.cellPadding = cellPadding;
-  }-*/;
+  @JsProperty
+  public final native void setCellPadding(int cellPadding);
 
   /**
    * Specifies the horizontal and vertical separation between cells.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-cellspacing">W3C HTML Specification</a>
    */
-  public final native void setCellSpacing(int cellSpacing) /*-{
-    this.cellSpacing = cellSpacing;
-  }-*/;
+  @JsProperty
+  public final native void setCellSpacing(int cellSpacing);
 
   /**
    * Specifies which external table borders to render.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-frame">W3C HTML Specification</a>
    */
-  public final native void setFrame(String frame) /*-{
-    this.frame = frame;
-  }-*/;
+  @JsProperty
+  public final native void setFrame(String frame);
 
   /**
    * Specifies which internal table borders to render.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-rules">W3C HTML Specification</a>
    */
-  public final native void setRules(String rules) /*-{
-    this.rules = rules;
-  }-*/;
+  @JsProperty
+  public final native void setRules(String rules);
 
   /**
    * The table's TFOOT, or null if none exists.
    */
-  public final native void setTFoot(TableSectionElement tFoot) /*-{
-     this.tFoot = tFoot;
-   }-*/;
+  @JsProperty
+  public final native void setTFoot(TableSectionElement tFoot);
 
   /**
    * The table's THEAD, or null if none exists.
    */
-  public final native void setTHead(TableSectionElement tHead) /*-{
-     this.tHead = tHead;
-   }-*/;
+  @JsProperty
+  public final native void setTHead(TableSectionElement tHead);
 
   /**
    * Specifies the desired table width.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-width-TABLE">W3C HTML Specification</a>
    */
-  public final native void setWidth(String width) /*-{
-     this.width = width;
-   }-*/;
+  @JsProperty
+  public final native void setWidth(String width);
 }

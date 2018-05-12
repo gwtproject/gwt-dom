@@ -17,6 +17,12 @@ package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.safehtml.shared.annotations.IsTrustedResourceUri;
+import elemental2.dom.HTMLLinkElement;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * The LINK element specifies a link to an external resource, and defines this
@@ -24,15 +30,18 @@ import com.google.gwt.safehtml.shared.annotations.IsTrustedResourceUri;
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#edef-LINK">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(LinkElement.TAG)
 public class LinkElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "link";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static LinkElement as(Element elem) {
     assert is(elem);
     return (LinkElement) elem;
@@ -43,6 +52,7 @@ public class LinkElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -55,6 +65,7 @@ public class LinkElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -67,6 +78,7 @@ public class LinkElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -79,132 +91,121 @@ public class LinkElement extends Element {
    * links, and may be used to activate or deactivate style sheets.
    * @deprecated use {@link #isDisabled()} instead.
    */
+  @JsOverlay
   @Deprecated
-  public final native boolean getDisabled() /*-{
-    return !!this.disabled;
-  }-*/;
+  public final boolean getDisabled() {
+    return Js.isTruthy(Js.<HTMLLinkElement>uncheckedCast(this).disabled);
+  }
 
   /**
    * The URI of the linked resource.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-href">W3C HTML Specification</a>
    */
-  public final native String getHref() /*-{
-     return this.href;
-   }-*/;
+  @JsProperty
+  public final native String getHref();
 
   /**
    * Language code of the linked resource.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-hreflang">W3C HTML Specification</a>
    */
-  public final native String getHreflang() /*-{
-     return this.hreflang;
-   }-*/;
+  @JsProperty
+  public final native String getHreflang();
 
   /**
    * Designed for use with one or more target media.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/styles.html#adef-media">W3C HTML Specification</a>
    */
-  public final native String getMedia() /*-{
-     return this.media;
-   }-*/;
+  @JsProperty
+  public final native String getMedia();
 
   /**
    * Forward link type.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-rel">W3C HTML Specification</a>
    */
-  public final native String getRel() /*-{
-     return this.rel;
-   }-*/;
+  @JsProperty
+  public final native String getRel();
 
   /**
    * Frame to render the resource in.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-target">W3C HTML Specification</a>
    */
-  public final native String getTarget() /*-{
-     return this.target;
-   }-*/;
+  @JsProperty
+  public final native String getTarget();
 
   /**
    * Advisory content type.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-type-A">W3C HTML Specification</a>
    */
-  public final native String getType() /*-{
-     return this.type;
-   }-*/;
+  @JsProperty
+  public final native String getType();
 
   /**
    * Enables/disables the link. This is currently only used for style sheet
    * links, and may be used to activate or deactivate style sheets.
    */
-  public final native boolean isDisabled() /*-{
-    return !!this.disabled;
-  }-*/;
+  @JsOverlay
+  public final boolean isDisabled() {
+    return Js.isTruthy(Js.<HTMLLinkElement>uncheckedCast(this).disabled);
+  }
 
   /**
    * Enables/disables the link. This is currently only used for style sheet
    * links, and may be used to activate or deactivate style sheets.
    */
-  public final native void setDisabled(boolean disabled) /*-{
-    this.disabled = disabled;
-  }-*/;
+  @JsProperty
+  public final native void setDisabled(boolean disabled);
 
   /**
    * The URI of the linked resource.
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-href">W3C HTML Specification</a>
    */
-  public final native void setHref(@IsTrustedResourceUri String href) /*-{
-     this.href = href;
-   }-*/;
+  @JsProperty
+  public final native void setHref(@IsTrustedResourceUri String href);
 
   /**
    * Language code of the linked resource.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-hreflang">W3C HTML Specification</a>
    */
-  public final native void setHreflang(String hreflang) /*-{
-     this.hreflang = hreflang;
-   }-*/;
+  @JsProperty
+  public final native void setHreflang(String hreflang);
 
   /**
    * Designed for use with one or more target media.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/styles.html#adef-media">W3C HTML Specification</a>
    */
-  public final native void setMedia(String media) /*-{
-     this.media = media;
-   }-*/;
+  @JsProperty
+  public final native void setMedia(String media);
 
   /**
    * Forward link type.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-rel">W3C HTML Specification</a>
    */
-  public final native void setRel(String rel) /*-{
-     this.rel = rel;
-   }-*/;
+  @JsProperty
+  public final native void setRel(String rel);
 
   /**
    * Frame to render the resource in.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-target">W3C HTML Specification</a>
    */
-  public final native void setTarget(String target) /*-{
-     this.target = target;
-   }-*/;
+  @JsProperty
+  public final native void setTarget(String target);
 
   /**
    * Advisory content type.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-type-A">W3C HTML Specification</a>
    */
-  public final native void setType(String type) /*-{
-     this.type = type;
-   }-*/;
+  @JsProperty
+  public final native void setType(String type);
 }

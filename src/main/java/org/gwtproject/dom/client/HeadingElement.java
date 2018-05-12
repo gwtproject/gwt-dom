@@ -16,6 +16,9 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 
 import java.util.Locale;
 
@@ -26,25 +29,34 @@ import java.util.Locale;
  *      href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#edef-H1">W3C
  *      HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName({HeadingElement.TAG_H1, HeadingElement.TAG_H2, HeadingElement.TAG_H3,
     HeadingElement.TAG_H4, HeadingElement.TAG_H5, HeadingElement.TAG_H6})
 public class HeadingElement extends Element {
 
+  @JsOverlay
   static final String[] TAGS = {
       HeadingElement.TAG_H1, HeadingElement.TAG_H2, HeadingElement.TAG_H3,
       HeadingElement.TAG_H4, HeadingElement.TAG_H5, HeadingElement.TAG_H6};
 
+  @JsOverlay
   public static final String TAG_H1 = "h1";
+  @JsOverlay
   public static final String TAG_H2 = "h2";
+  @JsOverlay
   public static final String TAG_H3 = "h3";
+  @JsOverlay
   public static final String TAG_H4 = "h4";
+  @JsOverlay
   public static final String TAG_H5 = "h5";
+  @JsOverlay
   public static final String TAG_H6 = "h6";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static HeadingElement as(Element elem) {
     if (HeadingElement.class.desiredAssertionStatus()) {
       assert is(elem);
@@ -58,6 +70,7 @@ public class HeadingElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -70,6 +83,7 @@ public class HeadingElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -82,6 +96,7 @@ public class HeadingElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     
     if (elem == null) {

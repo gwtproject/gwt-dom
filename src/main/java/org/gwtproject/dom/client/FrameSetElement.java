@@ -16,21 +16,28 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * Create a grid of frames.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#edef-FRAMESET">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(FrameSetElement.TAG)
 public class FrameSetElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "frameset";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static FrameSetElement as(Element elem) {
     assert is(elem);
     return (FrameSetElement) elem;
@@ -41,6 +48,7 @@ public class FrameSetElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +61,7 @@ public class FrameSetElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +74,7 @@ public class FrameSetElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -77,34 +87,30 @@ public class FrameSetElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-cols-FRAMESET">W3C HTML Specification</a>
    */
-  public final native String getCols() /*-{
-     return this.cols;
-   }-*/;
+  @JsProperty
+  public final native String getCols();
 
   /**
    * The number of rows of frames in the frameset.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-rows-FRAMESET">W3C HTML Specification</a>
    */
-  public final native String getRows() /*-{
-     return this.rows;
-   }-*/;
+  @JsProperty
+  public final native String getRows();
 
   /**
    * The number of columns of frames in the frameset.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-cols-FRAMESET">W3C HTML Specification</a>
    */
-  public final native void setCols(String cols) /*-{
-     this.cols = cols;
-   }-*/;
+  @JsProperty
+  public final native void setCols(String cols);
 
   /**
    * The number of rows of frames in the frameset.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-rows-FRAMESET">W3C HTML Specification</a>
    */
-  public final native void setRows(String rows) /*-{
-     this.rows = rows;
-   }-*/;
+  @JsProperty
+  public final native void setRows(String rows);
 }

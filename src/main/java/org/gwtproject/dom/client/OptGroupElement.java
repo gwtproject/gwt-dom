@@ -16,21 +16,30 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import elemental2.dom.HTMLOptGroupElement;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * Group options together in logical subdivisions.
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#edef-OPTGROUP">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(OptGroupElement.TAG)
 public class OptGroupElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "optgroup";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static OptGroupElement as(Element elem) {
     assert is(elem);
     return (OptGroupElement) elem;
@@ -41,6 +50,7 @@ public class OptGroupElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -53,6 +63,7 @@ public class OptGroupElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -65,6 +76,7 @@ public class OptGroupElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -78,53 +90,49 @@ public class OptGroupElement extends Element {
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    * @deprecated use {@link #isDisabled()} instead.
    */
+  @JsProperty
   @Deprecated
-  public final native String getDisabled() /*-{
-     return this.disabled;
-   }-*/;
+  public final native String getDisabled();
 
   /**
    * Assigns a label to this option group.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTGROUP">W3C HTML Specification</a>
    */
-  public final native String getLabel() /*-{
-     return this.label;
-   }-*/;
+  @JsProperty
+  public final native String getLabel();
 
   /**
    * The control is unavailable in this context.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    */
-  public final native boolean isDisabled() /*-{
-     return !!this.disabled;
-   }-*/;
+  @JsOverlay
+  public final boolean isDisabled() {
+     return Js.isTruthy(Js.<HTMLOptGroupElement>uncheckedCast(this).disabled);
+   }
 
   /**
    * The control is unavailable in this context.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    */
-  public final native void setDisabled(boolean disabled) /*-{
-     this.disabled = disabled;
-   }-*/;
+  @JsProperty
+  public final native void setDisabled(boolean disabled);
 
   /**
    * The control is unavailable in this context.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    */
-  public final native void setDisabled(String disabled) /*-{
-     this.disabled = disabled;
-   }-*/;
+  @JsProperty
+  public final native void setDisabled(String disabled);
 
   /**
    * Assigns a label to this option group.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTGROUP">W3C HTML Specification</a>
    */
-  public final native void setLabel(String label) /*-{
-     this.label = label;
-   }-*/;
+  @JsProperty
+  public final native void setLabel(String label);
 }

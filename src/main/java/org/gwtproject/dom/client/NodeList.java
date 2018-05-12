@@ -16,6 +16,11 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * The NodeList interface provides the abstraction of an ordered collection of
@@ -27,6 +32,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @param <T> the type of contained node
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class NodeList<T extends Node> extends JavaScriptObject {
 
   protected NodeList() {
@@ -40,15 +46,15 @@ public class NodeList<T extends Node> extends JavaScriptObject {
    * @return the node at the indexth position in the NodeList, or null if that
    *         is not a valid index.
    */
-  public final native T getItem(int index) /*-{
-    return this[index];
-  }-*/;
+  @JsOverlay
+  public final T getItem(int index) {
+    return Js.uncheckedCast(Js.asArrayLike(this).getAt(index));
+  }
 
   /**
    * The number of nodes in the list. The range of valid child node indices is 0
    * to length-1 inclusive.
    */
-  public final native int getLength() /*-{
-    return this.length;
-  }-*/;
+  @JsProperty
+  public final native int getLength();
 }

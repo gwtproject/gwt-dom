@@ -16,6 +16,11 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * The Node interface is the primary datatype for the entire Document Object
@@ -23,27 +28,29 @@ import com.google.gwt.core.client.JavaScriptObject;
  * implementing the Node interface expose methods for dealing with children, not
  * all objects implementing the Node interface may have children.
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class Node extends JavaScriptObject {
 
   /**
    * The node is an {@link Element}.
    */
-  public static final short ELEMENT_NODE = 1;
+  public static short ELEMENT_NODE;
 
   /**
    * The node is a {@link Text} node.
    */
-  public static final short TEXT_NODE = 3;
+  public static short TEXT_NODE;
 
   /**
    * The node is a {@link Document}.
    */
-  public static final short DOCUMENT_NODE = 9;
+  public static short DOCUMENT_NODE;
 
   /**
    * Assert that the given {@link JavaScriptObject} is a DOM node and
    * automatically typecast it.
    */
+  @JsOverlay
   public static Node as(JavaScriptObject o) {
     assert is(o);
     return (Node) o;
@@ -56,13 +63,14 @@ public class Node extends JavaScriptObject {
    * The try catch is needed for the firefox permission error:
    * "Permission denied to access property 'nodeType'"
    */
-  public static native boolean is(JavaScriptObject o) /*-{
+  @JsOverlay
+  public static boolean is(JavaScriptObject o) {
     try {
-      return (!!o) && (!!o.nodeType);
-    } catch (e) {
+      return Js.isTruthy(o) && Js.isTruthy(Js.asPropertyMap(o).get("nodeType"));
+    } catch (Exception e) {
       return false;
     }
-  }-*/;
+  }
 
   protected Node() {
   }
@@ -74,9 +82,7 @@ public class Node extends JavaScriptObject {
    * @param newChild The node to add
    * @return The node added
    */
-  public final native <T extends Node> T appendChild(T newChild) /*-{
-    return this.appendChild(newChild);
-  }-*/;
+  public final native <T extends Node> T appendChild(T newChild);
 
   /**
    * Returns a duplicate of this node, i.e., serves as a generic copy
@@ -96,9 +102,7 @@ public class Node extends JavaScriptObject {
    *          it is an {@link Element})
    * @return The duplicate node
    */
-  public final native Node cloneNode(boolean deep) /*-{
-    return this.cloneNode(deep);
-  }-*/;
+  public final native Node cloneNode(boolean deep);
 
   /**
    * Gets the child node at the given index.
@@ -106,6 +110,7 @@ public class Node extends JavaScriptObject {
    * @param index the index of the node to be retrieved
    * @return the child node at the given index
    */
+  @JsOverlay
   public final Node getChild(int index) {
     assert (index >= 0) && (index < getChildCount()) : "Child index out of bounds";
 
@@ -117,6 +122,7 @@ public class Node extends JavaScriptObject {
    * 
    * @return the number of child nodes
    */
+  @JsOverlay
   public final int getChildCount() {
     return getChildNodes().getLength();
   }
@@ -125,67 +131,60 @@ public class Node extends JavaScriptObject {
    * A NodeList that contains all children of this node. If there are no
    * children, this is a NodeList containing no nodes.
    */
-  public final native NodeList<Node> getChildNodes() /*-{
-    return this.childNodes;
-  }-*/;
+  @JsProperty
+  public final native NodeList<Node> getChildNodes();
 
   /**
    * The first child of this node. If there is no such node, this returns null.
    */
-  public final native Node getFirstChild() /*-{
-    return this.firstChild;
-  }-*/;
+  @JsProperty
+  public final native Node getFirstChild();
 
   /**
    * The last child of this node. If there is no such node, this returns null.
    */
-  public final native Node getLastChild() /*-{
-    return this.lastChild;
-  }-*/;
+  @JsProperty
+  public final native Node getLastChild();
 
   /**
    * The node immediately following this node. If there is no such node, this
    * returns null.
    */
-  public final native Node getNextSibling() /*-{
-    return this.nextSibling;
-  }-*/;
+  @JsProperty
+  public final native Node getNextSibling();
 
   /**
    * The name of this node, depending on its type; see the table above.
    */
-  public final native String getNodeName() /*-{
-    return this.nodeName;
-  }-*/;
+  @JsProperty
+  public final native String getNodeName();
 
   /**
    * A code representing the type of the underlying object, as defined above.
    */
-  public final native short getNodeType() /*-{
-    return this.nodeType;
-  }-*/;
+  @JsProperty
+  public final native short getNodeType();
 
   /**
    * The value of this node, depending on its type; see the table above. When it
    * is defined to be null, setting it has no effect.
    */
-  public final native String getNodeValue() /*-{
-    return this.nodeValue;
-  }-*/;
+  @JsProperty
+  public final native String getNodeValue();
 
   /**
    * The Document object associated with this node. This is also the
    * {@link Document} object used to create new nodes.
    */
-  public final native Document getOwnerDocument() /*-{
-    return this.ownerDocument;
-  }-*/;
+  @JsProperty
+  public final native Document getOwnerDocument();
 
   /**
    * Gets the parent element of this node.
    * 
    * @return this node's parent element, or <code>null</code> if none exists
    */
+  @JsOverlay
   public final Element getParentElement() {
     return DOMImpl.impl.getParentElement(this);
   }
@@ -195,30 +194,27 @@ public class Node extends JavaScriptObject {
    * However, if a node has just been created and not yet added to the tree, or
    * if it has been removed from the tree, this is null.
    */
-  public final native Node getParentNode() /*-{
-    return this.parentNode;
-  }-*/;
+  @JsProperty
+  public final native Node getParentNode();
 
   /**
    * The node immediately preceding this node. If there is no such node, this
    * returns null.
    */
-  public final native Node getPreviousSibling() /*-{
-    return this.previousSibling;
-  }-*/;
+  @JsProperty
+  public final native Node getPreviousSibling();
 
   /**
    * Returns whether this node has any children.
    */
-  public final native boolean hasChildNodes() /*-{
-    return this.hasChildNodes();
-  }-*/;
+  public final native boolean hasChildNodes();
 
   /**
    * Determines whether this node has a parent element.
    * 
    * @return true if the node has a parent element
    */
+  @JsOverlay
   public final boolean hasParentElement() {
     return getParentElement() != null;
   }
@@ -232,6 +228,7 @@ public class Node extends JavaScriptObject {
    *          node must be inserted), or <code>null</code>
    * @return The node being inserted
    */
+  @JsOverlay
   public final Node insertAfter(Node newChild, Node refChild) {
     assert (newChild != null) : "Cannot add a null child node";
 
@@ -252,9 +249,7 @@ public class Node extends JavaScriptObject {
    *          node must be inserted), or <code>null</code> 
    * @return The node being inserted
    */
-  public final native Node insertBefore(Node newChild, Node refChild) /*-{
-    return this.insertBefore(newChild, refChild);
-  }-*/;
+  public final native Node insertBefore(Node newChild, Node refChild);
 
   /**
    * Inserts the given child as the first child of this node.
@@ -262,6 +257,7 @@ public class Node extends JavaScriptObject {
    * @param child the child to be inserted
    * @return The node being inserted
    */
+  @JsOverlay
   public final Node insertFirst(Node child) {
     assert (child != null) : "Cannot add a null child node";
 
@@ -274,6 +270,7 @@ public class Node extends JavaScriptObject {
    * @param child the potential child element
    * @return <code>true</code> if the relationship holds
    */
+  @JsOverlay
   public final boolean isOrHasChild(Node child) {
     assert (child != null) : "Child cannot be null";
 
@@ -287,22 +284,23 @@ public class Node extends JavaScriptObject {
    * @param oldChild The node being removed
    * @return The node removed
    */
-  public final native Node removeChild(Node oldChild) /*-{
-    return this.removeChild(oldChild);
-  }-*/;
+  public final native Node removeChild(Node oldChild);
 
   /**
    * Remove all children of the node.
    */
-  public final native Node removeAllChildren() /*-{
-    while (this.lastChild) {
-      this.removeChild(this.lastChild);
+  @JsOverlay
+  public final Node removeAllChildren() {
+    while (this.getLastChild() != null) {
+      this.removeChild(this.getLastChild());
     }
-  }-*/;
+    return null;
+  }
 
   /**
    * Removes this node from its parent node if it is attached to one.
    */
+  @JsOverlay
   public final void removeFromParent() {
     Element parent = getParentElement();
     if (parent != null) {
@@ -318,15 +316,13 @@ public class Node extends JavaScriptObject {
    * @param oldChild The node being replaced in the list
    * @return The node replaced
    */
-  public final native Node replaceChild(Node newChild, Node oldChild) /*-{
-    return this.replaceChild(newChild, oldChild);
-  }-*/;
+  public final native Node replaceChild(Node newChild, Node oldChild);
 
   /**
    * The value of this node, depending on its type; see the table above. When it
    * is defined to be null, setting it has no effect.
    */
-  public final native void setNodeValue(String nodeValue) /*-{
-    this.nodeValue = nodeValue;
-  }-*/;
+  @JsProperty
+  public final native void setNodeValue(String nodeValue);
+
 }

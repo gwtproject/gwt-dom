@@ -15,6 +15,10 @@
  */
 package org.gwtproject.dom.client;
 
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+
 /**
  * Audio element.
  * 
@@ -26,27 +30,32 @@ package org.gwtproject.dom.client;
  * 
  * @see <a href="http://www.w3.org/TR/html5/video.html#audio">W3C HTML 5 Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(AudioElement.TAG)
 public class AudioElement extends MediaElement {
 
   /**
    * The tag for this element.
    */
+  @JsOverlay
   public static final String TAG = "audio";
 
   /**
    * The audio type of MP3 encoded audio.
    */
+  @JsOverlay
   public static final String TYPE_MP3 = "audio/mpeg";
 
   /**
    * The audio type of Ogg encoded audio.
    */
+  @JsOverlay
   public static final String TYPE_OGG = "audio/ogg";
 
   /**
    * The audio type of WAV encoded audio.
    */
+  @JsOverlay
   public static final String TYPE_WAV = "audio/wav";
 
   protected AudioElement() {

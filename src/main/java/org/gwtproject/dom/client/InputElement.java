@@ -16,6 +16,12 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import elemental2.dom.HTMLInputElement;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * Form control.
@@ -27,15 +33,18 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#edef-INPUT">W3C HTML Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(InputElement.TAG)
 public class InputElement extends Element {
 
+  @JsOverlay
   public static final String TAG = "input";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
    * automatically typecast it.
    */
+  @JsOverlay
   public static InputElement as(Element elem) {
     assert is(elem);
     return (InputElement) elem;
@@ -46,6 +55,7 @@ public class InputElement extends Element {
    * this class. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Element.is(o)) {
       return is((Element) o);
@@ -58,6 +68,7 @@ public class InputElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     if (Element.is(node)) {
       return is((Element) node);
@@ -70,6 +81,7 @@ public class InputElement extends Element {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Element elem) {
     return elem != null && elem.hasTagName(TAG);
   }
@@ -81,9 +93,7 @@ public class InputElement extends Element {
    * Simulate a mouse-click. For INPUT elements whose type attribute has one of
    * the following values: "button", "checkbox", "radio", "reset", or "submit".
    */
-  public final native void click() /*-{
-    this.click();
-  }-*/;
+  public final native void click();
 
   /**
    * A comma-separated list of content types that a server processing this form
@@ -91,18 +101,16 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accept">W3C HTML Specification</a>
    */
-  public final native String getAccept() /*-{
-    return this.accept;
-  }-*/;
+  @JsProperty
+  public final native String getAccept();
 
   /**
    * A single character access key to give access to the form control.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accesskey">W3C HTML Specification</a>
    */
-  public final native String getAccessKey() /*-{
-    return this.accessKey;
-  }-*/;
+  @JsProperty
+  public final native String getAccessKey();
 
   /**
    * Alternate text for user agents not rendering the normal content of this
@@ -110,9 +118,8 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-alt">W3C HTML Specification</a>
    */
-  public final native String getAlt() /*-{
-    return this.alt;
-  }-*/;
+  @JsProperty
+  public final native String getAlt();
 
   /**
    * When the type attribute of the element has the value "text", "file" or
@@ -122,17 +129,15 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-INPUT">W3C HTML Specification</a>
    */
-  public final native String getDefaultValue() /*-{
-    return this.defaultValue;
-  }-*/;
+  @JsProperty
+  public final native String getDefaultValue();
 
   /**
    * Returns the FORM element containing this control. Returns null if this
    * control is not within the context of a form.
    */
-  public final native FormElement getForm() /*-{
-    return this.form;
-  }-*/;
+  @JsProperty
+  public final native FormElement getForm();
 
   /**
    * Maximum number of characters for text fields, when type has the value
@@ -140,27 +145,24 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-maxlength">W3C HTML Specification</a>
    */
-  public final native int getMaxLength() /*-{
-    return this.maxLength;
-  }-*/;
+  @JsProperty
+  public final native int getMaxLength();
 
   /**
    * Form control or object name when submitted with a form.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-name-INPUT">W3C HTML Specification</a>
    */
-  public final native String getName() /*-{
-    return this.name;
-  }-*/;
+  @JsProperty
+  public final native String getName();
 
   /**
    * Size information. The precise meaning is specific to each type of field.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-size-INPUT">W3C HTML Specification</a>
    */
-  public final native int getSize() /*-{
-    return this.size;
-  }-*/;
+  @JsProperty
+  public final native int getSize();
 
   /**
    * When the type attribute has the value "image", this attribute specifies the
@@ -168,18 +170,16 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-src">W3C HTML Specification</a>
    */
-  public final native String getSrc() /*-{
-    return this.src;
-  }-*/;
+  @JsProperty
+  public final native String getSrc();
 
   /**
    * The type of control created (all lower case).
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-type-INPUT">W3C HTML Specification</a>
    */
-  public final native String getType() /*-{
-    return this.type;
-  }-*/;
+  @JsProperty
+  public final native String getType();
 
   /**
    * When the type attribute of the element has the value "text", "file" or
@@ -192,9 +192,8 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-INPUT">W3C HTML Specification</a>
    */
-  public final native String getValue() /*-{
-    return this.value;
-  }-*/;
+  @JsProperty
+  public final native String getValue();
 
   /**
    * When the type attribute of the element has the value "radio" or "checkbox",
@@ -211,9 +210,10 @@ public class InputElement extends Element {
    * the value of this property during the handling of click events is
    * implementation dependent.
    */
-  public final native boolean isChecked() /*-{
-    return !!this.checked;
-  }-*/;
+  @JsOverlay
+  public final boolean isChecked() {
+    return Js.isTruthy(Js.<HTMLInputElement>uncheckedCast(this).checked);
+  }
 
   /**
    * When type has the value "radio" or "checkbox", this represents the HTML
@@ -223,18 +223,20 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-checked">W3C HTML Specification</a>
    */
-  public final native boolean isDefaultChecked() /*-{
-    return !!this.defaultChecked;
-  }-*/;
+  @JsOverlay
+  public final boolean isDefaultChecked() {
+    return Js.isTruthy(Js.<HTMLInputElement>uncheckedCast(this).defaultChecked);
+  }
 
   /**
    * The control is unavailable in this context.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    */
-  public final native boolean isDisabled() /*-{
-    return !!this.disabled;
-  }-*/;
+  @JsOverlay
+  public final boolean isDisabled() {
+    return Js.isTruthy(Js.<HTMLInputElement>uncheckedCast(this).disabled);
+  }
 
   /**
    * This control is read-only. Relevant only when type has the value "text" or
@@ -242,17 +244,16 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-readonly">W3C HTML Specification</a>
    */
-  public final native boolean isReadOnly() /*-{
-    return !!this.readOnly;
-  }-*/;
+  @JsOverlay
+  public final boolean isReadOnly() {
+    return Js.isTruthy(Js.<HTMLInputElement>uncheckedCast(this).readOnly);
+  }
 
   /**
    * Select the contents of the text area. For INPUT elements whose type
    * attribute has one of the following values: "text", "file", or "password".
    */
-  public final native void select() /*-{
-    this.select();
-  }-*/;
+  public final native void select();
 
   /**
    * A comma-separated list of content types that a server processing this form
@@ -260,18 +261,16 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accept">W3C HTML Specification</a>
    */
-  public final native void setAccept(String accept) /*-{
-    this.accept = accept;
-  }-*/;
+  @JsProperty
+  public final native void setAccept(String accept);
 
   /**
    * A single character access key to give access to the form control.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-accesskey">W3C HTML Specification</a>
    */
-  public final native void setAccessKey(String accessKey) /*-{
-    this.accessKey = accessKey;
-  }-*/;
+  @JsProperty
+  public final native void setAccessKey(String accessKey);
 
   /**
    * Alternate text for user agents not rendering the normal content of this
@@ -279,9 +278,8 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-alt">W3C HTML Specification</a>
    */
-  public final native void setAlt(String alt) /*-{
-    this.alt = alt;
-  }-*/;
+  @JsProperty
+  public final native void setAlt(String alt);
 
   /**
    * When the type attribute of the element has the value "radio" or "checkbox",
@@ -298,9 +296,8 @@ public class InputElement extends Element {
    * the value of this property during the handling of click events is
    * implementation dependent.
    */
-  public final native void setChecked(boolean checked) /*-{
-    this.checked = checked;
-  }-*/;
+  @JsProperty
+  public final native void setChecked(boolean checked);
 
   /**
    * When type has the value "radio" or "checkbox", this represents the HTML
@@ -310,9 +307,8 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-checked">W3C HTML Specification</a>
    */
-  public final native void setDefaultChecked(boolean defaultChecked) /*-{
-    this.defaultChecked = defaultChecked;
-  }-*/;
+  @JsProperty
+  public final native void setDefaultChecked(boolean defaultChecked);
 
   /**
    * When the type attribute of the element has the value "text", "file" or
@@ -322,18 +318,16 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-INPUT">W3C HTML Specification</a>
    */
-  public final native void setDefaultValue(String defaultValue) /*-{
-    this.defaultValue = defaultValue;
-  }-*/;
+  @JsProperty
+  public final native void setDefaultValue(String defaultValue);
 
   /**
    * The control is unavailable in this context.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
    */
-  public final native void setDisabled(boolean disabled) /*-{
-    this.disabled = disabled;
-  }-*/;
+  @JsProperty
+  public final native void setDisabled(boolean disabled);
 
   /**
    * Maximum number of characters for text fields, when type has the value
@@ -341,18 +335,16 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-maxlength">W3C HTML Specification</a>
    */
-  public final native void setMaxLength(int maxLength) /*-{
-    this.maxLength = maxLength;
-  }-*/;
+  @JsProperty
+  public final native void setMaxLength(int maxLength);
 
   /**
    * Form control or object name when submitted with a form.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-name-INPUT">W3C HTML Specification</a>
    */
-  public final native void setName(String name) /*-{
-    this.name = name;
-  }-*/;
+  @JsProperty
+  public final native void setName(String name);
 
   /**
    * This control is read-only. Relevant only when type has the value "text" or
@@ -360,18 +352,16 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-readonly">W3C HTML Specification</a>
    */
-  public final native void setReadOnly(boolean readOnly) /*-{
-    this.readOnly = readOnly;
-  }-*/;
+  @JsProperty
+  public final native void setReadOnly(boolean readOnly);
 
   /**
    * Size information. The precise meaning is specific to each type of field.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-size-INPUT">W3C HTML Specification</a>
    */
-  public final native void setSize(int size) /*-{
-    this.size = size;
-  }-*/;
+  @JsProperty
+  public final native void setSize(int size);
 
   /**
    * When the type attribute has the value "image", this attribute specifies the
@@ -379,18 +369,16 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-src">W3C HTML Specification</a>
    */
-  public final native void setSrc(String src) /*-{
-    this.src = src;
-  }-*/;
+  @JsProperty
+  public final native void setSrc(String src);
 
   /**
    * Use client-side image map.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-usemap">W3C HTML Specification</a>
    */
-  public final native void setUseMap(boolean useMap) /*-{
-    this.useMap = useMap;
-  }-*/;
+  @JsProperty
+  public final native void setUseMap(boolean useMap);
 
   /**
    * When the type attribute of the element has the value "text", "file" or
@@ -403,16 +391,16 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-INPUT">W3C HTML Specification</a>
    */
-  public final native void setValue(String value) /*-{
-    this.value = value;
-  }-*/;
+  @JsProperty
+  public final native void setValue(String value);
 
   /**
    * Use client-side image map.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-usemap">W3C HTML Specification</a>
    */
-  public final native boolean useMap() /*-{
-    return !!this.useMap;
-  }-*/;
+  @JsOverlay
+  public final boolean useMap() {
+    return Js.isTruthy(Js.<HTMLInputElement>uncheckedCast(this).useMap);
+  };
 }

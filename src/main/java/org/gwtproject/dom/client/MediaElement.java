@@ -15,6 +15,13 @@
  */
 package org.gwtproject.dom.client;
 
+import elemental2.core.Global;
+import elemental2.dom.HTMLMediaElement;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 import org.gwtproject.media.dom.client.MediaError;
 import org.gwtproject.media.dom.client.TimeRanges;
 
@@ -23,81 +30,88 @@ import org.gwtproject.media.dom.client.TimeRanges;
  *
  * See {@link <a href="http://www.w3.org/TR/html5/video.html">W3C HTML5 Video and Audio</a>}
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class MediaElement extends Element {
 
   /**
    * Constant returned from {@link #canPlayType(String)}.
    */
+  @JsOverlay
   public static final String CAN_PLAY_PROBABLY = "probably";
 
   /**
    * Constant returned from {@link #canPlayType(String)}.
    */
+  @JsOverlay
   public static final String CAN_PLAY_MAYBE = "maybe";
 
   /**
    * Constant returned from {@link #canPlayType(String)}.
    */
+  @JsOverlay
   public static final String CANNOT_PLAY = "";
 
   /**
    * Constant returned from {@link #getReadyState()}.
    */
-  public static final int HAVE_NOTHING = 0;
+  public static int HAVE_NOTHING;
 
   /**
    * Constant returned from {@link #getReadyState()}.
    */
-  public static final int HAVE_METADATA = 1;
+  public static int HAVE_METADATA;
 
   /**
    * Constant returned from {@link #getReadyState()}.
    */
-  public static final int HAVE_CURRENT_DATA = 2;
+  public static int HAVE_CURRENT_DATA;
 
   /**
    * Constant returned from {@link #getReadyState()}.
    */
-  public static final int HAVE_FUTURE_DATA = 3;
+  public static int HAVE_FUTURE_DATA;
 
   /**
    * Constant returned from {@link #getReadyState()}.
    */
-  public static final int HAVE_ENOUGH_DATA = 4;
+  public static int HAVE_ENOUGH_DATA;
 
   /**
    * Constant returned from {@link #getNetworkState}.
    */
-  public static final int NETWORK_EMPTY = 0;
+  public static int NETWORK_EMPTY;
 
   /**
    * Constant returned from {@link #getNetworkState}.
    */
-  public static final int NETWORK_IDLE = 1;
+  public static int NETWORK_IDLE;
 
   /**
    * Constant returned from {@link #getNetworkState}.
    */
-  public static final int NETWORK_LOADING = 2;
+  public static int NETWORK_LOADING;
 
   /**
    * Constant returned from {@link #getNetworkState}.
    */
-  public static final int NETWORK_NO_SOURCE = 3;
+  public static int NETWORK_NO_SOURCE;
 
   /**
    * Constant used by {@link #getPreload()} and {@link #setPreload(String)}.
    */
+  @JsOverlay
   public static final String PRELOAD_AUTO = "auto";
 
   /**
    * Constant used by {@link #getPreload()} and {@link #setPreload(String)}.
    */
+  @JsOverlay
   public static final String PRELOAD_METADATA = "metadata";
 
   /**
    * Constant used by {@link #getPreload()} and {@link #setPreload(String)}.
    */
+  @JsOverlay
   public static final String PRELOAD_NONE = "none";
 
   protected MediaElement() {
@@ -111,13 +125,13 @@ public class MediaElement extends Element {
    * @return one of {@link #CAN_PLAY_PROBABLY}, {@link #CAN_PLAY_MAYBE}, or
    *         {@link #CANNOT_PLAY}
    */
-  public final native String canPlayType(String type) /*-{
-    var canPlayType = this.canPlayType(type);
+  @JsOverlay
+  public final String canPlayType(String type) {
+    String canPlayType = Js.<HTMLMediaElement>uncheckedCast(this).canPlayType(type);
      // Some browsers report "no" instead of the empty string.
      // See http://gwt-voices.appspot.com/
-    return canPlayType == "no" ?
-        @org.gwtproject.dom.client.MediaElement::CANNOT_PLAY : canPlayType;
-  }-*/;
+    return "no".equals(canPlayType) ? CANNOT_PLAY : canPlayType;
+  }
 
   /**
    * Returns a {@link TimeRanges} object indicating which portions of the
@@ -125,9 +139,8 @@ public class MediaElement extends Element {
    *
    * @return a {@link TimeRanges} instance, or {@code null}.
    */
-  public final native TimeRanges getBuffered() /*-{
-    return this.buffered;
-  }-*/;
+  @JsProperty
+  public final native TimeRanges getBuffered();
 
   /**
    * Returns the URL of the current media source, or the empty String
@@ -135,9 +148,8 @@ public class MediaElement extends Element {
    *
    * @return a String URL
    */
-  public final native String getCurrentSrc() /*-{
-    return this.currentSrc;
-  }-*/;
+  @JsProperty
+  public final native String getCurrentSrc();
 
   /**
    * Returns the current time within the source media stream.
@@ -146,9 +158,8 @@ public class MediaElement extends Element {
    *
    * @see #setCurrentTime(double)
    */
-  public final native double getCurrentTime() /*-{
-    return this.currentTime;
-  }-*/;
+  @JsProperty
+  public final native double getCurrentTime();
 
   /**
    * Returns the default playback rate, where 1.0 corresponds to normal
@@ -158,6 +169,7 @@ public class MediaElement extends Element {
    *
    * @see #setDefaultPlaybackRate(double)
    */
+  @JsOverlay
   public final double getDefaultPlaybackRate() {
     return getDoubleAttr("defaultPlaybackRate", 1.0);
   }
@@ -169,9 +181,8 @@ public class MediaElement extends Element {
    *
    * @return a positive duration in seconds, NaN, or Infinity
    */
-  public final native double getDuration() /*-{
-    return this.duration;
-  }-*/;
+  @JsProperty
+  public final native double getDuration();
 
   /**
    * Returns the type of error that has occurred while attempting to load
@@ -179,9 +190,13 @@ public class MediaElement extends Element {
    *
    * @return a {@link MediaError} instance, or {@code null}
    */
-  public final native MediaError getError() /*-{
-    return this.error || null;
-  }-*/;
+  @JsOverlay
+  public final MediaError getError() {
+    return Js.isTruthy(this.error) ? this.error : null;
+  }
+
+  @JsProperty
+  private MediaError error;
 
   /**
    * Returns the time to which the media stream was seeked at the time it was
@@ -189,6 +204,7 @@ public class MediaElement extends Element {
    *
    * @return the initial time, or 0.0 if unknown
    */
+  @JsOverlay
   public final double getInitialTime() {
     return getDoubleAttr("initialTime", 0.0);
   }
@@ -205,9 +221,8 @@ public class MediaElement extends Element {
    * @see #NETWORK_LOADING
    * @see #NETWORK_NO_SOURCE
    */
-  public final native int getNetworkState() /*-{
-    return this.networkState;
-  }-*/;
+  @JsProperty
+  public final native int getNetworkState();
 
   /**
    * Returns the playback rate, where 1.0 corresponds to normal
@@ -217,13 +232,17 @@ public class MediaElement extends Element {
    *
    * @see #setPlaybackRate(double)
    */
-  public final native double getPlaybackRate() /*-{
-    var rate = this.playbackRate;
-    if (rate != null && typeof(rate) == 'number') {
-      return rate;
+  @JsOverlay
+  public final double getPlaybackRate() {
+    Object rate = this.playbackRate;
+    if (rate != null && "number".equals(Js.typeof(rate))) {
+      return (double) rate;
     }
-    return 1.0;
-  }-*/;
+    return 1.0d;
+  }
+
+  @JsProperty
+  private Object playbackRate;
 
   /**
    * Returns a {@link TimeRanges} object indicating which portions of the
@@ -231,9 +250,8 @@ public class MediaElement extends Element {
    *
    * @return a {@link TimeRanges} instance, or {@code null}.
    */
-  public final native TimeRanges getPlayed() /*-{
-    return this.played;
-  }-*/;
+  @JsProperty
+  public final native TimeRanges getPlayed();
 
   /**
    * Returns the preload setting, one of {@link #PRELOAD_AUTO},
@@ -246,9 +264,8 @@ public class MediaElement extends Element {
    * @see #PRELOAD_METADATA
    * @see #PRELOAD_NONE
    */
-  public final native String getPreload() /*-{
-    return this.preload;
-  }-*/;
+  @JsProperty
+  public final native String getPreload();
 
   /**
    * Returns the current state of the media with respect to rendering the
@@ -265,9 +282,8 @@ public class MediaElement extends Element {
    * @see #HAVE_METADATA
    * @see #HAVE_NOTHING
    */
-  public final native int getReadyState() /*-{
-    return this.readyState;
-  }-*/;
+  @JsProperty
+  public final native int getReadyState();
 
   /**
    * Returns a {@link TimeRanges} object indicating which portions of the
@@ -275,9 +291,8 @@ public class MediaElement extends Element {
    *
    * @return a {@link TimeRanges} instance, or {@code null}.
    */
-  public final native TimeRanges getSeekable() /*-{
-    return this.seekable;
-  }-*/;
+  @JsProperty
+  public final native TimeRanges getSeekable();
 
   /**
    * Returns the source URL for the media, or {@code null} if none is set.
@@ -286,9 +301,10 @@ public class MediaElement extends Element {
    *
    * @see #setSrc(String)
    */
-  public final native String getSrc() /*-{
-    return this.getAttribute('src');
-  }-*/;
+  @JsOverlay
+  public final String getSrc() {
+    return this.getAttribute("src");
+  }
 
   /**
    * Returns the time corresponding to the zero time in the media timeline,
@@ -297,6 +313,7 @@ public class MediaElement extends Element {
    *
    * @return the start time
    */
+  @JsOverlay
   public final double getStartOffsetTime() {
     return getDoubleAttr("startOffsetTime", Double.NaN);
   }
@@ -309,9 +326,8 @@ public class MediaElement extends Element {
    *
    * @see #setVolume(double)
    */
-  public final native double getVolume() /*-{
-    return this.volume;
-  }-*/;
+  @JsProperty
+  public final native double getVolume();
 
   /**
    * Returns {@code true} if the media player should display interactive
@@ -322,9 +338,10 @@ public class MediaElement extends Element {
    *
    * @see #setControls(boolean)
    */
-  public final native boolean hasControls() /*-{
-    return this.hasAttribute('controls');
-  }-*/;
+  @JsOverlay
+  public final boolean hasControls() {
+    return this.hasAttribute("controls");
+  }
 
   /**
    * Returns {@code true} if playback has reached the end of the media, {@code
@@ -332,9 +349,8 @@ public class MediaElement extends Element {
    *
    * @return whether playback has ended
    */
-  public final native boolean hasEnded() /*-{
-    return this.ended;
-  }-*/;
+  @JsProperty(name = "ended")
+  public final native boolean hasEnded();
 
   /**
    * Returns {@code true} if autoplay is enabled, {@code false} otherwise. When
@@ -345,9 +361,10 @@ public class MediaElement extends Element {
    *
    * @see #setAutoplay(boolean)
    */
-  public final native boolean isAutoplay() /*-{
-    return this.hasAttribute('autoplay');
-  }-*/;
+  @JsOverlay
+  public final boolean isAutoplay() {
+    return this.hasAttribute("autoplay");
+  }
 
   /**
    * Returns {@code true} if the user agent is to seek back to the start of the
@@ -357,9 +374,10 @@ public class MediaElement extends Element {
    *
    * @see #setLoop(boolean)
    */
-  public final native boolean isLoop() /*-{
-    return this.hasAttribute('loop');
-  }-*/;
+  @JsOverlay
+  public final boolean isLoop() {
+    return this.hasAttribute("loop");
+  }
 
   /**
    * Returns {@code true} if the volume is to be muted (overriding the normal
@@ -371,9 +389,10 @@ public class MediaElement extends Element {
    * @see #getVolume()
    * @see #setVolume(double)
    */
-  public final native boolean isMuted() /*-{
-    return !!this.muted;
-  }-*/;
+  @JsOverlay
+  public final boolean isMuted() {
+    return Js.isTruthy(Js.<HTMLMediaElement>uncheckedCast(this).muted);
+  }
 
   /**
    * Returns {@code true} if playback is paused, {@code false} otherwise.
@@ -383,9 +402,10 @@ public class MediaElement extends Element {
    * @see #pause()
    * @see #play()
    */
-  public final native boolean isPaused() /*-{
-    return !!this.paused;
-  }-*/;
+  @JsOverlay
+  public final boolean isPaused() {
+    return Js.isTruthy(Js.<HTMLMediaElement>uncheckedCast(this).paused);
+  }
 
   /**
    * Returns {@code true} if the playback position is in the process of changing
@@ -397,30 +417,25 @@ public class MediaElement extends Element {
    * @see #setControls(boolean)
    * @see #hasControls()
    */
-  public final native boolean isSeeking() /*-{
-    return !!this.seeking;
-  }-*/;
+  @JsOverlay
+  public final boolean isSeeking() {
+    return Js.isTruthy(Js.<HTMLMediaElement>uncheckedCast(this).seeking);
+  }
 
   /**
    * Causes the resource to be loaded.
    */
-  public final native void load() /*-{
-    this.load();
-  }-*/;
+  public final native void load();
 
   /**
    * Causes playback of the resource to be paused.
    */
-  public final native void pause() /*-{
-    this.pause();
-  }-*/;
+  public final native void pause();
 
   /**
    * Causes playback of the resource to be started or resumed.
    */
-  public final native void play() /*-{
-    this.play();
-  }-*/;
+  public final native void play();
 
   /**
    * Enables or disables autoplay of the resource.
@@ -429,6 +444,7 @@ public class MediaElement extends Element {
    *
    * @see #isAutoplay()
    */
+  @JsOverlay
   public final void setAutoplay(boolean autoplay) {
     setBooleanAttr("autoplay", autoplay);
   }
@@ -440,6 +456,7 @@ public class MediaElement extends Element {
    *
    * @see #hasControls()
    */
+  @JsOverlay
   public final void setControls(boolean controls) {
     setBooleanAttr("controls", controls);
   }
@@ -451,9 +468,8 @@ public class MediaElement extends Element {
    *
    * @see #getCurrentTime()
    */
-  public final native void setCurrentTime(double time) /*-{
-    this.currentTime = time;
-  }-*/;
+  @JsProperty
+  public final native void setCurrentTime(double time);
 
   /**
    * Sets the default playback rate.
@@ -462,9 +478,8 @@ public class MediaElement extends Element {
    *
    * @see #getDefaultPlaybackRate()
    */
-  public final native void setDefaultPlaybackRate(double rate) /*-{
-    this.defaultPlaybackRate = rate;
-  }-*/;
+  @JsProperty
+  public final native void setDefaultPlaybackRate(double rate);
 
   /**
    * Enables or disables looping.
@@ -473,6 +488,7 @@ public class MediaElement extends Element {
    *
    * @see #isLoop()
    */
+  @JsOverlay
   public final void setLoop(boolean loop) {
     setBooleanAttr("loop", loop);
   }
@@ -484,9 +500,8 @@ public class MediaElement extends Element {
    *
    * @see #isMuted()
    */
-  public final native void setMuted(boolean muted) /*-{
-    this.muted = muted;
-  }-*/;
+  @JsProperty
+  public final native void setMuted(boolean muted);
 
   /**
    * Sets the playback rate.
@@ -495,9 +510,8 @@ public class MediaElement extends Element {
    *
    * @see #getPlaybackRate()
    */
-  public final native void setPlaybackRate(double rate) /*-{
-    this.playbackRate = rate;
-  }-*/;
+  @JsProperty
+  public final native void setPlaybackRate(double rate);
 
   /**
    * Changes the preload setting to one of {@link #PRELOAD_AUTO},
@@ -511,9 +525,8 @@ public class MediaElement extends Element {
    * @see #PRELOAD_METADATA
    * @see #PRELOAD_NONE
    */
-  public final native void setPreload(String preload) /*-{
-    this.preload = preload;
-  }-*/;
+  @JsProperty
+  public final native void setPreload(String preload);
 
   /**
    * Sets the source URL for the media.
@@ -522,9 +535,8 @@ public class MediaElement extends Element {
    *
    * @see #getSrc()
    */
-  public final native void setSrc(String url) /*-{
-    this.src = url;
-  }-*/;
+  @JsProperty
+  public final native void setSrc(String url);
 
   /**
    * Sets the playback volume.
@@ -533,17 +545,17 @@ public class MediaElement extends Element {
    *
    * @see #getVolume()
    */
-  public final native void setVolume(double volume) /*-{
-    this.volume = volume
-  }-*/;
+  @JsProperty
+  public final native void setVolume(double volume);
 
-  private native double getDoubleAttr(String name, double def) /*-{
-    var value = this.getAttribute(name);
-    if (value == null || typeof(value) == 'undefined') {
+  @JsOverlay
+  private double getDoubleAttr(String name, double def) {
+    String value = this.getAttribute(name);
+    if (value == null || "undefined".equals(Js.typeof(value))) {
       return def;
     }
-    return value;
-  }-*/;
+    return Js.uncheckedCast(value);
+  }
 
   private void setBooleanAttr(String name, boolean value) {
     if (value) {

@@ -18,10 +18,19 @@ package org.gwtproject.dom.client;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.annotations.IsSafeHtml;
+import elemental2.core.Global;
+import elemental2.core.JsString;
+import elemental2.dom.HTMLElement;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * All HTML element interfaces derive from this class.
  */
+@JsType(isNative = true, name="Object", namespace = JsPackage.GLOBAL)
 public class Element extends Node {
 
   /**
@@ -32,29 +41,34 @@ public class Element extends Node {
    * In particular, if x is outside the range [-2^31,2^31), then toInt32(x) would return a value
    * equivalent to x modulo 2^32, whereas (int) x would evaluate to either MIN_INT or MAX_INT.
    */
-  private static native int toInt32(double val) /*-{
-    return val | 0;
-  }-*/;
+  @JsOverlay
+  private static int toInt32(double val) {
+    return Js.coerceToInt(val);
+  }
 
   /**
    * Constant returned from {@link #getDraggable()}.
    */
+  @JsOverlay
   public static final String DRAGGABLE_AUTO = "auto";
 
   /**
    * Constant returned from {@link #getDraggable()}.
    */
+  @JsOverlay
   public static final String DRAGGABLE_FALSE = "false";
 
   /**
    * Constant returned from {@link #getDraggable()}.
    */
+  @JsOverlay
   public static final String DRAGGABLE_TRUE = "true";
 
   /**
    * Assert that the given {@link Node} is an {@link Element} and automatically
    * typecast it.
    */
+  @JsOverlay
   public static Element as(JavaScriptObject o) {
     assert is(o);
     return (Element) o;
@@ -64,6 +78,7 @@ public class Element extends Node {
    * Assert that the given {@link Node} is an {@link Element} and automatically
    * typecast it.
    */
+  @JsOverlay
   public static Element as(Node node) {
     assert is(node);
     return (Element) node;
@@ -74,6 +89,7 @@ public class Element extends Node {
    * {@link Element}. A <code>null</code> object will cause this method to
    * return <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(JavaScriptObject o) {
     if (Node.is(o)) {
       return is((Node) o);
@@ -86,9 +102,16 @@ public class Element extends Node {
    * A <code>null</code> node will cause this method to return
    * <code>false</code>.
    */
+  @JsOverlay
   public static boolean is(Node node) {
     return (node != null) && (node.getNodeType() == Node.ELEMENT_NODE);
   }
+
+  // elemental2.dom.HTMLElement.draggable is boolean but GWT API uses String
+  // because of value "auto" mentioend in spec. However you might never be able to read
+  // the value "auto" as the browser might simply return true/false based on its default.
+  @JsProperty
+  private String draggable;
 
   protected Element() {
   }
@@ -101,6 +124,7 @@ public class Element extends Node {
    * @return <code>true</code> if this element did not already have the specified class name
    * @see #setClassName(String)
    */
+  @JsOverlay
   public final boolean addClassName(String className) {
     className = trimClassName(className);
 
@@ -123,9 +147,7 @@ public class Element extends Node {
   /**
    * Removes keyboard focus from this element.
    */
-  public final native void blur() /*-{
-    this.blur();
-  }-*/;
+  public final native void blur();
 
   /**
    * Dispatched the given event with this element as its target. The event will
@@ -140,6 +162,7 @@ public class Element extends Node {
    * 
    * @param evt the event to be dispatched
    */
+  @JsOverlay
   public final void dispatchEvent(NativeEvent evt) {
     DOMImpl.impl.dispatchEvent(this, evt);
   }
@@ -147,14 +170,13 @@ public class Element extends Node {
   /**
    * Gives keyboard focus to this element.
    */
-  public final native void focus() /*-{
-    this.focus();
-  }-*/;
+  public final native void focus();
 
   /**
    * Gets an element's absolute bottom coordinate in the document's coordinate
    * system.
    */
+  @JsOverlay
   public final int getAbsoluteBottom() {
     return getAbsoluteTop() + getOffsetHeight();
   }
@@ -163,6 +185,7 @@ public class Element extends Node {
    * Gets an element's absolute left coordinate in the document's coordinate
    * system.
    */
+  @JsOverlay
   public final int getAbsoluteLeft() {
     return DOMImpl.impl.getAbsoluteLeft(this);
   }
@@ -171,6 +194,7 @@ public class Element extends Node {
    * Gets an element's absolute right coordinate in the document's coordinate
    * system.
    */
+  @JsOverlay
   public final int getAbsoluteRight() {
     return getAbsoluteLeft() + getOffsetWidth();
   }
@@ -179,6 +203,7 @@ public class Element extends Node {
    * Gets an element's absolute top coordinate in the document's coordinate
    * system.
    */
+  @JsOverlay
   public final int getAbsoluteTop() {
     return DOMImpl.impl.getAbsoluteTop(this);
   }
@@ -193,6 +218,7 @@ public class Element extends Node {
    * @return The Attr value as a string, or the empty string if that attribute
    *         does not have a specified or default value
    */
+  @JsOverlay
   public final String getAttribute(String name) {
     return DOMImpl.impl.getAttribute(this, name);
   }
@@ -205,9 +231,11 @@ public class Element extends Node {
    *      href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-class">W3C
    *      HTML Specification</a>
    */
-  public final native String getClassName() /*-{
-     return this.className || "";
-   }-*/;
+  @JsOverlay
+  public final String getClassName() {
+    String className = Js.<HTMLElement>uncheckedCast(this).className;
+    return className == null ? "" : className;
+  };
 
   /**
    * Returns the inner height of an element in pixels, including padding but not
@@ -215,6 +243,7 @@ public class Element extends Node {
    * 
    * @return the element's client height
    */
+  @JsOverlay
   public final int getClientHeight() {
     return toInt32(getSubPixelClientHeight());
   }
@@ -225,6 +254,7 @@ public class Element extends Node {
    * 
    * @return the element's client width
    */
+  @JsOverlay
   public final int getClientWidth() {
     return toInt32(getSubPixelClientWidth());
   }
@@ -233,9 +263,8 @@ public class Element extends Node {
    * Specifies the base direction of directionally neutral text and the
    * directionality of tables.
    */
-  public final native String getDir() /*-{
-     return this.dir;
-   }-*/;
+  @JsProperty
+  public final native String getDir();
 
   /**
    * Returns the draggable attribute of this element.
@@ -243,9 +272,10 @@ public class Element extends Node {
    * @return one of {@link #DRAGGABLE_AUTO}, {@link #DRAGGABLE_FALSE}, or
    *         {@link #DRAGGABLE_TRUE}
    */
-  public final native String getDraggable() /*-{
-    return this.draggable || null;
-  }-*/;
+  @JsOverlay
+  public final String getDraggable() {
+    return Js.isTruthy(this.draggable) ? this.draggable : null;
+  }
 
   /**
    * Returns a NodeList of all descendant Elements with a given tag name, in the
@@ -256,14 +286,13 @@ public class Element extends Node {
    *          all tags
    * @return A list of matching Element nodes
    */
-  public final native NodeList<Element> getElementsByTagName(String name) /*-{
-     return this.getElementsByTagName(name);
-   }-*/;
+  public final native NodeList<Element> getElementsByTagName(String name);
 
   /**
    * The first child of element this element. If there is no such element, this
    * returns null.
    */
+  @JsOverlay
   public final Element getFirstChildElement() {
     return DOMImpl.impl.getFirstChildElement(this);
   }
@@ -275,13 +304,13 @@ public class Element extends Node {
    *      href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-id">W3C
    *      HTML Specification</a>
    */
-  public final native String getId() /*-{
-     return this.id;
-   }-*/;
+  @JsProperty
+  public final native String getId();
 
   /**
    * All of the markup and content within a given element.
    */
+  @JsOverlay
   public final String getInnerHTML() {
     return DOMImpl.impl.getInnerHTML(this);
   }
@@ -289,6 +318,7 @@ public class Element extends Node {
   /**
    * The text between the start and end tags of the object.
    */
+  @JsOverlay
   public final String getInnerText() {
     return DOMImpl.impl.getInnerText(this);
   }
@@ -296,14 +326,14 @@ public class Element extends Node {
   /**
    * Language code defined in RFC 1766.
    */
-  public final native String getLang() /*-{
-     return this.lang;
-   }-*/;
+  @JsProperty
+  public final native String getLang();
 
   /**
    * The element immediately following this element. If there is no such
    * element, this returns null.
    */
+  @JsOverlay
   public final Element getNextSiblingElement() {
     return DOMImpl.impl.getNextSiblingElement(this);
   }
@@ -311,6 +341,7 @@ public class Element extends Node {
   /**
    * The height of an element relative to the layout.
    */
+  @JsOverlay
   public final int getOffsetHeight() {
     return toInt32(getSubPixelOffsetHeight());
   }
@@ -319,6 +350,7 @@ public class Element extends Node {
    * The number of pixels that the upper left corner of the current element is
    * offset to the left within the offsetParent node.
    */
+  @JsOverlay
   public final int getOffsetLeft() {
     return toInt32(getSubPixelOffsetLeft());
   }
@@ -327,14 +359,14 @@ public class Element extends Node {
    * Returns a reference to the object which is the closest (nearest in the
    * containment hierarchy) positioned containing element.
    */
-  public final native Element getOffsetParent() /*-{
-     return this.offsetParent;
-   }-*/;
+  @JsProperty
+  public final native Element getOffsetParent();
 
   /**
    * The number of pixels that the upper top corner of the current element is
    * offset to the top within the offsetParent node.
    */
+  @JsOverlay
   public final int getOffsetTop() {
     return toInt32(getSubPixelOffsetTop());
   }
@@ -342,6 +374,7 @@ public class Element extends Node {
   /**
    * The width of an element relative to the layout.
    */
+  @JsOverlay
   public final int getOffsetWidth() {
     return toInt32(getSubPixelOffsetWidth());
   }
@@ -350,6 +383,7 @@ public class Element extends Node {
    * The element immediately preceding this element. If there is no such
    * element, this returns null.
    */
+  @JsOverlay
   public final Element getPreviousSiblingElement() {
     return DOMImpl.impl.getPreviousSiblingElement(this);
   }
@@ -360,9 +394,10 @@ public class Element extends Node {
    * @param name the name of the property to be retrieved
    * @return the property value
    */
-  public final native boolean getPropertyBoolean(String name) /*-{
-     return !!this[name];
-   }-*/;
+  @JsOverlay
+  public final boolean getPropertyBoolean(String name) {
+    return Js.isTruthy(Js.asPropertyMap(this).get(name));
+  }
 
   /**
    * Gets a double property from this element.
@@ -370,9 +405,11 @@ public class Element extends Node {
    * @param name the name of the property to be retrieved
    * @return the property value
    */
-  public final native double getPropertyDouble(String name) /*-{
-     return parseFloat(this[name]) || 0.0;
-   }-*/;
+  @JsOverlay
+  public final double getPropertyDouble(String name) {
+    double value = Global.parseFloat(Js.asPropertyMap(this).get(name));
+    return Double.isNaN(value) ? 0.0 : value;
+  };
 
   /**
    * Gets an integer property from this element.
@@ -380,9 +417,10 @@ public class Element extends Node {
    * @param name the name of the property to be retrieved
    * @return the property value
    */
-  public final native int getPropertyInt(String name) /*-{
-     return parseInt(this[name]) | 0;
-   }-*/;
+  @JsOverlay
+  public final int getPropertyInt(String name) {
+     return Js.coerceToInt(Global.parseInt(Js.asPropertyMap(this).get(name), 10));
+   }
 
   /**
    * Gets a JSO property from this element.
@@ -390,9 +428,11 @@ public class Element extends Node {
    * @param name the name of the property to be retrieved
    * @return the property value
    */
-  public final native JavaScriptObject getPropertyJSO(String name) /*-{
-    return this[name] || null;
-  }-*/;
+  @JsOverlay
+  public final JavaScriptObject getPropertyJSO(String name) {
+    JavaScriptObject value = Js.uncheckedCast(Js.asPropertyMap(this).get(name));
+    return Js.isTruthy(value) ? value : null;
+  }
 
   /**
    * Gets an object property from this element.
@@ -400,9 +440,10 @@ public class Element extends Node {
    * @param name the name of the property to be retrieved
    * @return the property value
    */
-  public final native Object getPropertyObject(String name) /*-{
-    return this[name];
-  }-*/;
+  @JsOverlay
+  public final Object getPropertyObject(String name) {
+    return Js.asPropertyMap(this).get(name);
+  }
 
   /**
    * Gets a property from this element.
@@ -410,13 +451,16 @@ public class Element extends Node {
    * @param name the name of the property to be retrieved
    * @return the property value
    */
-  public final native String getPropertyString(String name) /*-{
-     return (this[name] == null) ? null : String(this[name]);
-   }-*/;
+  @JsOverlay
+  public final String getPropertyString(String name) {
+    Object value = Js.asPropertyMap(this).get(name);
+    return value == null ? null : "" + value;
+  }
 
   /**
    * The height of the scroll view of an element.
    */
+  @JsOverlay
   public final int getScrollHeight() {
     return toInt32(getSubPixelScrollHeight());
   }
@@ -429,6 +473,7 @@ public class Element extends Node {
    * the number of pixels scrolled from the right.
    * </p>
    */
+  @JsOverlay
   public final int getScrollLeft() {
     return DOMImpl.impl.getScrollLeft(this);
   }
@@ -436,6 +481,7 @@ public class Element extends Node {
   /**
    * The number of pixels that an element's content is scrolled from the top.
    */
+  @JsOverlay
   public final int getScrollTop() {
     return toInt32(getSubPixelScrollTop());
   }
@@ -443,6 +489,7 @@ public class Element extends Node {
   /**
    * The width of the scroll view of an element.
    */
+  @JsOverlay
   public final int getScrollWidth() {
     return toInt32(getSubPixelScrollWidth());
   }
@@ -455,6 +502,7 @@ public class Element extends Node {
    * 
    * @return the string representation of this element
    */
+  @JsOverlay
   public final String getString() {
     return DOMImpl.impl.toString(this);
   }
@@ -462,15 +510,15 @@ public class Element extends Node {
   /**
    * Gets this element's {@link Style} object.
    */
-  public final native Style getStyle() /*-{
-     return this.style;
-   }-*/;
+  @JsProperty
+  public final native Style getStyle();
 
   /**
    * The index that represents the element's position in the tabbing order.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-tabindex">W3C HTML Specification</a>
    */
+  @JsOverlay
   public final int getTabIndex() {
     return DOMImpl.impl.getTabIndex(this);
   }
@@ -481,6 +529,7 @@ public class Element extends Node {
    * 
    * @return the element's tag name
    */
+  @JsOverlay
   public final String getTagName() {
     return DOMImpl.impl.getTagName(this);
   }
@@ -488,9 +537,8 @@ public class Element extends Node {
   /**
    * The element's advisory title.
    */
-  public final native String getTitle() /*-{
-     return this.title;
-   }-*/;
+  @JsProperty
+  public final native String getTitle();
 
   /**
    * Determines whether an element has an attribute with a given name.
@@ -503,6 +551,7 @@ public class Element extends Node {
    * @param name the name of the attribute
    * @return <code>true</code> if this element has the specified attribute
    */
+  @JsOverlay
   public final boolean hasAttribute(String name) {
     return DOMImpl.impl.hasAttribute(this, name);
   }
@@ -513,6 +562,7 @@ public class Element extends Node {
    * @param className the class name to be added
    * @return <code>true</code> if this element has the specified class name
    */
+  @JsOverlay
   public final boolean hasClassName(String className) {
     className = trimClassName(className);
     int idx = indexOfName(getClassName(), className);
@@ -525,6 +575,7 @@ public class Element extends Node {
    * @param tagName the tag name, including namespace-prefix (if present)
    * @return <code>true</code> if the element has the given tag name
    */
+  @JsOverlay
   public final boolean hasTagName(String tagName) {
     assert tagName != null : "tagName must not be null";
     return tagName.equalsIgnoreCase(getTagName());
@@ -533,9 +584,7 @@ public class Element extends Node {
   /**
    * Removes an attribute by name.
    */
-  public final native void removeAttribute(String name) /*-{
-     this.removeAttribute(name);
-   }-*/;
+  public final native void removeAttribute(String name);
 
   /**
    * Removes a name from this element's class property. If the name is not
@@ -545,6 +594,7 @@ public class Element extends Node {
    * @return <code>true</code> if this element had the specified class name
    * @see #setClassName(String)
    */
+  @JsOverlay
   public final boolean removeClassName(String className) {
     className = trimClassName(className);
 
@@ -581,6 +631,7 @@ public class Element extends Node {
    * @param nameList list of space delimited names
    * @param name a non-empty string.  Should be already trimmed.
    */
+  @JsOverlay
   static int indexOfName(String nameList, String name) {
     int idx = nameList.indexOf(name);
 
@@ -600,6 +651,7 @@ public class Element extends Node {
     return idx;
   }
 
+  @JsOverlay
   private static String trimClassName(String className) {
     assert (className != null) : "Unexpectedly null class name";
     className = className.trim();
@@ -612,6 +664,7 @@ public class Element extends Node {
    *
    * @param className the class name to be toggled
    */
+  @JsOverlay
   public final void toggleClassName(String className) {
     boolean added = addClassName(className);
     if (!added) {
@@ -625,6 +678,7 @@ public class Element extends Node {
    * @param oldClassName the class name to be replaced
    * @param newClassName the class name to replace it
    */
+  @JsOverlay
   public final void replaceClassName(String oldClassName, String newClassName) {
     removeClassName(oldClassName);
     addClassName(newClassName);
@@ -640,6 +694,7 @@ public class Element extends Node {
    * the minimum amount necessary.
    * </p>
    */
+  @JsOverlay
   public final void scrollIntoView() {
     DOMImpl.impl.scrollIntoView(this);
   }
@@ -651,9 +706,7 @@ public class Element extends Node {
    * @param name The name of the attribute to create or alter
    * @param value Value to set in string form
    */
-  public final native void setAttribute(String name, String value) /*-{
-     this.setAttribute(name, value);
-   }-*/;
+  public final native void setAttribute(String name, String value);
 
   /**
    * The class attribute of the element. This attribute has been renamed due to
@@ -663,17 +716,17 @@ public class Element extends Node {
    *      href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-class">W3C
    *      HTML Specification</a>
    */
-  public final native void setClassName(String className) /*-{
-     this.className = className || "";
-   }-*/;
+  @JsOverlay
+  public final void setClassName(String className) {
+    Js.<HTMLElement>uncheckedCast(this).className = className == null ? "" : className;
+  }
 
   /**
    * Specifies the base direction of directionally neutral text and the
    * directionality of tables.
    */
-  public final native void setDir(String dir) /*-{
-     this.dir = dir;
-   }-*/;
+  @JsProperty
+  public final native void setDir(String dir);
 
   /**
    * Changes the draggable attribute to one of {@link #DRAGGABLE_AUTO},
@@ -681,6 +734,7 @@ public class Element extends Node {
    * 
    * @param draggable a String constants
    */
+  @JsOverlay
   public final void setDraggable(String draggable) {
     DOMImpl.impl.setDraggable(this, draggable);
   }
@@ -692,20 +746,21 @@ public class Element extends Node {
    *      href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-id">W3C
    *      HTML Specification</a>
    */
-  public final native void setId(String id) /*-{
-     this.id = id;
-   }-*/;
+  @JsProperty
+  public final native void setId(String id);
 
   /**
    * All of the markup and content within a given element.
    */
-  public final native void setInnerHTML(@IsSafeHtml String html) /*-{
-     this.innerHTML = html || '';
-   }-*/;
+  @JsOverlay
+  public final void setInnerHTML(@IsSafeHtml String html) {
+    Js.<HTMLElement>uncheckedCast(this).innerHTML = html == null ? "" : html;
+  }
 
   /**
    * All of the markup and content within a given element.
    */
+  @JsOverlay
   public final void setInnerSafeHtml(SafeHtml html) {
     setInnerHTML(html.asString());
   }
@@ -713,6 +768,7 @@ public class Element extends Node {
   /**
    * The text between the start and end tags of the object.
    */
+  @JsOverlay
   public final void setInnerText(String text) {
     DOMImpl.impl.setInnerText(this, text);
   }
@@ -720,9 +776,8 @@ public class Element extends Node {
   /**
    * Language code defined in RFC 1766.
    */
-  public final native void setLang(String lang) /*-{
-     this.lang = lang;
-   }-*/;
+  @JsProperty
+  public final native void setLang(String lang);
 
   /**
    * Sets a boolean property on this element.
@@ -730,9 +785,10 @@ public class Element extends Node {
    * @param name the name of the property to be set
    * @param value the new property value
    */
-  public final native void setPropertyBoolean(String name, boolean value) /*-{
-     this[name] = value;
-   }-*/;
+  @JsOverlay
+  public final void setPropertyBoolean(String name, boolean value) {
+    Js.asPropertyMap(this).set(name, value);
+  }
 
   /**
    * Sets a double property on this element.
@@ -740,9 +796,10 @@ public class Element extends Node {
    * @param name the name of the property to be set
    * @param value the new property value
    */
-  public final native void setPropertyDouble(String name, double value) /*-{
-     this[name] = value;
-   }-*/;
+  @JsOverlay
+  public final void setPropertyDouble(String name, double value) {
+    Js.asPropertyMap(this).set(name, value);
+  };
 
   /**
    * Sets an integer property on this element.
@@ -750,9 +807,10 @@ public class Element extends Node {
    * @param name the name of the property to be set
    * @param value the new property value
    */
-  public final native void setPropertyInt(String name, int value) /*-{
-     this[name] = value;
-   }-*/;
+  @JsOverlay
+  public final void setPropertyInt(String name, int value) {
+    Js.asPropertyMap(this).set(name, value);
+  }
 
   /**
    * Sets a JSO property on this element.
@@ -760,9 +818,10 @@ public class Element extends Node {
    * @param name the name of the property to be set
    * @param value the new property value
    */
-  public final native void setPropertyJSO(String name, JavaScriptObject value) /*-{
-    this[name] = value;
-  }-*/;
+  @JsOverlay
+  public final void setPropertyJSO(String name, JavaScriptObject value) {
+    setPropertyObject(name, value);
+  }
 
   /**
    * Sets an object property on this element.
@@ -770,9 +829,10 @@ public class Element extends Node {
    * @param name the name of the property to be set
    * @param value the new property value
    */
-  public final native void setPropertyObject(String name, Object value) /*-{
-    this[name] = value;
-  }-*/;
+  @JsOverlay
+  public final void setPropertyObject(String name, Object value) {
+    Js.asPropertyMap(this).set(name, value);
+  }
 
   /**
    * Sets a property on this element.
@@ -780,13 +840,15 @@ public class Element extends Node {
    * @param name the name of the property to be set
    * @param value the new property value
    */
-  public final native void setPropertyString(String name, String value) /*-{
-     this[name] = value;
-   }-*/;
+  @JsOverlay
+  public final void setPropertyString(String name, String value) {
+    Js.asPropertyMap(this).set(name, value);
+  };
 
   /**
    * The number of pixels that an element's content is scrolled to the left.
    */
+  @JsOverlay
   public final void setScrollLeft(int scrollLeft) {
     DOMImpl.impl.setScrollLeft(this, scrollLeft);
   }
@@ -794,61 +856,76 @@ public class Element extends Node {
   /**
    * The number of pixels that an element's content is scrolled to the top.
    */
-  public final native void setScrollTop(int scrollTop) /*-{
-     this.scrollTop = scrollTop;
-   }-*/;
+  @JsProperty
+  public final native void setScrollTop(int scrollTop);
 
   /**
    * The index that represents the element's position in the tabbing order.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-tabindex">W3C HTML Specification</a>
    */
-  public final native void setTabIndex(int tabIndex) /*-{
-    this.tabIndex = tabIndex;
-  }-*/;
+  @JsProperty
+  public final native void setTabIndex(int tabIndex);
 
   /**
    * The element's advisory title.
    */
-  public final native void setTitle(String title) /*-{
-     // Setting the title to null results in the string "null" being displayed
-     // on some browsers.
-     this.title = title || '';
-   }-*/;
+  @JsOverlay
+  public final void setTitle(String title) {
+    // Setting the title to null results in the string "null" being displayed
+    // on some browsers.
+    Js.<HTMLElement>uncheckedCast(this).title = title == null ? "" : title;
+  }
 
-  private final native double getSubPixelClientHeight() /*-{
-    return this.clientHeight;
-  }-*/;
+  @JsOverlay
+  private final double getSubPixelClientHeight() {
+    return Js.<elemental2.dom.Element>uncheckedCast(this).clientHeight;
+  }
 
-  private final native double getSubPixelClientWidth() /*-{
-    return this.clientWidth;
-  }-*/;
+  @JsOverlay
+  private final double getSubPixelClientWidth() {
+    return Js.<elemental2.dom.Element>uncheckedCast(this).clientWidth;
+  }
 
-  private final native double getSubPixelOffsetHeight() /*-{
-     return this.offsetHeight || 0;
-   }-*/;
+  @JsOverlay
+  private final double getSubPixelOffsetHeight() {
+    double value = Js.<HTMLElement>uncheckedCast(this).offsetHeight;
+    return Js.isTruthy(value) ? value : 0d;
+  }
 
-  private final native double getSubPixelOffsetLeft() /*-{
-     return this.offsetLeft || 0;
-  }-*/;
+  @JsOverlay
+  private final double getSubPixelOffsetLeft() {
+    double value = Js.<HTMLElement>uncheckedCast(this).offsetLeft;
+    return Js.isTruthy(value) ? value : 0d;
+  }
 
-  private final native double getSubPixelOffsetTop() /*-{
-    return this.offsetTop || 0;
-  }-*/;
+  @JsOverlay
+  private final double getSubPixelOffsetTop() {
+    double value = Js.<HTMLElement>uncheckedCast(this).offsetTop;
+    return Js.isTruthy(value) ? value : 0d;
+  }
 
-  private final native double getSubPixelOffsetWidth() /*-{
-    return this.offsetWidth || 0;
-  }-*/;
+  @JsOverlay
+  private final double getSubPixelOffsetWidth() {
+    double value = Js.<HTMLElement>uncheckedCast(this).offsetWidth;
+    return Js.isTruthy(value) ? value : 0d;
+  }
 
-  private final native double getSubPixelScrollHeight() /*-{
-    return this.scrollHeight || 0;
-  }-*/;
+  @JsOverlay
+  private final double getSubPixelScrollHeight() {
+    double value = Js.<elemental2.dom.Element>uncheckedCast(this).scrollHeight;
+    return Js.isTruthy(value) ? value : 0d;
+  }
 
-  private final native double getSubPixelScrollTop() /*-{
-    return this.scrollTop || 0;
-  }-*/;
+  @JsOverlay
+  private final double getSubPixelScrollTop() {
+    double value = Js.<elemental2.dom.Element>uncheckedCast(this).scrollTop;
+    return Js.isTruthy(value) ? value : 0d;
+  }
 
-  private final native double getSubPixelScrollWidth() /*-{
-    return this.scrollWidth || 0;
-  }-*/;
+  @JsOverlay
+  private final double getSubPixelScrollWidth() {
+    double value = Js.<elemental2.dom.Element>uncheckedCast(this).scrollWidth;
+    return Js.isTruthy(value) ? value : 0d;
+  }
 }

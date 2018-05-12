@@ -17,25 +17,34 @@ package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * The native dom event.
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class NativeEvent extends JavaScriptObject {
 
   /**
    * The left mouse button.
    */
+  @JsOverlay
   public static final int BUTTON_LEFT = 1;
 
   /**
    * The middle mouse button.
    */
+  @JsOverlay
   public static final int BUTTON_MIDDLE = 4;
 
   /**
    * The right mouse button.
    */
+  @JsOverlay
   public static final int BUTTON_RIGHT = 2;
 
   /**
@@ -49,6 +58,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return <code>true</code> if ALT was depressed when the event occurred
    */
+  @JsOverlay
   public final boolean getAltKey() {
     return DOMImpl.impl.eventGetAltKey(this);
   }
@@ -60,6 +70,7 @@ public class NativeEvent extends JavaScriptObject {
    *         {@link NativeEvent#BUTTON_MIDDLE}, and
    *         {@link NativeEvent#BUTTON_RIGHT}
    */
+  @JsOverlay
   public final int getButton() {
     return DOMImpl.impl.eventGetButton(this);
   }
@@ -69,6 +80,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return array of touches which have changed since the last touch event
    */
+  @JsOverlay
   public final JsArray<Touch> getChangedTouches() {
     return DOMImpl.impl.getChangedTouches(this);
   }
@@ -78,6 +90,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the Unicode codepoint.
    */
+  @JsOverlay
   @Deprecated
   public final int getCharCode() {
     return DOMImpl.impl.eventGetCharCode(this);
@@ -88,6 +101,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the mouse x-position
    */
+  @JsOverlay
   public final int getClientX() {
     return DOMImpl.impl.eventGetClientX(this);
   }
@@ -97,6 +111,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the mouse y-position
    */
+  @JsOverlay
   public final int getClientY() {
     return DOMImpl.impl.eventGetClientY(this);
   }
@@ -106,6 +121,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return <code>true</code> if CTRL was depressed when the event occurred
    */
+  @JsOverlay
   public final boolean getCtrlKey() {
     return DOMImpl.impl.eventGetCtrlKey(this);
   }
@@ -116,6 +132,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the event's current target element
    */
+  @JsOverlay
   public final EventTarget getCurrentEventTarget() {
     return DOMImpl.impl.eventGetCurrentTarget(this);
   }
@@ -125,15 +142,20 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the {@link DataTransfer} object, or null if not a drag event
    */
-  public final native DataTransfer getDataTransfer() /*-{
-    return this.dataTransfer || null;
-  }-*/;
+  @JsOverlay
+  public final DataTransfer getDataTransfer() {
+    return Js.isTruthy(this.dataTransfer) ? this.dataTransfer : null;
+  }
+
+  @JsProperty
+  private DataTransfer dataTransfer;
 
   /**
    * Returns the element that was the actual target of the given event.
    * 
    * @return the target element
    */
+  @JsOverlay
   public final EventTarget getEventTarget() {
     return DOMImpl.impl.eventGetTarget(this);
   }
@@ -145,6 +167,7 @@ public class NativeEvent extends JavaScriptObject {
    * @return the key code
    * @see com.google.gwt.event.dom.client.KeyCodes
    */
+  @JsOverlay
   @Deprecated
   public final int getKeyCode() {
     return DOMImpl.impl.eventGetKeyCode(this);
@@ -155,6 +178,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return <code>true</code> if META was depressed when the event occurred
    */
+  @JsOverlay
   public final boolean getMetaKey() {
     return DOMImpl.impl.eventGetMetaKey(this);
   }
@@ -173,6 +197,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return The velocity of the mouse wheel.
    */
+  @JsOverlay
   public final int getMouseWheelVelocityY() {
     return DOMImpl.impl.eventGetMouseWheelVelocityY(this);
   }
@@ -182,6 +207,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the related target
    */
+  @JsOverlay
   public final EventTarget getRelatedEventTarget() {
     return DOMImpl.impl.eventGetRelatedTarget(this);
   }
@@ -191,6 +217,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the rotation in degrees since the gesture started
    */
+  @JsOverlay
   @Deprecated
   public final double getRotation() {
     return DOMImpl.impl.eventGetRotation(this);
@@ -201,6 +228,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the amount scaled since the gesture started
    */
+  @JsOverlay
   @Deprecated
   public final double getScale() {
     return DOMImpl.impl.eventGetScale(this);
@@ -211,6 +239,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the mouse x-position
    */
+  @JsOverlay
   public final int getScreenX() {
     return DOMImpl.impl.eventGetScreenX(this);
   }
@@ -220,6 +249,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the mouse y-position
    */
+  @JsOverlay
   public final int getScreenY() {
     return DOMImpl.impl.eventGetScreenY(this);
   }
@@ -229,6 +259,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return <code>true</code> if shift was depressed when the event occurred
    */
+  @JsOverlay
   public final boolean getShiftKey() {
     return DOMImpl.impl.eventGetShiftKey(this);
   }
@@ -241,6 +272,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the string representation of this event
    */
+  @JsOverlay
   public final String getString() {
     return DOMImpl.impl.eventToString(this);
   }
@@ -250,6 +282,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return array of touches which have changed since the last touch event
    */
+  @JsOverlay
   public final JsArray<Touch> getTargetTouches() {
     return DOMImpl.impl.getTargetTouches(this);
   }
@@ -259,6 +292,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return array of touches which have changed since the last touch event
    */
+  @JsOverlay
   public final JsArray<Touch> getTouches() {
     return DOMImpl.impl.getTouches(this);
   }
@@ -268,6 +302,7 @@ public class NativeEvent extends JavaScriptObject {
    * 
    * @return the event's enumerated type
    */
+  @JsOverlay
   public final String getType() {
     return DOMImpl.impl.eventGetType(this);
   }
@@ -275,6 +310,7 @@ public class NativeEvent extends JavaScriptObject {
   /**
    * Prevents the browser from taking its default action for the given event.
    */
+  @JsOverlay
   public final void preventDefault() {
     DOMImpl.impl.eventPreventDefault(this);
   }
@@ -282,6 +318,7 @@ public class NativeEvent extends JavaScriptObject {
   /**
    * Stops the event from being propagated to parent elements.
    */
+  @JsOverlay
   public final void stopPropagation() {
     DOMImpl.impl.eventStopPropagation(this);
   }

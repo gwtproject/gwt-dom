@@ -15,6 +15,11 @@
  */
 package org.gwtproject.dom.client;
 
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+
 /**
  * Video element.
  * 
@@ -26,27 +31,32 @@ package org.gwtproject.dom.client;
  * 
  * @see <a href="http://www.w3.org/TR/html5/video.html#video">W3C HTML 5 Specification</a>
  */
+@JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 @TagName(VideoElement.TAG)
 public class VideoElement extends MediaElement {
 
   /**
    * The tag for this element.
    */
+  @JsOverlay
   public static final String TAG = "video";
 
   /**
    * The audio type of MP4 encoded video.
    */
+  @JsOverlay
   public static final String TYPE_MP4 = "video/mp4";
 
   /**
    * The audio type of Ogg encoded video.
    */
+  @JsOverlay
   public static final String TYPE_OGG = "video/ogg";
 
   /**
    * The audio type of WebM encoded audio.
    */
+  @JsOverlay
   public static final String TYPE_WEBM = "video/webm";
 
   protected VideoElement() {
@@ -58,9 +68,8 @@ public class VideoElement extends MediaElement {
    * @return the height, in pixels
    * @see #setHeight(int)
    */
-  public final native int getHeight() /*-{
-    return this.height;
-  }-*/;
+  @JsProperty
+  public final native int getHeight();
 
   /**
    * Returns a poster URL.
@@ -69,9 +78,8 @@ public class VideoElement extends MediaElement {
    *
    * @see #setPoster(String)
    */
-  public final native String getPoster() /*-{
-    return this.poster;
-  }-*/;
+  @JsProperty
+  public final native String getPoster();
 
   /**
    * Gets the intrinsic height of video within the element.
@@ -79,9 +87,8 @@ public class VideoElement extends MediaElement {
    * @return the height, in pixels
    * @see #setHeight(int)
    */
-  public final native int getVideoHeight() /*-{
-    return this.videoHeight;
-  }-*/;
+  @JsProperty
+  public final native int getVideoHeight();
 
   /**
    * Gets the instrinsic width of the video within the element.
@@ -89,9 +96,8 @@ public class VideoElement extends MediaElement {
    * @return the width, in pixels
    * @see #setWidth(int)
    */
-  public final native int getVideoWidth() /*-{
-    return this.videoWidth;
-  }-*/;
+  @JsProperty
+  public final native int getVideoWidth();
   
   /**
    * Gets the width of the element.
@@ -99,9 +105,8 @@ public class VideoElement extends MediaElement {
    * @return the width, in pixels
    * @see #setWidth(int)
    */
-  public final native int getWidth() /*-{
-    return this.width;
-  }-*/;
+  @JsProperty
+  public final native int getWidth();
 
   /**
    * Sets the height of the element.
@@ -109,9 +114,8 @@ public class VideoElement extends MediaElement {
    * @param height the height, in pixels
    * @see #getHeight()
    */
-  public final native void setHeight(int height) /*-{
-    this.height = height;
-  }-*/;
+  @JsProperty
+  public final native void setHeight(int height);
 
   /**
    * Sets the poster URL.
@@ -119,9 +123,8 @@ public class VideoElement extends MediaElement {
    * @param url the poster image URL
    * @see #getPoster
    */
-  public final native void setPoster(String url) /*-{
-    this.poster = url;
-  }-*/;
+  @JsProperty
+  public final native void setPoster(String url);
 
   /**
    * Sets the width of the element.
@@ -129,7 +132,6 @@ public class VideoElement extends MediaElement {
    * @param width the width, in pixels
    * @see #getWidth()
    */
-  public final native void setWidth(int width) /*-{
-    this.width = width;
-  }-*/;
+  @JsProperty
+  public final native void setWidth(int width);
 }
