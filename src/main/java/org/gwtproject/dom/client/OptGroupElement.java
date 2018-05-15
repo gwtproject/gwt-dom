@@ -85,16 +85,6 @@ public class OptGroupElement extends Element {
   }
 
   /**
-   * The control is unavailable in this context.
-   * 
-   * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
-   * @deprecated use {@link #isDisabled()} instead.
-   */
-  @JsProperty
-  @Deprecated
-  public final native String getDisabled();
-
-  /**
    * Assigns a label to this option group.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-label-OPTGROUP">W3C HTML Specification</a>
@@ -119,14 +109,6 @@ public class OptGroupElement extends Element {
    */
   @JsProperty
   public final native void setDisabled(boolean disabled);
-
-  /**
-   * The control is unavailable in this context.
-   * 
-   * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
-   */
-  @JsProperty
-  public final native void setDisabled(String disabled);
 
   /**
    * Assigns a label to this option group.

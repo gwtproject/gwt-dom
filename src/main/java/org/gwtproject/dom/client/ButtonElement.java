@@ -101,16 +101,6 @@ public class ButtonElement extends Element {
   public final native String getAccessKey();
 
   /**
-   * The control is unavailable in this context.
-   * 
-   * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
-   * @deprecated use {@link #isDisabled()} instead.
-   */
-  @JsProperty
-  @Deprecated
-  public final native String getDisabled();
-
-  /**
    * Returns the FORM element containing this control. Returns null if this
    * control is not within the context of a form.
    */
@@ -166,16 +156,6 @@ public class ButtonElement extends Element {
    */
   @JsProperty
   public final native void setDisabled(boolean disabled);
-
-  /**
-   * The control is unavailable in this context.
-   * 
-   * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-disabled">W3C HTML Specification</a>
-   * @deprecated use {@link #setDisabled(boolean)} instead
-   */
-  @JsProperty
-  @Deprecated
-  public final native void setDisabled(String disabled);
 
   /**
    * Form control or object name when submitted with a form.
