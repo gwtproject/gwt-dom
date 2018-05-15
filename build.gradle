@@ -23,9 +23,13 @@ jar {
     from sourceSets.main.allJava
 }
 
+tasks.withType(Test) {
+    enableAssertions = false
+}
+
 test {
     classpath += sourceSets.main.allJava.sourceDirectories + sourceSets.test.allJava.sourceDirectories
-    systemProperty "gwt.args", "-ea -draftCompile"
+    systemProperty "gwt.args", "-draftCompile"
     include '**/*Suite.class'
     scanForTestClasses = false
 }
