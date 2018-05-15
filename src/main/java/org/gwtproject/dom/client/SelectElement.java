@@ -127,14 +127,6 @@ public class SelectElement extends Element {
   }
 
   /**
-   * If true, multiple OPTION elements may be selected in this SELECT.
-   * 
-   * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-multiple">W3C HTML Specification</a>
-   */
-  @JsProperty
-  public final native String getMultiple();
-
-  /**
    * Form control or object name when submitted with a form.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-name-SELECT">W3C HTML Specification</a>
