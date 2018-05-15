@@ -1268,6 +1268,7 @@ public class Style extends JavaScriptObject {
   @JsOverlay
   private static final String TABLE_LAYOUT_FIXED = "fixed";
 
+  @JsOverlay
   private static final String TEXT_ALIGN_CENTER = "center";
   @JsOverlay
   private static final String TEXT_ALIGN_JUSTIFY = "justify";

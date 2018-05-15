@@ -1258,10 +1258,7 @@ public class Document extends Node {
    * @param data the text node's initial text
    * @return the newly created element
    */
-  @JsOverlay
-  public final native Text createTextNode(String data) /*-{
-    return this.createTextNode(data);
-  }-*/;
+  public final native Text createTextNode(String data);
 
   /**
    * Creates a &lt;tfoot&gt; element.

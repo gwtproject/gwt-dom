@@ -219,6 +219,6 @@ public class ObjectElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-usemap">W3C HTML Specification</a>
    */
-  @JsProperty
+  @JsProperty(name = "useMap")
   public final native boolean useMap();
 }

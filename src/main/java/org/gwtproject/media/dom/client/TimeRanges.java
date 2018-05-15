@@ -56,7 +56,7 @@ public final class TimeRanges {
    *
    * @return an integer number of ranges
    */
-  @JsProperty
+  @JsProperty(name = "length")
   public native int length();
   
   /**

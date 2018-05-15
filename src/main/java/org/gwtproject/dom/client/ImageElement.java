@@ -187,6 +187,6 @@ public class ImageElement extends Element {
     return Js.isTruthy(this.useMap);
   }
 
-  @JsProperty
+  @JsProperty(name = "useMap")
   private boolean useMap;
 }

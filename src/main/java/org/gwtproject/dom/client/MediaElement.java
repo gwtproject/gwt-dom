@@ -557,6 +557,7 @@ public class MediaElement extends Element {
     return Js.uncheckedCast(value);
   }
 
+  @JsOverlay
   private void setBooleanAttr(String name, boolean value) {
     if (value) {
       setAttribute(name, "");
