@@ -132,23 +132,6 @@ public class Document extends Node {
   }
 
   /**
-   * Creates a &lt;button&gt; element.
-   * <p>
-   * <b>Warning!</b> The button type is actually implementation-dependent and is
-   * read-only.
-   * 
-   * @return the newly created element
-   * @deprecated use {@link #createPushButtonElement()},
-   *             {@link #createResetButtonElement()} or
-   *             {@link #createSubmitButtonElement()} instead.
-   */
-  @JsOverlay
-  @Deprecated
-  public final ButtonElement createButtonElement() {
-    return (ButtonElement) DOMImpl.impl.createElement(this, ButtonElement.TAG);
-  }
-
-  /**
    * Creates an &lt;input type='button'&gt; element.
    * 
    * @return the newly created element
@@ -570,69 +553,6 @@ public class Document extends Node {
   }
 
   /**
-   * Creates a 'keydown' event.
-   * 
-   * @param ctrlKey <code>true</code> if the ctrl key is depressed
-   * @param altKey <code>true</code> if the alt key is depressed
-   * @param shiftKey <code>true</code> if the shift key is depressed
-   * @param metaKey <code>true</code> if the meta key is depressed
-   * @param keyCode the key-code to be set on the event
-   * @param charCode the char-code to be set on the event
-   * @return the event object
-   * 
-   * @deprecated as of GWT2.1 (keydown events don't have a charCode), use
-   *             {@link #createKeyDownEvent(boolean, boolean, boolean, boolean, int)}
-   */
-  @JsOverlay
-  @Deprecated
-  public final NativeEvent createKeyDownEvent(boolean ctrlKey, boolean altKey,
-      boolean shiftKey, boolean metaKey, int keyCode, int charCode) {
-    return createKeyEvent(BrowserEvents.KEYDOWN, true, true, ctrlKey, altKey, shiftKey,
-        metaKey, keyCode, charCode);
-  }
-
-  /**
-   * Creates a key event.
-   * 
-   * <p>
-   * While this method may be used to create events directly, it is generally
-   * preferable to use existing helper methods such as
-   * {@link #createKeyPressEvent(boolean, boolean, boolean, boolean, int, int)}
-   * .
-   * </p>
-   * 
-   * <p>
-   * Also, note that on Internet Explorer the 'canBubble' and 'cancelable'
-   * arguments will be ignored (the event's behavior is inferred by the browser
-   * based upon its type).
-   * </p>
-   * 
-   * @param type the type of event (e.g., BrowserEvents.KEYDOWN, BrowserEvents.KEYPRESS, etc)
-   * @param canBubble <code>true</code> if the event should bubble
-   * @param cancelable <code>true</code> if the event should be cancelable
-   * @param ctrlKey <code>true</code> if the ctrl key is depressed
-   * @param altKey <code>true</code> if the alt key is depressed
-   * @param shiftKey <code>true</code> if the shift key is depressed
-   * @param metaKey <code>true</code> if the meta key is depressed
-   * @param keyCode the key-code to be set on the event
-   * @param charCode the char-code to be set on the event
-   * @return the event object
-   * 
-   * @deprecated use
-   *             {@link #createKeyCodeEvent(String, boolean, boolean, boolean, boolean, int)}
-   *             or
-   *             {@link #createKeyPressEvent(boolean, boolean, boolean, boolean, int)}
-   */
-  @JsOverlay
-  @Deprecated
-  public final NativeEvent createKeyEvent(String type, boolean canBubble,
-                                          boolean cancelable, boolean ctrlKey, boolean altKey, boolean shiftKey,
-                                          boolean metaKey, int keyCode, int charCode) {
-    return DOMImpl.impl.createKeyEvent(this, type, canBubble, cancelable,
-        ctrlKey, altKey, shiftKey, metaKey, keyCode, charCode);
-  }
-
-  /**
    * Creates a 'keypress' event.
    * 
    * @param ctrlKey <code>true</code> if the ctrl key is depressed
@@ -651,28 +571,6 @@ public class Document extends Node {
   }
 
   /**
-   * Creates a 'keypress' event.
-   * 
-   * @param ctrlKey <code>true</code> if the ctrl key is depressed
-   * @param altKey <code>true</code> if the alt key is depressed
-   * @param shiftKey <code>true</code> if the shift key is depressed
-   * @param metaKey <code>true</code> if the meta key is depressed
-   * @param keyCode the key-code to be set on the event
-   * @param charCode the char-code to be set on the event
-   * @return the event object
-   * 
-   * @deprecated as of GWT 2.1 (keypress events don't have a keyCode), use
-   *             {@link #createKeyPressEvent(boolean, boolean, boolean, boolean, int)}
-   */
-  @JsOverlay
-  @Deprecated
-  public final NativeEvent createKeyPressEvent(boolean ctrlKey, boolean altKey,
-      boolean shiftKey, boolean metaKey, int keyCode, int charCode) {
-    return createKeyEvent(BrowserEvents.KEYPRESS, true, true, ctrlKey, altKey, shiftKey,
-        metaKey, keyCode, charCode);
-  }
-
-  /**
    * Creates a 'keyup' event.
    * 
    * @param ctrlKey <code>true</code> if the ctrl key is depressed
@@ -687,28 +585,6 @@ public class Document extends Node {
       boolean shiftKey, boolean metaKey, int keyCode) {
     return createKeyCodeEvent(BrowserEvents.KEYUP, ctrlKey, altKey, shiftKey, metaKey,
         keyCode);
-  }
-
-  /**
-   * Creates a 'keyup' event.
-   * 
-   * @param ctrlKey <code>true</code> if the ctrl key is depressed
-   * @param altKey <code>true</code> if the alt key is depressed
-   * @param shiftKey <code>true</code> if the shift key is depressed
-   * @param metaKey <code>true</code> if the meta key is depressed
-   * @param keyCode the key-code to be set on the event
-   * @param charCode the char-code to be set on the event
-   * @return the event object
-   * 
-   * @deprecated as of GWT 2.1 (keyup events don't have a charCode), use
-   *             {@link #createKeyUpEvent(boolean, boolean, boolean, boolean, int)}
-   */
-  @JsOverlay
-  @Deprecated
-  public final NativeEvent createKeyUpEvent(boolean ctrlKey, boolean altKey,
-      boolean shiftKey, boolean metaKey, int keyCode, int charCode) {
-    return createKeyEvent(BrowserEvents.KEYUP, true, true, ctrlKey, altKey, shiftKey,
-        metaKey, keyCode, charCode);
   }
 
   /**
@@ -1130,23 +1006,6 @@ public class Document extends Node {
   @JsOverlay
   public final SelectElement createSelectElement() {
     return (SelectElement) DOMImpl.impl.createElement(this, SelectElement.TAG);
-  }
-
-  /**
-   * Creates a &lt;select&gt; element.
-   *
-   * @param multiple <code>true</code> to allow multiple-selection
-   * @return the newly created element
-   *
-   * @deprecatred use {@link #createSelectElement()} and call
-   *              {@link SelectElement#setMultiple(boolean)} to configure multiple-selection.
-   */
-  @JsOverlay
-  @Deprecated
-  public final SelectElement createSelectElement(boolean multiple) {
-    SelectElement el = createSelectElement();
-    el.setMultiple(multiple);
-    return el;
   }
 
   /**

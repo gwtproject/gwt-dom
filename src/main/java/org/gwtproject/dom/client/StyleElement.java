@@ -94,16 +94,6 @@ public class StyleElement extends Element {
   public final native String getCssText();
 
   /**
-   * Enables/disables the style sheet.
-   * @deprecated use {@link #isDisabled()} instead
-   */
-  @JsOverlay
-  @Deprecated
-  public final boolean getDisabled() {
-    return Js.isTruthy(Js.<HTMLStyleElement>uncheckedCast(this).disabled);
-  }
-
-  /**
    * Designed for use with one or more target media.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/styles.html#adef-media">W3C HTML Specification</a>

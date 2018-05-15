@@ -87,17 +87,6 @@ public class LinkElement extends Element {
   }
 
   /**
-   * Enables/disables the link. This is currently only used for style sheet
-   * links, and may be used to activate or deactivate style sheets.
-   * @deprecated use {@link #isDisabled()} instead.
-   */
-  @JsOverlay
-  @Deprecated
-  public final boolean getDisabled() {
-    return Js.isTruthy(Js.<HTMLLinkElement>uncheckedCast(this).disabled);
-  }
-
-  /**
    * The URI of the linked resource.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-href">W3C HTML Specification</a>

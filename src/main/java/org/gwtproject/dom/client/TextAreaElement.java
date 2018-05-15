@@ -109,15 +109,6 @@ public class TextAreaElement extends Element {
   public final native String getDefaultValue();
 
   /**
-   * @deprecated use {@link #isDisabled()} instead
-   */
-  @JsOverlay
-  @Deprecated
-  public final boolean getDisabled() {
-    return Js.isTruthy(Js.<HTMLTextAreaElement>uncheckedCast(this).disabled);
-  }
-
-  /**
    * Returns the FORM element containing this control. Returns null if this
    * control is not within the context of a form.
    */
@@ -131,15 +122,6 @@ public class TextAreaElement extends Element {
    */
   @JsProperty
   public final native String getName();
-
-  /**
-   * @deprecated use {@link #isReadOnly()} instead.
-   */
-  @JsOverlay
-  @Deprecated
-  public final boolean getReadOnly() {
-    return Js.isTruthy(Js.<HTMLTextAreaElement>uncheckedCast(this).readOnly);
-  }
 
   /**
    * Number of text rows.
