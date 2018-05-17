@@ -189,19 +189,19 @@ public class TableElement extends Element {
   /**
    * Returns a collection of the table bodies (including implicit ones).
    */
-  @JsProperty
+  @JsProperty(name = "tBodies")
   public final native NodeList<TableSectionElement> getTBodies();
 
   /**
    * The table's TFOOT, or null if none exists.
    */
-  @JsProperty
+  @JsProperty(name = "tFoot")
   public final native TableSectionElement getTFoot();
 
   /**
    * The table's THEAD, or null if none exists.
    */
-  @JsProperty
+  @JsProperty(name = "tHead")
   public final native TableSectionElement getTHead();
 
   /**
@@ -278,13 +278,13 @@ public class TableElement extends Element {
   /**
    * The table's TFOOT, or null if none exists.
    */
-  @JsProperty
+  @JsProperty(name = "tFoot")
   public final native void setTFoot(TableSectionElement tFoot);
 
   /**
    * The table's THEAD, or null if none exists.
    */
-  @JsProperty
+  @JsProperty(name = "tHead")
   public final native void setTHead(TableSectionElement tHead);
 
   /**
