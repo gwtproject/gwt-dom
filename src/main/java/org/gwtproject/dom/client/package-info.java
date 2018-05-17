@@ -23,7 +23,7 @@
  * JavaScript Native Interface (JSNI) methods for many common tasks.
  * 
  * <p>
- * These classes extend {@link com.google.gwt.core.client.JavaScriptObject}, which enables them to be
+ * These classes extend {@link org.gwtproject.core.client.JavaScriptObject}, which enables them to be
  * used directly as Java types without introducing any object-oriented size or speed overhead beyond the 
  * underlying JavaScript objects they represent. 
  * Consequently, these DOM classes are efficient enough to be used directly when maximum performance is required 

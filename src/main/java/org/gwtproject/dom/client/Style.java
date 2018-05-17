@@ -15,12 +15,12 @@
  */
 package org.gwtproject.dom.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
+import org.gwtproject.core.client.JavaScriptObject;
 
 /**
  * Provides programmatic access to properties of the style object.

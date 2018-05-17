@@ -15,7 +15,7 @@
  */
 package org.gwtproject.dom.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.gwtproject.core.client.JavaScriptObject;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
@@ -183,6 +183,7 @@ public class ImageElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-usemap">W3C HTML Specification</a>
    */
+  @JsOverlay
   public final boolean useMap() {
     return Js.isTruthy(this.useMap);
   }

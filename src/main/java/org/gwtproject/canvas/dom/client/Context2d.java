@@ -16,7 +16,7 @@
 package org.gwtproject.canvas.dom.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JavaScriptObject;
+import org.gwtproject.core.client.JavaScriptObject;
 import org.gwtproject.dom.client.CanvasElement;
 import org.gwtproject.dom.client.ImageElement;
 import org.gwtproject.dom.client.VideoElement;

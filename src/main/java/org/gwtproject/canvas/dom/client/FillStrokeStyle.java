@@ -16,7 +16,7 @@
 
 package org.gwtproject.canvas.dom.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.gwtproject.core.client.JavaScriptObject;
 
 /**
  * Represents a {@link CssColor}, {@link CanvasGradient}, or

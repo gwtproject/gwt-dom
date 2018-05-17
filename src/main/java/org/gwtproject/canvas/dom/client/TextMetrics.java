@@ -15,7 +15,7 @@
  */
 package org.gwtproject.canvas.dom.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.gwtproject.core.client.JavaScriptObject;
 
 /**
  * HTML 5 Canvas text metrics.

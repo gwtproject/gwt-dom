@@ -16,7 +16,7 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JsArray;
+import org.gwtproject.core.client.JsArray;
 import elemental2.dom.*;
 import elemental2.dom.CSSProperties.OpacityUnionType;
 import jsinterop.base.Any;

@@ -15,7 +15,7 @@
  */
 package org.gwtproject.canvas.dom.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.gwtproject.core.client.JavaScriptObject;
 
 /**
  * Array-like object holding the actual image data for an ImageData object. For

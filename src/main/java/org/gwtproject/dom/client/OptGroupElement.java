@@ -15,7 +15,7 @@
  */
 package org.gwtproject.dom.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.gwtproject.core.client.JavaScriptObject;
 import elemental2.dom.HTMLOptGroupElement;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
