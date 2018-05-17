@@ -128,7 +128,7 @@ public class NodeTest extends GWTTestCase {
     // <div>foo<button/>bar</div>
     DivElement div = doc.createDivElement();
     Text txt0 = doc.createTextNode("foo");
-    ButtonElement btn0 = doc.createButtonElement();
+    ButtonElement btn0 = doc.createPushButtonElement();
     Text txt1 = doc.createTextNode("bar");
 
     body.appendChild(div);
@@ -274,7 +274,7 @@ public class NodeTest extends GWTTestCase {
     // <div>foo<button/>bar</div>
     DivElement div = doc.createDivElement();
     Text txt0 = doc.createTextNode("foo");
-    ButtonElement btn0 = doc.createButtonElement();
+    ButtonElement btn0 = doc.createPushButtonElement();
     Text txt1 = doc.createTextNode("bar");
 
     body.appendChild(div);
@@ -297,7 +297,7 @@ public class NodeTest extends GWTTestCase {
     // <div>foo<button/>bar</div>
     DivElement div = doc.createDivElement();
     Text txt0 = doc.createTextNode("foo");
-    ButtonElement btn0 = doc.createButtonElement();
+    ButtonElement btn0 = doc.createPushButtonElement();
     Text txt1 = doc.createTextNode("bar");
 
     body.appendChild(div);
