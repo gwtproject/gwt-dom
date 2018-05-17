@@ -9,6 +9,10 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://repo.vertispan.com/gwt-snapshot'
+    }
+    mavenLocal()
 }
 
 dependencies {
