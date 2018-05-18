@@ -100,7 +100,7 @@ public class SelectElement extends Element {
    */
   @JsOverlay
   public final void add(OptionElement option, OptionElement before) {
-    DOMImpl.impl.selectAdd(this, option, before);
+    Js.<HTMLSelectElement>uncheckedCast(this).add(Js.uncheckedCast(option), Js.uncheckedCast(before));
   }
 
   /**
@@ -108,7 +108,7 @@ public class SelectElement extends Element {
    */
   @JsOverlay
   public final void clear() {
-    DOMImpl.impl.selectClear(this);
+    Js.<HTMLSelectElement>uncheckedCast(this).options.length = 0;
   }
 
   /**
@@ -123,7 +123,7 @@ public class SelectElement extends Element {
    */
   @JsOverlay
   public final int getLength() {
-    return DOMImpl.impl.selectGetLength(this);
+    return Js.<HTMLSelectElement>uncheckedCast(this).options.length;
   }
 
   /**
@@ -139,7 +139,7 @@ public class SelectElement extends Element {
    */
   @JsOverlay
   public final NodeList<OptionElement> getOptions() {
-    return DOMImpl.impl.selectGetOptions(this);
+    return Js.uncheckedCast(Js.<HTMLSelectElement>uncheckedCast(this).options);
   }
 
   /**
@@ -201,7 +201,7 @@ public class SelectElement extends Element {
    */
   @JsOverlay
   public final void remove(int index) {
-    DOMImpl.impl.selectRemoveOption(this, index);
+    Js.<HTMLSelectElement>uncheckedCast(this).remove(index);
   }
 
   /**

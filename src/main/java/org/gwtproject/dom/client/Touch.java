@@ -19,6 +19,7 @@ import org.gwtproject.core.client.JavaScriptObject;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 /**
  * Class representing touches.
@@ -38,7 +39,7 @@ public class Touch extends JavaScriptObject {
    */
   @JsOverlay
   public final int getClientX() {
-    return DOMImpl.impl.touchGetClientX(this);
+    return Js.coerceToInt(Js.<elemental2.dom.Touch>uncheckedCast(this).clientX);
   }
 
   /**
@@ -48,7 +49,7 @@ public class Touch extends JavaScriptObject {
    */
   @JsOverlay
   public final int getClientY() {
-    return DOMImpl.impl.touchGetClientY(this);
+    return Js.coerceToInt(Js.<elemental2.dom.Touch>uncheckedCast(this).clientY);
   }
 
   /**
@@ -58,7 +59,7 @@ public class Touch extends JavaScriptObject {
    */
   @JsOverlay
   public final int getIdentifier() {
-    return DOMImpl.impl.touchGetIdentifier(this);
+    return Js.<elemental2.dom.Touch>uncheckedCast(this).identifier;
   }
 
   /**
@@ -68,7 +69,7 @@ public class Touch extends JavaScriptObject {
    */
   @JsOverlay
   public final int getPageX() {
-    return DOMImpl.impl.touchGetPageX(this);
+    return Js.coerceToInt(Js.<elemental2.dom.Touch>uncheckedCast(this).pageX);
   }
 
   /**
@@ -78,7 +79,7 @@ public class Touch extends JavaScriptObject {
    */
   @JsOverlay
   public final int getPageY() {
-    return DOMImpl.impl.touchGetPageY(this);
+    return Js.coerceToInt(Js.<elemental2.dom.Touch>uncheckedCast(this).pageY);
   }
 
   /**
@@ -112,7 +113,7 @@ public class Touch extends JavaScriptObject {
    */
   @JsOverlay
   public final int getScreenX() {
-    return DOMImpl.impl.touchGetScreenX(this);
+    return Js.coerceToInt(Js.<elemental2.dom.Touch>uncheckedCast(this).screenX);
   }
 
   /**
@@ -122,7 +123,7 @@ public class Touch extends JavaScriptObject {
    */
   @JsOverlay
   public final int getScreenY() {
-    return DOMImpl.impl.touchGetScreenY(this);
+    return Js.coerceToInt(Js.<elemental2.dom.Touch>uncheckedCast(this).screenY);
   }
 
   /**
@@ -132,6 +133,6 @@ public class Touch extends JavaScriptObject {
    */
   @JsOverlay
   public final EventTarget getTarget() {
-    return DOMImpl.impl.touchGetTarget(this);
+    return Js.uncheckedCast(Js.<elemental2.dom.Touch>uncheckedCast(this).target);
   }
 }

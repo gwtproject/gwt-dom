@@ -16,11 +16,14 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import elemental2.dom.CSSProperties;
+import elemental2.dom.CSSStyleDeclaration;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
 import org.gwtproject.core.client.JavaScriptObject;
+import jsinterop.base.JsPropertyMap;
 
 /**
  * Provides programmatic access to properties of the style object.
@@ -1165,6 +1168,8 @@ public class Style extends JavaScriptObject {
   private static final String POSITION_STATIC = "static";
 
   @JsOverlay
+  private static final String STYLE_FLOAT = "cssFloat";
+  @JsOverlay
   private static final String STYLE_Z_INDEX = "zIndex";
   @JsOverlay
   private static final String STYLE_WIDTH = "width";
@@ -1457,7 +1462,7 @@ public class Style extends JavaScriptObject {
    */
   @JsOverlay
   public final void clearFloat() {
-    clearProperty(DOMImpl.impl.cssFloatPropertyName());
+    clearProperty(STYLE_FLOAT);
   }
 
   /**
@@ -1561,7 +1566,7 @@ public class Style extends JavaScriptObject {
    */
   @JsOverlay
   public final void clearOpacity() {
-    DOMImpl.impl.cssClearOpacity(this);
+    Js.<CSSStyleDeclaration>uncheckedCast(this).opacity = CSSProperties.OpacityUnionType.of("");
   }
 
   /**
@@ -2146,7 +2151,7 @@ public class Style extends JavaScriptObject {
    */
   @JsOverlay
   public final String getZIndex() {
-    return DOMImpl.impl.getNumericStyleProperty(this, STYLE_Z_INDEX);
+    return Js.<JsPropertyMap<String>>uncheckedCast(this).get(STYLE_Z_INDEX);
   }
 
   /**
@@ -2234,7 +2239,7 @@ public class Style extends JavaScriptObject {
    */
   @JsOverlay
   public final void setFloat(Float value) {
-    setProperty(DOMImpl.impl.cssFloatPropertyName(), value.getCssName());
+    setProperty(STYLE_FLOAT, value.getCssName());
   }
 
   /**
@@ -2338,7 +2343,7 @@ public class Style extends JavaScriptObject {
    */
   @JsOverlay
   public final void setOpacity(double value) {
-    DOMImpl.impl.cssSetOpacity(this, value);
+    Js.<CSSStyleDeclaration>uncheckedCast(this).opacity = CSSProperties.OpacityUnionType.of(value);
   }
 
   /**
@@ -2601,7 +2606,7 @@ public class Style extends JavaScriptObject {
    */
   @JsOverlay
   private String getPropertyImpl(String name) {
-    return DOMImpl.impl.getStyleProperty(this, name);
+    return Js.<JsPropertyMap<String>>uncheckedCast(this).get(name);
   }
 
   /**

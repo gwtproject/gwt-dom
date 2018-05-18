@@ -16,11 +16,13 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.GWT;
+import elemental2.dom.*;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 
 /**
  * A Document is the root of the HTML hierarchy and holds the entire content.
@@ -69,7 +71,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final AnchorElement createAnchorElement() {
-    return (AnchorElement) DOMImpl.impl.createElement(this, AnchorElement.TAG);
+    return (AnchorElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(AnchorElement.TAG);
   }
 
   /**
@@ -79,7 +81,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final AreaElement createAreaElement() {
-    return (AreaElement) DOMImpl.impl.createElement(this, AreaElement.TAG);
+    return (AreaElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(AreaElement.TAG);
   }
 
   /**
@@ -89,7 +91,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final AudioElement createAudioElement() {
-    return (AudioElement) DOMImpl.impl.createElement(this, AudioElement.TAG);
+    return (AudioElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(AudioElement.TAG);
   }
 
   /**
@@ -99,7 +101,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final BaseElement createBaseElement() {
-    return (BaseElement) DOMImpl.impl.createElement(this, BaseElement.TAG);
+    return (BaseElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(BaseElement.TAG);
   }
 
   /**
@@ -109,8 +111,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final QuoteElement createBlockQuoteElement() {
-    return (QuoteElement) DOMImpl.impl.createElement(this,
-        QuoteElement.TAG_BLOCKQUOTE);
+    return (QuoteElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(QuoteElement.TAG_BLOCKQUOTE);
   }
 
   /**
@@ -128,7 +129,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final BRElement createBRElement() {
-    return (BRElement) DOMImpl.impl.createElement(this, BRElement.TAG);
+    return (BRElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(BRElement.TAG);
   }
 
   /**
@@ -138,7 +139,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final InputElement createButtonInputElement() {
-    return DOMImpl.impl.createInputElement(this, "button");
+    return createInputElement("button");
   }
 
   /**
@@ -148,7 +149,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final CanvasElement createCanvasElement() {
-    return (CanvasElement) DOMImpl.impl.createElement(this, CanvasElement.TAG);
+    return (CanvasElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(CanvasElement.TAG);
   }
 
   /**
@@ -158,8 +159,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TableCaptionElement createCaptionElement() {
-    return (TableCaptionElement) DOMImpl.impl.createElement(this,
-        TableCaptionElement.TAG);
+    return (TableCaptionElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableCaptionElement.TAG);
   }
 
   /**
@@ -177,7 +177,10 @@ public class Document extends Node {
    */
   @JsOverlay
   public final InputElement createCheckInputElement() {
-    return DOMImpl.impl.createCheckInputElement(this);
+    HTMLInputElement e = (HTMLInputElement) Js.<HTMLDocument>uncheckedCast(this).createElement("INPUT");
+    e.type = "checkbox";
+    e.value = "on";
+    return Js.uncheckedCast(e);
   }
 
   /**
@@ -217,8 +220,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TableColElement createColElement() {
-    return (TableColElement) DOMImpl.impl.createElement(this,
-        TableColElement.TAG_COL);
+    return (TableColElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableColElement.TAG_COL);
   }
 
   /**
@@ -228,8 +230,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TableColElement createColGroupElement() {
-    return (TableColElement) DOMImpl.impl.createElement(this,
-        TableColElement.TAG_COLGROUP);
+    return (TableColElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableColElement.TAG_COLGROUP);
   }
 
   /**
@@ -287,7 +288,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ModElement createDelElement() {
-    return (ModElement) DOMImpl.impl.createElement(this, ModElement.TAG_DEL);
+    return (ModElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(ModElement.TAG_DEL);
   }
 
   /**
@@ -297,7 +298,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final DivElement createDivElement() {
-    return (DivElement) DOMImpl.impl.createElement(this, DivElement.TAG);
+    return (DivElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(DivElement.TAG);
   }
 
   /**
@@ -307,7 +308,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final DListElement createDLElement() {
-    return (DListElement) DOMImpl.impl.createElement(this, DListElement.TAG);
+    return (DListElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(DListElement.TAG);
   }
 
   /**
@@ -318,7 +319,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final Element createElement(String tagName) {
-    return DOMImpl.impl.createElement(this, tagName);
+    return (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(tagName);
   }
 
   /**
@@ -338,8 +339,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final FieldSetElement createFieldSetElement() {
-    return (FieldSetElement) DOMImpl.impl.createElement(this,
-        FieldSetElement.TAG);
+    return (FieldSetElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(FieldSetElement.TAG);
   }
 
   /**
@@ -349,7 +349,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final InputElement createFileInputElement() {
-    return DOMImpl.impl.createInputElement(this, "file");
+    return createInputElement("file");
   }
 
   /**
@@ -369,7 +369,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final FormElement createFormElement() {
-    return (FormElement) DOMImpl.impl.createElement(this, FormElement.TAG);
+    return (FormElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(FormElement.TAG);
   }
 
   /**
@@ -379,7 +379,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final FrameElement createFrameElement() {
-    return (FrameElement) DOMImpl.impl.createElement(this, FrameElement.TAG);
+    return (FrameElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(FrameElement.TAG);
   }
 
   /**
@@ -389,8 +389,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final FrameSetElement createFrameSetElement() {
-    return (FrameSetElement) DOMImpl.impl.createElement(this,
-        FrameSetElement.TAG);
+    return (FrameSetElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(FrameSetElement.TAG);
   }
 
   /**
@@ -400,7 +399,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final HeadElement createHeadElement() {
-    return (HeadElement) DOMImpl.impl.createElement(this, HeadElement.TAG);
+    return (HeadElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(HeadElement.TAG);
   }
 
   /**
@@ -412,7 +411,7 @@ public class Document extends Node {
   @JsOverlay
   public final HeadingElement createHElement(int n) {
     assert (n >= 1) && (n <= 6);
-    return (HeadingElement) DOMImpl.impl.createElement(this, "h" + n);
+    return (HeadingElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement("h" + n);
   }
 
   /**
@@ -422,7 +421,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final InputElement createHiddenInputElement() {
-    return DOMImpl.impl.createInputElement(this, "hidden");
+    return createInputElement("hidden");
   }
 
   /**
@@ -432,7 +431,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final HRElement createHRElement() {
-    return (HRElement) DOMImpl.impl.createElement(this, HRElement.TAG);
+    return (HRElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(HRElement.TAG);
   }
 
   /**
@@ -459,7 +458,11 @@ public class Document extends Node {
   @Deprecated
   public final NativeEvent createHtmlEvent(String type, boolean canBubble,
                                            boolean cancelable) {
-    return DOMImpl.impl.createHtmlEvent(this, type, canBubble, cancelable);
+    EventInit details = EventInit.create();
+    details.setBubbles(canBubble);
+    details.setCancelable(cancelable);
+    Event evt = new Event(type, details);
+    return (NativeEvent) (Object) evt;
   }
 
   /**
@@ -469,7 +472,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final IFrameElement createIFrameElement() {
-    return (IFrameElement) DOMImpl.impl.createElement(this, IFrameElement.TAG);
+    return (IFrameElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(IFrameElement.TAG);
   }
 
   /**
@@ -479,7 +482,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ImageElement createImageElement() {
-    return (ImageElement) DOMImpl.impl.createElement(this, ImageElement.TAG);
+    return (ImageElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(ImageElement.TAG);
   }
 
   /**
@@ -489,7 +492,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final InputElement createImageInputElement() {
-    return DOMImpl.impl.createInputElement(this, "image");
+    return createInputElement("image");
   }
 
   /**
@@ -507,7 +510,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ModElement createInsElement() {
-    return (ModElement) DOMImpl.impl.createElement(this, ModElement.TAG_INS);
+    return (ModElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(ModElement.TAG_INS);
   }
 
   /**
@@ -531,8 +534,15 @@ public class Document extends Node {
   @JsOverlay
   public final NativeEvent createKeyCodeEvent(String type, boolean ctrlKey,
                                               boolean altKey, boolean shiftKey, boolean metaKey, int keyCode) {
-    return DOMImpl.impl.createKeyCodeEvent(this, type, ctrlKey, altKey,
-        shiftKey, metaKey, keyCode);
+    KeyboardEventInit init = KeyboardEventInit.create();
+    init.setCtrlKey(ctrlKey);
+    init.setAltKey(altKey);
+    init.setShiftKey(shiftKey);
+    init.setMetaKey(metaKey);
+    Js.<JsPropertyMap<Integer>>uncheckedCast(init).set("keyCode", keyCode);
+
+    KeyboardEvent event = new KeyboardEvent(type, init);
+    return Js.uncheckedCast(event);
   }
 
   /**
@@ -566,8 +576,15 @@ public class Document extends Node {
   @Deprecated//do not use charcode
   public final NativeEvent createKeyPressEvent(boolean ctrlKey, boolean altKey,
       boolean shiftKey, boolean metaKey, int charCode) {
-    return DOMImpl.impl.createKeyPressEvent(this, ctrlKey, altKey, shiftKey,
-        metaKey, charCode);
+    final KeyboardEventInit init = KeyboardEventInit.create();
+    init.setCtrlKey(ctrlKey);
+    init.setAltKey(altKey);
+    init.setShiftKey(shiftKey);
+    init.setMetaKey(metaKey);
+    Js.<JsPropertyMap<Integer>>uncheckedCast(init).set("charCode", charCode);
+
+    KeyboardEvent event = new KeyboardEvent("keypress", init);
+    return Js.uncheckedCast(event);
   }
 
   /**
@@ -594,7 +611,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final LabelElement createLabelElement() {
-    return (LabelElement) DOMImpl.impl.createElement(this, LabelElement.TAG);
+    return (LabelElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(LabelElement.TAG);
   }
 
   /**
@@ -604,7 +621,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final LegendElement createLegendElement() {
-    return (LegendElement) DOMImpl.impl.createElement(this, LegendElement.TAG);
+    return (LegendElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(LegendElement.TAG);
   }
 
   /**
@@ -614,7 +631,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final LIElement createLIElement() {
-    return (LIElement) DOMImpl.impl.createElement(this, LIElement.TAG);
+    return (LIElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(LIElement.TAG);
   }
 
   /**
@@ -624,7 +641,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final LinkElement createLinkElement() {
-    return (LinkElement) DOMImpl.impl.createElement(this, LinkElement.TAG);
+    return (LinkElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(LinkElement.TAG);
   }
 
   /**
@@ -644,7 +661,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final MapElement createMapElement() {
-    return (MapElement) DOMImpl.impl.createElement(this, MapElement.TAG);
+    return (MapElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(MapElement.TAG);
   }
 
   /**
@@ -654,7 +671,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final MetaElement createMetaElement() {
-    return (MetaElement) DOMImpl.impl.createElement(this, MetaElement.TAG);
+    return (MetaElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(MetaElement.TAG);
   }
 
   /**
@@ -720,9 +737,33 @@ public class Document extends Node {
                                             boolean cancelable, int detail, int screenX, int screenY, int clientX,
                                             int clientY, boolean ctrlKey, boolean altKey, boolean shiftKey,
                                             boolean metaKey, int button, Element relatedTarget) {
-    return DOMImpl.impl.createMouseEvent(this, type, canBubble, cancelable,
-        detail, screenX, screenY, clientX, clientY, ctrlKey, altKey, shiftKey,
-        metaKey, button, relatedTarget);
+    int button1 = button;
+    // Because Event.getButton() returns bitfield values [1, 4, 2] for [left,
+    // middle, right], we need to translate them to the standard [0, 1, 2]
+    // button constants.
+    if (button1 == 1) {
+      button1 = 0;
+    } else if (button1 == 4) {
+      button1 = 1;
+    } else {
+      button1 = 2;
+    }
+
+    MouseEventInit init = MouseEventInit.create();
+    init.setButton(button1);
+    init.setBubbles(canBubble);
+    init.setCancelable(cancelable);
+    init.setDetail(detail);
+    init.setScreenX(screenX);
+    init.setScreenY(screenY);
+    init.setClientX(clientX);
+    init.setClientY(clientY);
+    init.setCtrlKey(ctrlKey);
+    init.setAltKey(altKey);
+    init.setShiftKey(shiftKey);
+    init.setMetaKey(metaKey);
+    init.setRelatedTarget(Js.uncheckedCast(relatedTarget));
+    return Js.uncheckedCast(new MouseEvent(type, init));
   }
 
   /**
@@ -838,7 +879,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ObjectElement createObjectElement() {
-    return (ObjectElement) DOMImpl.impl.createElement(this, ObjectElement.TAG);
+    return (ObjectElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(ObjectElement.TAG);
   }
 
   /**
@@ -848,7 +889,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final OListElement createOLElement() {
-    return (OListElement) DOMImpl.impl.createElement(this, OListElement.TAG);
+    return (OListElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(OListElement.TAG);
   }
 
   /**
@@ -858,8 +899,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final OptGroupElement createOptGroupElement() {
-    return (OptGroupElement) DOMImpl.impl.createElement(this,
-        OptGroupElement.TAG);
+    return (OptGroupElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(OptGroupElement.TAG);
   }
 
   /**
@@ -869,7 +909,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final OptionElement createOptionElement() {
-    return (OptionElement) DOMImpl.impl.createElement(this, OptionElement.TAG);
+    return (OptionElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(OptionElement.TAG);
   }
 
   /**
@@ -879,7 +919,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ParamElement createParamElement() {
-    return (ParamElement) DOMImpl.impl.createElement(this, ParamElement.TAG);
+    return (ParamElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(ParamElement.TAG);
   }
 
   /**
@@ -889,7 +929,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final InputElement createPasswordInputElement() {
-    return DOMImpl.impl.createInputElement(this, "password");
+    return createInputElement("password");
   }
 
   /**
@@ -899,8 +939,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ParagraphElement createPElement() {
-    return (ParagraphElement) DOMImpl.impl.createElement(this,
-        ParagraphElement.TAG);
+    return (ParagraphElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(ParagraphElement.TAG);
   }
 
   /**
@@ -910,7 +949,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final PreElement createPreElement() {
-    return (PreElement) DOMImpl.impl.createElement(this, PreElement.TAG);
+    return (PreElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(PreElement.TAG);
   }
 
   /**
@@ -920,7 +959,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ButtonElement createPushButtonElement() {
-    return DOMImpl.impl.createButtonElement(this, "button");
+    return createButtonElement("button");
   }
 
   /**
@@ -930,7 +969,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final QuoteElement createQElement() {
-    return (QuoteElement) DOMImpl.impl.createElement(this, QuoteElement.TAG_Q);
+    return (QuoteElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(QuoteElement.TAG_Q);
   }
 
   /**
@@ -941,7 +980,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final InputElement createRadioInputElement(String name) {
-    return DOMImpl.impl.createInputRadioElement(this, name);
+    return createInputRadioElement(name);
   }
 
   /**
@@ -951,7 +990,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ButtonElement createResetButtonElement() {
-    return DOMImpl.impl.createButtonElement(this, "reset");
+    return createButtonElement("reset");
   }
 
   /**
@@ -961,7 +1000,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final InputElement createResetInputElement() {
-    return DOMImpl.impl.createInputElement(this, "reset");
+    return createInputElement("reset");
   }
 
   /**
@@ -971,7 +1010,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ScriptElement createScriptElement() {
-    return (ScriptElement) DOMImpl.impl.createElement(this, ScriptElement.TAG);
+    return (ScriptElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(ScriptElement.TAG);
   }
 
   /**
@@ -982,7 +1021,9 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ScriptElement createScriptElement(String source) {
-    return DOMImpl.impl.createScriptElement(this, source);
+    ScriptElement elem = (ScriptElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement("script");
+    elem.setText(source);
+    return elem;
   }
 
   /**
@@ -1005,7 +1046,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final SelectElement createSelectElement() {
-    return (SelectElement) DOMImpl.impl.createElement(this, SelectElement.TAG);
+    return (SelectElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(SelectElement.TAG);
   }
 
   /**
@@ -1015,7 +1056,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final SourceElement createSourceElement() {
-    return (SourceElement) DOMImpl.impl.createElement(this, SourceElement.TAG);
+    return (SourceElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(SourceElement.TAG);
   }
 
   /**
@@ -1025,7 +1066,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final SpanElement createSpanElement() {
-    return (SpanElement) DOMImpl.impl.createElement(this, SpanElement.TAG);
+    return (SpanElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(SpanElement.TAG);
   }
 
   /**
@@ -1035,7 +1076,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final StyleElement createStyleElement() {
-    return (StyleElement) DOMImpl.impl.createElement(this, StyleElement.TAG);
+    return (StyleElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(StyleElement.TAG);
   }
 
   /**
@@ -1045,7 +1086,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final ButtonElement createSubmitButtonElement() {
-    return DOMImpl.impl.createButtonElement(this, "submit");
+    return createButtonElement("submit");
   }
 
   /**
@@ -1055,7 +1096,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final InputElement createSubmitInputElement() {
-    return DOMImpl.impl.createInputElement(this, "submit");
+    return createInputElement("submit");
   }
 
   /**
@@ -1065,7 +1106,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TableElement createTableElement() {
-    return (TableElement) DOMImpl.impl.createElement(this, TableElement.TAG);
+    return (TableElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableElement.TAG);
   }
 
   /**
@@ -1075,8 +1116,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TableSectionElement createTBodyElement() {
-    return (TableSectionElement) DOMImpl.impl.createElement(this,
-        TableSectionElement.TAG_TBODY);
+    return (TableSectionElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableSectionElement.TAG_TBODY);
   }
 
   /**
@@ -1086,8 +1126,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TableCellElement createTDElement() {
-    return (TableCellElement) DOMImpl.impl.createElement(this,
-        TableCellElement.TAG_TD);
+    return (TableCellElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableCellElement.TAG_TD);
   }
 
   /**
@@ -1097,8 +1136,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TextAreaElement createTextAreaElement() {
-    return (TextAreaElement) DOMImpl.impl.createElement(this,
-        TextAreaElement.TAG);
+    return (TextAreaElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TextAreaElement.TAG);
   }
 
   /**
@@ -1108,7 +1146,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final InputElement createTextInputElement() {
-    return DOMImpl.impl.createInputElement(this, "text");
+    return createInputElement("text");
   }
 
   /**
@@ -1126,8 +1164,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TableSectionElement createTFootElement() {
-    return (TableSectionElement) DOMImpl.impl.createElement(this,
-        TableSectionElement.TAG_TFOOT);
+    return (TableSectionElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableSectionElement.TAG_TFOOT);
   }
 
   /**
@@ -1137,8 +1174,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TableSectionElement createTHeadElement() {
-    return (TableSectionElement) DOMImpl.impl.createElement(this,
-        TableSectionElement.TAG_THEAD);
+    return (TableSectionElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableSectionElement.TAG_THEAD);
   }
 
   /**
@@ -1148,8 +1184,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TableCellElement createTHElement() {
-    return (TableCellElement) DOMImpl.impl.createElement(this,
-        TableCellElement.TAG_TH);
+    return (TableCellElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableCellElement.TAG_TH);
   }
 
   /**
@@ -1159,7 +1194,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TitleElement createTitleElement() {
-    return (TitleElement) DOMImpl.impl.createElement(this, TitleElement.TAG);
+    return (TitleElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TitleElement.TAG);
   }
 
   /**
@@ -1169,8 +1204,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final TableRowElement createTRElement() {
-    return (TableRowElement) DOMImpl.impl.createElement(this,
-        TableRowElement.TAG);
+    return (TableRowElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableRowElement.TAG);
   }
 
   /**
@@ -1180,7 +1214,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final UListElement createULElement() {
-    return (UListElement) DOMImpl.impl.createElement(this, UListElement.TAG);
+    return (UListElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(UListElement.TAG);
   }
 
   /**
@@ -1211,7 +1245,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final VideoElement createVideoElement() {
-    return (VideoElement) DOMImpl.impl.createElement(this, VideoElement.TAG);
+    return (VideoElement) (Element) (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(VideoElement.TAG);
   }
 
   /**
@@ -1263,7 +1297,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final int getBodyOffsetLeft() {
-    return DOMImpl.impl.getBodyOffsetLeft(this);
+    return Js.<HTMLDocument>uncheckedCast(this).documentElement.clientLeft;
   }
 
   /**
@@ -1276,7 +1310,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final int getBodyOffsetTop() {
-    return DOMImpl.impl.getBodyOffsetTop(this);
+    return Js.<HTMLDocument>uncheckedCast(this).documentElement.clientTop;
   }
 
   /**
@@ -1388,7 +1422,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final int getScrollLeft() {
-    return DOMImpl.impl.getScrollLeft(this);
+    return ensureDocumentScrollingElement().getScrollLeft();
   }
 
   /**
@@ -1398,7 +1432,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final int getScrollTop() {
-    return DOMImpl.impl.getScrollTop(this);
+    return ensureDocumentScrollingElement().getScrollTop();
   }
 
   /**
@@ -1471,7 +1505,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final void setScrollLeft(int left) {
-    DOMImpl.impl.setScrollLeft(this, left);
+    ensureDocumentScrollingElement().setScrollLeft(left);
   }
 
   /**
@@ -1482,7 +1516,7 @@ public class Document extends Node {
    */
   @JsOverlay
   public final void setScrollTop(int top) {
-    DOMImpl.impl.setScrollTop(this, top);
+    ensureDocumentScrollingElement().setScrollTop(top);
   }
 
   /**
@@ -1505,7 +1539,44 @@ public class Document extends Node {
    * @return the document's viewport element
    */
   @JsOverlay
-  final Element getViewportElement() {
+  private Element getViewportElement() {
     return isCSS1Compat() ? getDocumentElement() : getBody();
+  }
+
+  @JsOverlay
+  private ButtonElement createButtonElement(String type) {
+    HTMLButtonElement e = (HTMLButtonElement) Js.<HTMLDocument>uncheckedCast(this).createElement("BUTTON");
+    e.type = type;
+    return Js.uncheckedCast(e);
+  }
+
+  @JsOverlay
+  private InputElement createInputElement(String type) {
+    HTMLInputElement e = (HTMLInputElement) ((HTMLDocument) (Object) this).createElement("INPUT");
+    e.type = type;
+    return Js.uncheckedCast(e);
+  }
+
+  @JsOverlay
+  private InputElement createInputRadioElement(String name) {
+    HTMLInputElement elem = (HTMLInputElement) ((HTMLDocument) (Object) this).createElement("INPUT");
+    elem.type = "radio";
+    elem.name = name;
+    elem.value = "on";
+    return Js.uncheckedCast(elem);
+  }
+
+  @JsOverlay
+  private Element ensureDocumentScrollingElement() {
+    // Uses http://dev.w3.org/csswg/cssom-view/#dom-document-scrolling element to
+    // avoid trying to guess about browser behavior.
+    Element scrollingElement = Js.uncheckedCast(Js.<HTMLDocument>uncheckedCast(this).scrollingElement);
+    if (scrollingElement != null) {
+      return scrollingElement;
+    }
+    scrollingElement = getViewportElement();
+    // In some case (e.g SVG document and old Webkit browsers), scrollingElement can
+    // still be null. In this case, default to documentElement.
+    return scrollingElement != null ? scrollingElement : getDocumentElement();
   }
 }

@@ -87,10 +87,7 @@ public class ButtonElement extends Element {
   /**
    * Simulate a mouse-click.
    */
-  @JsOverlay
-  public final void click() {
-    DOMImpl.impl.buttonClick(this);
-  }
+  public final native void click();
 
   /**
    * A single character access key to give access to the form control.

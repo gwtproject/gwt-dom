@@ -17,11 +17,17 @@ package org.gwtproject.dom.client;
 
 import org.gwtproject.core.client.JavaScriptObject;
 import org.gwtproject.core.client.JsArray;
+import elemental2.dom.Event;
+import elemental2.dom.MouseEvent;
+import elemental2.dom.TouchEvent;
+import elemental2.dom.WheelEvent;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import jsinterop.base.Any;
 import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 
 /**
  * The native dom event.
@@ -60,7 +66,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final boolean getAltKey() {
-    return DOMImpl.impl.eventGetAltKey(this);
+    return Js.isTruthy((Js.<JsPropertyMap<Any>>uncheckedCast(this).get("altKey")));
   }
 
   /**
@@ -72,7 +78,16 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final int getButton() {
-    return DOMImpl.impl.eventGetButton(this);
+    // All modern browsers return 0, 1, and 2 for left, middle, and right,
+    // respectively. Because eventGetButton() is expected to return the IE
+    // bitfield norms of 1, 4, and 2, we translate them here.
+    int button = Js.<JsPropertyMap<Any>>uncheckedCast(this).get("button").asInt();
+    if (button == 1) {
+        return 4;
+    } else if (button == 2) {
+        return 2;
+    }
+    return 1;
   }
 
   /**
@@ -82,7 +97,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final JsArray<Touch> getChangedTouches() {
-    return DOMImpl.impl.getChangedTouches(this);
+    return Js.uncheckedCast(Js.<TouchEvent>uncheckedCast(this).changedTouches);
   }
 
   /**
@@ -93,7 +108,7 @@ public class NativeEvent extends JavaScriptObject {
   @JsOverlay
   @Deprecated
   public final int getCharCode() {
-    return DOMImpl.impl.eventGetCharCode(this);
+    return Js.coerceToInt(Js.<JsPropertyMap<Any>>uncheckedCast(this).get("charCode"));
   }
 
   /**
@@ -103,7 +118,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final int getClientX() {
-    return DOMImpl.impl.eventGetClientX(this);
+    return Js.coerceToInt(Js.<MouseEvent>uncheckedCast(this).clientX);
   }
 
   /**
@@ -113,7 +128,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final int getClientY() {
-    return DOMImpl.impl.eventGetClientY(this);
+    return Js.coerceToInt(Js.<MouseEvent>uncheckedCast(this).clientY);
   }
 
   /**
@@ -123,7 +138,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final boolean getCtrlKey() {
-    return DOMImpl.impl.eventGetCtrlKey(this);
+    return Js.isTruthy((Js.<JsPropertyMap<Any>>uncheckedCast(this).get("ctrlKey")));
   }
 
   /**
@@ -134,7 +149,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final EventTarget getCurrentEventTarget() {
-    return DOMImpl.impl.eventGetCurrentTarget(this);
+    return Js.uncheckedCast(Js.<Event>uncheckedCast(this).currentTarget);
   }
 
   /**
@@ -157,7 +172,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final EventTarget getEventTarget() {
-    return DOMImpl.impl.eventGetTarget(this);
+    return (EventTarget) Js.<Event>uncheckedCast(this).target;
   }
 
   /**
@@ -170,7 +185,7 @@ public class NativeEvent extends JavaScriptObject {
   @JsOverlay
   @Deprecated
   public final int getKeyCode() {
-    return DOMImpl.impl.eventGetKeyCode(this);
+    return Js.coerceToInt(Js.<JsPropertyMap<Any>>uncheckedCast(this).get("keyCode"));
   }
 
   /**
@@ -180,7 +195,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final boolean getMetaKey() {
-    return DOMImpl.impl.eventGetMetaKey(this);
+    return Js.isTruthy((Js.<JsPropertyMap<Any>>uncheckedCast(this).get("metaKey")));
   }
 
   /**
@@ -199,7 +214,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final int getMouseWheelVelocityY() {
-    return DOMImpl.impl.eventGetMouseWheelVelocityY(this);
+    return Js.coerceToInt(Js.<WheelEvent>uncheckedCast(this).deltaY);
   }
 
   /**
@@ -209,7 +224,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final EventTarget getRelatedEventTarget() {
-    return DOMImpl.impl.eventGetRelatedTarget(this);
+    return Js.uncheckedCast(Js.<MouseEvent>uncheckedCast(this).relatedTarget);
   }
 
   /**
@@ -220,7 +235,7 @@ public class NativeEvent extends JavaScriptObject {
   @JsOverlay
   @Deprecated
   public final double getRotation() {
-    return DOMImpl.impl.eventGetRotation(this);
+    return Js.<JsPropertyMap<Any>>uncheckedCast(this).get("rotation").asDouble();
   }
 
   /**
@@ -231,7 +246,7 @@ public class NativeEvent extends JavaScriptObject {
   @JsOverlay
   @Deprecated
   public final double getScale() {
-    return DOMImpl.impl.eventGetScale(this);
+    return Js.<JsPropertyMap<Any>>uncheckedCast(this).get("scale").asDouble();
   }
 
   /**
@@ -241,7 +256,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final int getScreenX() {
-    return DOMImpl.impl.eventGetScreenX(this);
+    return Js.coerceToInt(Js.<MouseEvent>uncheckedCast(this).screenX);
   }
 
   /**
@@ -251,7 +266,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final int getScreenY() {
-    return DOMImpl.impl.eventGetScreenY(this);
+    return Js.coerceToInt(Js.<MouseEvent>uncheckedCast(this).screenY);
   }
 
   /**
@@ -261,7 +276,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final boolean getShiftKey() {
-    return DOMImpl.impl.eventGetShiftKey(this);
+    return Js.isTruthy((Js.<JsPropertyMap<Any>>uncheckedCast(this).get("shiftKey")));
   }
 
   /**
@@ -274,7 +289,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final String getString() {
-    return DOMImpl.impl.eventToString(this);
+    return Js.<Event>uncheckedCast(this).toString();
   }
 
   /**
@@ -284,7 +299,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final JsArray<Touch> getTargetTouches() {
-    return DOMImpl.impl.getTargetTouches(this);
+    return Js.uncheckedCast(Js.<TouchEvent>uncheckedCast(this).targetTouches);
   }
 
   /**
@@ -294,7 +309,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final JsArray<Touch> getTouches() {
-    return DOMImpl.impl.getTouches(this);
+    return Js.uncheckedCast(Js.<TouchEvent>uncheckedCast(this).touches);
   }
 
   /**
@@ -304,7 +319,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final String getType() {
-    return DOMImpl.impl.eventGetType(this);
+    return Js.<Event>uncheckedCast(this).type;
   }
 
   /**
@@ -312,7 +327,7 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final void preventDefault() {
-    DOMImpl.impl.eventPreventDefault(this);
+    Js.<Event>uncheckedCast(this).preventDefault();
   }
 
   /**
@@ -320,6 +335,6 @@ public class NativeEvent extends JavaScriptObject {
    */
   @JsOverlay
   public final void stopPropagation() {
-    DOMImpl.impl.eventStopPropagation(this);
+    Js.<Event>uncheckedCast(this).stopPropagation();
   }
 }

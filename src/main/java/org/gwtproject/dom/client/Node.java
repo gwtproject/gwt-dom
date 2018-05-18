@@ -16,6 +16,7 @@
 package org.gwtproject.dom.client;
 
 import org.gwtproject.core.client.JavaScriptObject;
+import elemental2.dom.HTMLElement;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
@@ -189,7 +190,11 @@ public class Node extends JavaScriptObject {
    */
   @JsOverlay
   public final Element getParentElement() {
-    return DOMImpl.impl.getParentElement(this);
+    elemental2.dom.Node parent = Js.<elemental2.dom.Node>uncheckedCast(this).parentNode;
+    if (parent == null || parent.nodeType != 1) {
+      parent = null;
+    }
+    return Js.uncheckedCast(parent);
   }
 
   /**
@@ -277,7 +282,7 @@ public class Node extends JavaScriptObject {
   public final boolean isOrHasChild(Node child) {
     assert (child != null) : "Child cannot be null";
 
-    return DOMImpl.impl.isOrHasChild(this, child);
+    return Js.<HTMLElement>uncheckedCast(this).contains(Js.<HTMLElement>uncheckedCast(child));
   }
 
   /**

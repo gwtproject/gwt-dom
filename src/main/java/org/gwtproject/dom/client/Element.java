@@ -19,13 +19,13 @@ import org.gwtproject.core.client.JavaScriptObject;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.annotations.IsSafeHtml;
 import elemental2.core.Global;
-import elemental2.core.JsString;
 import elemental2.dom.HTMLElement;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 
 /**
  * All HTML element interfaces derive from this class.
@@ -164,7 +164,7 @@ public class Element extends Node {
    */
   @JsOverlay
   public final void dispatchEvent(NativeEvent evt) {
-    DOMImpl.impl.dispatchEvent(this, evt);
+    Js.<HTMLElement>uncheckedCast(this).dispatchEvent(Js.uncheckedCast(evt));
   }
 
   /**
@@ -187,7 +187,9 @@ public class Element extends Node {
    */
   @JsOverlay
   public final int getAbsoluteLeft() {
-    return DOMImpl.impl.getAbsoluteLeft(this);
+    HTMLElement e = Js.uncheckedCast(this);
+    double subPixelAbsoluteLeft = e.getBoundingClientRect().left + getOwnerDocument().getScrollLeft();
+    return Js.coerceToInt(subPixelAbsoluteLeft);
   }
 
   /**
@@ -205,7 +207,9 @@ public class Element extends Node {
    */
   @JsOverlay
   public final int getAbsoluteTop() {
-    return DOMImpl.impl.getAbsoluteTop(this);
+    HTMLElement e = Js.uncheckedCast(this);
+    double subPixelAbsoluteTop = e.getBoundingClientRect().top + getOwnerDocument().getScrollTop();
+    return Js.coerceToInt(subPixelAbsoluteTop);
   }
 
   /**
@@ -220,7 +224,8 @@ public class Element extends Node {
    */
   @JsOverlay
   public final String getAttribute(String name) {
-    return DOMImpl.impl.getAttribute(this, name);
+    String value = Js.<HTMLElement>uncheckedCast(this).getAttribute(name);
+    return value != null ? value : "";
   }
 
   /**
@@ -294,7 +299,10 @@ public class Element extends Node {
    */
   @JsOverlay
   public final Element getFirstChildElement() {
-    return DOMImpl.impl.getFirstChildElement(this);
+    elemental2.dom.Node child = Js.<HTMLElement>uncheckedCast(this).firstChild;
+    while (child != null && child.nodeType != 1)
+      child = child.nextSibling;
+    return Js.uncheckedCast(child);
   }
 
   /**
@@ -312,7 +320,7 @@ public class Element extends Node {
    */
   @JsOverlay
   public final String getInnerHTML() {
-    return DOMImpl.impl.getInnerHTML(this);
+    return Js.<HTMLElement>uncheckedCast(this).innerHTML;
   }
 
   /**
@@ -320,7 +328,14 @@ public class Element extends Node {
    */
   @JsOverlay
   public final String getInnerText() {
-    return DOMImpl.impl.getInnerText(this);
+    /*
+     * textContent is used over innerText for two reasons:
+     * 1 - It is consistent across browsers. textContent
+     *     does not convert <br>'s to new lines.
+     * 2 - textContent is faster on retreival because WebKit
+     *     does not recalculate styles as it does for innerText.
+     */
+    return Js.<HTMLElement>uncheckedCast(this).textContent;
   }
 
   /**
@@ -335,7 +350,11 @@ public class Element extends Node {
    */
   @JsOverlay
   public final Element getNextSiblingElement() {
-    return DOMImpl.impl.getNextSiblingElement(this);
+    elemental2.dom.Node sib = Js.<HTMLElement>uncheckedCast(this).nextSibling;
+    while (sib != null && sib.nodeType != 1) {
+      sib = sib.nextSibling;
+    }
+    return Js.uncheckedCast(sib);
   }
 
   /**
@@ -385,7 +404,10 @@ public class Element extends Node {
    */
   @JsOverlay
   public final Element getPreviousSiblingElement() {
-    return DOMImpl.impl.getPreviousSiblingElement(this);
+    elemental2.dom.Node sib = Js.<HTMLElement>uncheckedCast(this).previousSibling;
+    while (sib != null && sib.nodeType != 1)
+      sib = sib.previousSibling;
+    return Js.uncheckedCast(sib);
   }
 
   /**
@@ -504,7 +526,8 @@ public class Element extends Node {
    */
   @JsOverlay
   public final String getString() {
-    return DOMImpl.impl.toString(this);
+    //TODO HTMLElement is missing outerHTML
+    return Js.<JsPropertyMap<String>>uncheckedCast(this).get("outerHTML");
   }
 
   /**
@@ -520,7 +543,7 @@ public class Element extends Node {
    */
   @JsOverlay
   public final int getTabIndex() {
-    return DOMImpl.impl.getTabIndex(this);
+    return Js.<HTMLElement>uncheckedCast(this).tabIndex;
   }
 
   /**
@@ -531,7 +554,7 @@ public class Element extends Node {
    */
   @JsOverlay
   public final String getTagName() {
-    return DOMImpl.impl.getTagName(this);
+    return Js.<HTMLElement>uncheckedCast(this).tagName;
   }
 
   /**
@@ -553,7 +576,7 @@ public class Element extends Node {
    */
   @JsOverlay
   public final boolean hasAttribute(String name) {
-    return DOMImpl.impl.hasAttribute(this, name);
+    return Js.<HTMLElement>uncheckedCast(this).hasAttribute(name);
   }
 
   /**
@@ -696,7 +719,41 @@ public class Element extends Node {
    */
   @JsOverlay
   public final void scrollIntoView() {
-    DOMImpl.impl.scrollIntoView(this);
+    HTMLElement e = Js.uncheckedCast(this);
+    double left = e.offsetLeft, top = e.offsetTop;
+    double width = e.offsetWidth, height = e.offsetHeight;
+
+    if (e.parentNode != e.offsetParent && e.parentNode.nodeType == 1) {
+      left -= Js.<HTMLElement>uncheckedCast(e.parentNode).offsetLeft;
+      top -= Js.<HTMLElement>uncheckedCast(e.parentNode).offsetTop;
+    }
+
+    elemental2.dom.Node cur = e.parentNode;
+    while (cur != null && (cur.nodeType == 1)) {
+      HTMLElement curEl = Js.uncheckedCast(cur);
+      if (left < curEl.scrollLeft) {
+        curEl.scrollLeft = left;
+      }
+      if (left + width > curEl.scrollLeft + curEl.clientWidth) {
+        curEl.scrollLeft = (left + width) - curEl.clientWidth;
+      }
+      if (top < curEl.scrollTop) {
+        curEl.scrollTop = top;
+      }
+      if (top + height > curEl.scrollTop + curEl.clientHeight) {
+        curEl.scrollTop = (top + height) - curEl.clientHeight;
+      }
+
+      double offsetLeft = curEl.offsetLeft, offsetTop = curEl.offsetTop;
+      if (curEl.parentNode != curEl.offsetParent && curEl.parentNode.nodeType == 1) {
+        offsetLeft -= Js.<HTMLElement>uncheckedCast(curEl.parentNode).offsetLeft;
+        offsetTop -= Js.<HTMLElement>uncheckedCast(curEl.parentNode).offsetTop;
+      }
+
+      left += offsetLeft - curEl.scrollLeft;
+      top += offsetTop - curEl.scrollTop;
+      cur = curEl.parentNode;
+    }
   }
 
   /**
@@ -736,7 +793,8 @@ public class Element extends Node {
    */
   @JsOverlay
   public final void setDraggable(String draggable) {
-    DOMImpl.impl.setDraggable(this, draggable);
+    //TODO this is at least less wrong than the current implementation...
+    Js.<HTMLElement>uncheckedCast(this).draggable = DRAGGABLE_TRUE.equalsIgnoreCase(draggable);
   }
 
   /**
@@ -770,7 +828,8 @@ public class Element extends Node {
    */
   @JsOverlay
   public final void setInnerText(String text) {
-    DOMImpl.impl.setInnerText(this, text);
+    // See getInnerText for why textContent is used instead of innerText.
+    Js.<HTMLElement>uncheckedCast(this).textContent = text != null ? text : "";
   }
 
   /**
