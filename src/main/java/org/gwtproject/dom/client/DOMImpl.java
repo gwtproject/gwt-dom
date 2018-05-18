@@ -16,55 +16,12 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.core.client.GWT;
-import elemental2.dom.*;
-import jsinterop.base.Any;
+import elemental2.dom.HTMLElement;
 import jsinterop.base.Js;
-import jsinterop.base.JsPropertyMap;
 
 class DOMImpl {
 
   static final DOMImpl impl = GWT.create(DOMImpl.class);
-
-  @Deprecated
-  public NativeEvent createKeyEvent(Document doc, String type,
-      boolean canBubble, boolean cancelable, boolean ctrlKey, boolean altKey,
-      boolean shiftKey, boolean metaKey, int keyCode, int charCode) {
-    KeyboardEventInit init = KeyboardEventInit.create();
-    init.setBubbles(canBubble);
-    init.setCancelable(cancelable);
-    init.setCtrlKey(ctrlKey);
-    init.setAltKey(altKey);
-    init.setShiftKey(shiftKey);
-    init.setMetaKey(metaKey);
-    Js.<JsPropertyMap<Integer>>uncheckedCast(init).set("keyCode", keyCode);
-    Js.<JsPropertyMap<Integer>>uncheckedCast(init).set("charCode", charCode);
-
-    KeyboardEvent event = new KeyboardEvent(type, init);
-
-    return Js.uncheckedCast(event);
-  }
-
-  public void eventSetKeyCode(NativeEvent evt, char key) {
-    Js.<JsPropertyMap<Any>>uncheckedCast(evt).set("keyCode", Js.asAny(key));
-  }
-
-
-  public int getNodeType(Node node) {
-
-    try {
-      return Js.<HTMLElement>uncheckedCast(node).nodeType;
-    } catch (Exception e) {
-      // Workaround for firefox bug:
-      //
-      // Give up on 'Permission denied to get property HTMLDivElement.nodeType'
-      // '0' is not a valid node type, which is appropriate in this case, since
-      // the node in question is completely inaccessible.
-      //
-      // See https://bugzilla.mozilla.org/show_bug.cgi?id=208427
-      // and http://code.google.com/p/google-web-toolkit/issues/detail?id=1909
-      return 0;
-    }
-  }
 
   public int getScrollLeft(Element elem) {
     return Js.coerceToInt(Js.<HTMLElement>uncheckedCast(elem).scrollLeft);
@@ -73,6 +30,5 @@ class DOMImpl {
   public void setScrollLeft(Element elem, int left) {
     Js.<HTMLElement>uncheckedCast(elem).scrollLeft = left;
   }
-
 
 }
