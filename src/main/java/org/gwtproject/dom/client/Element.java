@@ -15,6 +15,7 @@
  */
 package org.gwtproject.dom.client;
 
+import elemental2.dom.ViewCSS;
 import org.gwtproject.core.client.JavaScriptObject;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.annotations.IsSafeHtml;
@@ -26,6 +27,8 @@ import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
+
+import java.util.Objects;
 
 /**
  * All HTML element interfaces derive from this class.
@@ -45,6 +48,9 @@ public class Element extends Node {
   private static int toInt32(double val) {
     return Js.coerceToInt(val);
   }
+
+  @JsOverlay
+  private static final boolean IS_SAFARI = "safari".equals(System.getProperty("user.agent"));
 
   /**
    * Constant returned from {@link #getDraggable()}.
@@ -497,7 +503,13 @@ public class Element extends Node {
    */
   @JsOverlay
   public final int getScrollLeft() {
-    return DOMImpl.impl.getScrollLeft(this);
+    int scrollLeft = Js.coerceToInt(Js.<HTMLElement>uncheckedCast(this).scrollLeft);
+    if (IS_SAFARI) {
+      if (!(hasTagName(BodyElement.TAG) || hasTagName("HTML")) && isRTLSafari()) {
+        return scrollLeft - (getScrollWidth() - getClientWidth());
+      }
+    }
+    return scrollLeft;
   }
 
   /**
@@ -909,7 +921,12 @@ public class Element extends Node {
    */
   @JsOverlay
   public final void setScrollLeft(int scrollLeft) {
-    DOMImpl.impl.setScrollLeft(this, scrollLeft);
+    if (IS_SAFARI) {
+      if (!(hasTagName(BodyElement.TAG) || hasTagName("HTML")) && isRTLSafari()) {
+        scrollLeft += getScrollWidth() - getClientWidth();
+      }
+    }
+    Js.<HTMLElement>uncheckedCast(this).scrollLeft = scrollLeft;
   }
 
   /**
@@ -986,5 +1003,14 @@ public class Element extends Node {
   private final double getSubPixelScrollWidth() {
     double value = Js.<elemental2.dom.Element>uncheckedCast(this).scrollWidth;
     return Js.isTruthy(value) ? value : 0d;
+  }
+
+  @JsOverlay
+  private boolean isRTLSafari() {
+    HTMLElement e = Js.uncheckedCast(this);
+    //TODO when Document has defaultView, clean this up
+    //TODO also see about not referencing a class which doesn't exist in the browser (ViewCSS)
+    ViewCSS defaultView = Js.uncheckedCast(Js.<JsPropertyMap<?>>uncheckedCast(e.ownerDocument).get("defaultView"));
+    return Objects.equals(defaultView.getComputedStyle(e, "").direction, "rtl");
   }
 }
