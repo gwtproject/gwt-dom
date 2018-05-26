@@ -15,9 +15,9 @@
  */
 package org.gwtproject.dom.builder.shared;
 
-import com.google.gwt.safehtml.shared.SafeUri;
-import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
-import com.google.gwt.safehtml.shared.annotations.IsTrustedResourceUri;
+import org.gwtproject.safehtml.shared.SafeUri;
+import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
+import org.gwtproject.safehtml.shared.annotations.IsTrustedResourceUri;
 
 /**
  * Builds an frame element.

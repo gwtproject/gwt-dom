@@ -15,7 +15,7 @@
  */
 package org.gwtproject.dom.client;
 
-import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
 import elemental2.dom.CSSProperties;
 import elemental2.dom.CSSStyleDeclaration;
 import jsinterop.annotations.JsOverlay;

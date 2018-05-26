@@ -16,9 +16,9 @@
 package org.gwtproject.dom.client;
 
 import org.gwtproject.core.client.JavaScriptObject;
-import com.google.gwt.safehtml.shared.SafeUri;
-import com.google.gwt.safehtml.shared.annotations.IsTrustedResourceUri;
-import com.google.gwt.safehtml.shared.annotations.SuppressIsTrustedResourceUriCastCheck;
+import org.gwtproject.safehtml.shared.SafeUri;
+import org.gwtproject.safehtml.shared.annotations.IsTrustedResourceUri;
+import org.gwtproject.safehtml.shared.annotations.SuppressIsTrustedResourceUriCastCheck;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;

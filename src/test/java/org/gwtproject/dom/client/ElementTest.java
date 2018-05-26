@@ -16,8 +16,8 @@
 package org.gwtproject.dom.client;
 
 import org.gwtproject.core.client.JavaScriptObject;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import org.gwtproject.core.client.Scheduler;
+import org.gwtproject.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.junit.DoNotRunWith;
 import com.google.gwt.junit.Platform;
 import com.google.gwt.junit.client.GWTTestCase;

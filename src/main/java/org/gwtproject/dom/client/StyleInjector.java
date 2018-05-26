@@ -17,8 +17,8 @@ package org.gwtproject.dom.client;
 
 import org.gwtproject.core.client.JavaScriptObject;
 import org.gwtproject.core.client.JsArrayString;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import org.gwtproject.core.client.Scheduler;
+import org.gwtproject.core.client.Scheduler.ScheduledCommand;
 
 /**
  * Used to add stylesheets to the document. The one-argument versions of

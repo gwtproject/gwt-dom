@@ -16,10 +16,10 @@
 package org.gwtproject.dom.client;
 
 import org.gwtproject.core.client.JavaScriptObject;
-import com.google.gwt.safehtml.shared.SafeUri;
-import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
-import com.google.gwt.safehtml.shared.annotations.IsTrustedResourceUri;
-import com.google.gwt.safehtml.shared.annotations.SuppressIsTrustedResourceUriCastCheck;
+import org.gwtproject.safehtml.shared.SafeUri;
+import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
+import org.gwtproject.safehtml.shared.annotations.IsTrustedResourceUri;
+import org.gwtproject.safehtml.shared.annotations.SuppressIsTrustedResourceUriCastCheck;
 import elemental2.dom.HTMLFrameElement;
 import elemental2.dom.Window;
 import jsinterop.annotations.JsOverlay;

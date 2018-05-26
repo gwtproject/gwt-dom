@@ -28,7 +28,7 @@ import com.google.gwt.core.shared.GWT;
  * <p>
  * If you are using the builder on a server, use
  * {@link HtmlBuilderFactory#get()} instead. {@link HtmlBuilderFactory} can
- * construct a {@link com.google.gwt.safehtml.shared.SafeHtml} string and will
+ * construct a {@link org.gwtproject.safehtml.shared.SafeHtml} string and will
  * work on the server. Other implementations may only work on a browser client.
  * </p>
  * 

@@ -16,7 +16,7 @@
 package org.gwtproject.dom.client;
 
 import org.gwtproject.core.client.JavaScriptObject;
-import com.google.gwt.safehtml.shared.annotations.IsTrustedResourceUri;
+import org.gwtproject.safehtml.shared.annotations.IsTrustedResourceUri;
 import elemental2.dom.HTMLLinkElement;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;

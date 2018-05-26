@@ -17,9 +17,9 @@ package org.gwtproject.dom.builder.shared;
 
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
-import com.google.gwt.safecss.shared.SafeStylesUtils;
-import com.google.gwt.safehtml.shared.SafeUri;
-import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import org.gwtproject.safecss.shared.SafeStylesUtils;
+import org.gwtproject.safehtml.shared.SafeUri;
+import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
 import org.gwtproject.dom.client.Style.*;
 import org.gwtproject.dom.client.Style.Float;
 

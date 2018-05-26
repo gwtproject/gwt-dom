@@ -23,7 +23,7 @@
   <inherits name="elemental2.dom.Dom"/>
   <inherits name="org.gwtproject.canvas.dom.DOM"/>
   <inherits name="org.gwtproject.media.dom.DOM"/>
-  <inherits name="com.google.gwt.safehtml.SafeHtml"/>
+  <inherits name="org.gwtproject.safehtml.SafeHtml"/>
   <inherits name="com.google.gwt.useragent.UserAgent"/>
   <source path="client" />
   <public path="public" />

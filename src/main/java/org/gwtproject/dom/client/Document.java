@@ -15,7 +15,6 @@
  */
 package org.gwtproject.dom.client;
 
-import com.google.gwt.core.client.GWT;
 import elemental2.dom.*;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -47,11 +46,6 @@ public class Document extends Node {
    */
   @JsOverlay
   public static Document get() {
-    if (GWT.isScript()) {
-      return nativeGet();
-    }
-    
-    // No need to be MT-safe. Single-threaded JS code.
     if (doc == null) {
       doc = nativeGet();
     }

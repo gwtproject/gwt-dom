@@ -17,8 +17,8 @@ package org.gwtproject.dom.builder.client;
 
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
-import com.google.gwt.safehtml.shared.SafeUri;
-import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import org.gwtproject.safehtml.shared.SafeUri;
+import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 import org.gwtproject.dom.builder.shared.StylesBuilder;

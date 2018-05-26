@@ -15,7 +15,7 @@
  */
 package org.gwtproject.dom.builder.shared;
 
-import com.google.gwt.safehtml.shared.SafeHtml;
+import org.gwtproject.safehtml.shared.SafeHtml;
 
 /**
  * A subclass of standard {@link HtmlTableSectionBuilder} that allows directly appending html to

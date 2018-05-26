@@ -15,8 +15,8 @@
  */
 package org.gwtproject.dom.builder.shared;
 
-import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.safehtml.shared.annotations.IsTrustedResourceUri;
+import org.gwtproject.safehtml.shared.SafeHtml;
+import org.gwtproject.safehtml.shared.annotations.IsTrustedResourceUri;
 
 /**
  * HTML-based implementation of {@link ScriptBuilder}.

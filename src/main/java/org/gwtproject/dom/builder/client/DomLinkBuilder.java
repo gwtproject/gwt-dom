@@ -15,7 +15,7 @@
  */
 package org.gwtproject.dom.builder.client;
 
-import com.google.gwt.safehtml.shared.annotations.IsTrustedResourceUri;
+import org.gwtproject.safehtml.shared.annotations.IsTrustedResourceUri;
 import org.gwtproject.dom.builder.shared.LinkBuilder;
 import org.gwtproject.dom.client.LinkElement;
 

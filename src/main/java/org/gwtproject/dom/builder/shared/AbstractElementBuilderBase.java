@@ -15,7 +15,7 @@
  */
 package org.gwtproject.dom.builder.shared;
 
-import com.google.gwt.safehtml.shared.SafeHtml;
+import org.gwtproject.safehtml.shared.SafeHtml;
 import org.gwtproject.dom.client.*;
 
 /**

@@ -15,7 +15,7 @@
  */
 package org.gwtproject.dom.builder.shared;
 
-import com.google.gwt.safehtml.shared.annotations.IsTrustedResourceUri;
+import org.gwtproject.safehtml.shared.annotations.IsTrustedResourceUri;
 
 /**
  * Builds an script element.

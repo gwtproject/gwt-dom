@@ -16,7 +16,7 @@
 package org.gwtproject.dom.builder.shared;
 
 import com.google.gwt.junit.client.GWTTestCase;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import org.gwtproject.safehtml.shared.SafeHtmlUtils;
 import org.gwtproject.dom.builder.client.DomBuilderFactory;
 import org.gwtproject.dom.client.Style.Unit;
 

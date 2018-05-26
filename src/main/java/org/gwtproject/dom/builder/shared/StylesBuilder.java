@@ -15,8 +15,8 @@
  */
 package org.gwtproject.dom.builder.shared;
 
-import com.google.gwt.safehtml.shared.SafeUri;
-import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import org.gwtproject.safehtml.shared.SafeUri;
+import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
 import org.gwtproject.dom.client.Style.*;
 import org.gwtproject.dom.client.Style.Float;
 
@@ -252,7 +252,7 @@ public interface StylesBuilder {
    * 
    * <p>
    * For details and constraints, see
-   * {@link com.google.gwt.safecss.shared.SafeStyles}.
+   * {@link org.gwtproject.safecss.shared.SafeStyles}.
    * </p>
    * 
    * @return this {@link StylesBuilder}
@@ -269,7 +269,7 @@ public interface StylesBuilder {
    *
    * <p>
    * For details and constraints, see
-   * {@link com.google.gwt.safecss.shared.SafeStyles}.
+   * {@link org.gwtproject.safecss.shared.SafeStyles}.
    * </p>
    *
    * @return this {@link StylesBuilder}
@@ -286,7 +286,7 @@ public interface StylesBuilder {
    * 
    * <p>
    * For details and constraints, see
-   * {@link com.google.gwt.safecss.shared.SafeStyles}.
+   * {@link org.gwtproject.safecss.shared.SafeStyles}.
    * </p>
    * 
    * @return this {@link StylesBuilder}
@@ -303,7 +303,7 @@ public interface StylesBuilder {
    * 
    * <p>
    * For details and constraints, see
-   * {@link com.google.gwt.safecss.shared.SafeStyles}.
+   * {@link org.gwtproject.safecss.shared.SafeStyles}.
    * </p>
    * 
    * @return this {@link StylesBuilder}
@@ -320,7 +320,7 @@ public interface StylesBuilder {
    * 
    * <p>
    * For details and constraints, see
-   * {@link com.google.gwt.safecss.shared.SafeStyles}.
+   * {@link org.gwtproject.safecss.shared.SafeStyles}.
    * </p>
    * 
    * @return this {@link StylesBuilder}
@@ -332,7 +332,7 @@ public interface StylesBuilder {
    * Set a style property from a trusted name and a trusted value, i.e., without
    * escaping the name and value. No checks are performed. The calling code
    * should be carefully reviewed to ensure the argument will satisfy the
-   * {@link com.google.gwt.safecss.shared.SafeStyles} contract when they are
+   * {@link org.gwtproject.safecss.shared.SafeStyles} contract when they are
    * composed into the form: "&lt;name&gt;:&lt;value&gt;;".
    * 
    * <p>
@@ -353,7 +353,7 @@ public interface StylesBuilder {
    * Set a style property from a trusted name and a trusted value, i.e., without
    * escaping the name and value. No checks are performed. The calling code
    * should be carefully reviewed to ensure the argument will satisfy the
-   * {@link com.google.gwt.safecss.shared.SafeStyles} contract when they are
+   * {@link org.gwtproject.safecss.shared.SafeStyles} contract when they are
    * composed into the form: "&lt;name&gt;:&lt;value&gt;;".
    * 
    * <p>

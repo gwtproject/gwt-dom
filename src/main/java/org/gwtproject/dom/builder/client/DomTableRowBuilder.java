@@ -15,7 +15,7 @@
  */
 package org.gwtproject.dom.builder.client;
 
-import com.google.gwt.safehtml.shared.SafeHtml;
+import org.gwtproject.safehtml.shared.SafeHtml;
 import org.gwtproject.dom.builder.shared.TableRowBuilder;
 import org.gwtproject.dom.client.TableRowElement;
 

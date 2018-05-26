@@ -15,9 +15,9 @@
  */
 package org.gwtproject.dom.builder.shared;
 
-import com.google.gwt.safecss.shared.SafeStyles;
-import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import org.gwtproject.safecss.shared.SafeStyles;
+import org.gwtproject.safehtml.shared.SafeHtml;
+import org.gwtproject.safehtml.shared.SafeHtmlUtils;
 import org.gwtproject.dom.client.*;
 
 /**
@@ -85,7 +85,7 @@ class HtmlBuilderImpl extends ElementBuilderImpl {
 
   /**
    * Used to builder the HTML string. We cannot use
-   * {@link com.google.gwt.safehtml.shared.SafeHtmlBuilder} because it does some
+   * {@link org.gwtproject.safehtml.shared.SafeHtmlBuilder} because it does some
    * rudimentary checks that the HTML tags are complete. Instead, we escape
    * values before appending them.
    */

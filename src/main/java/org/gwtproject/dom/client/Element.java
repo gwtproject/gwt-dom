@@ -17,8 +17,8 @@ package org.gwtproject.dom.client;
 
 import elemental2.dom.ViewCSS;
 import org.gwtproject.core.client.JavaScriptObject;
-import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.safehtml.shared.annotations.IsSafeHtml;
+import org.gwtproject.safehtml.shared.SafeHtml;
+import org.gwtproject.safehtml.shared.annotations.IsSafeHtml;
 import elemental2.core.Global;
 import elemental2.dom.HTMLElement;
 import jsinterop.annotations.JsOverlay;

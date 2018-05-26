@@ -15,7 +15,7 @@
  */
 package org.gwtproject.dom.builder.client;
 
-import com.google.gwt.safehtml.shared.SafeHtml;
+import org.gwtproject.safehtml.shared.SafeHtml;
 import org.gwtproject.dom.builder.shared.ElementBuilderBase;
 import org.gwtproject.dom.builder.shared.ElementBuilderImpl;
 import org.gwtproject.dom.builder.shared.InputBuilder;

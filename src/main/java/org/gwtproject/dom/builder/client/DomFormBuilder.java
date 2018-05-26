@@ -15,8 +15,8 @@
  */
 package org.gwtproject.dom.builder.client;
 
-import com.google.gwt.safehtml.shared.SafeUri;
-import com.google.gwt.safehtml.shared.annotations.IsSafeUri;
+import org.gwtproject.safehtml.shared.SafeUri;
+import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
 import org.gwtproject.dom.builder.shared.FormBuilder;
 import org.gwtproject.dom.client.FormElement;
 
