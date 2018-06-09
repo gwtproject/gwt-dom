@@ -15,6 +15,11 @@
  */
 package org.gwtproject.canvas.dom.client;
 
+import elemental2.core.Uint8ClampedArray;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 import org.gwtproject.core.client.JavaScriptObject;
 
 /**
@@ -26,6 +31,11 @@ import org.gwtproject.core.client.JavaScriptObject;
  * @see <a href="http://www.w3.org/TR/2dcontext/#canvaspixelarray">HTML Canvas
  *      2D CanvasPixelArray</a>
  */
+@JsType(
+        isNative = true,
+        name = "Object",
+        namespace = JsPackage.GLOBAL
+)
 public class CanvasPixelArray extends JavaScriptObject {
 
   protected CanvasPixelArray() {
@@ -37,18 +47,20 @@ public class CanvasPixelArray extends JavaScriptObject {
    * @param i the data index
    * @return the data value
    */
-  public final native int get(int i) /*-{
-    return this[i] || 0;
-  }-*/;
+  @JsOverlay
+  public final int get(int i) {
+    return Js.asInt(this.<Uint8ClampedArray>cast().getAt(i));
+  }
 
   /**
    * Returns the length of the array.
    *
    * @return the array length
    */
-  public final native int getLength() /*-{
-    return this.length;
-  }-*/;
+  @JsOverlay
+  public final int getLength() {
+    return this.<Uint8ClampedArray>cast().length;
+  }
 
   /**
    * Sets the data value at position i to the given value.
@@ -59,9 +71,8 @@ public class CanvasPixelArray extends JavaScriptObject {
    * @param i index to set.
    * @param value value to set (use values from 0 to 255)
    */
-  public final native void set(int i, int value) /*-{
-    // FF3.0 doesn't clamp the range. We don't manually clamp it to maximize 
-    // performance.
-    this[i] = value;
-  }-*/;
+  @JsOverlay
+  public final void set(int i, int value) {
+    this.<Uint8ClampedArray>cast().setAt(i, (double) value);
+  }
 }

@@ -15,6 +15,9 @@
  */
 package org.gwtproject.canvas.dom.client;
 
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+
 /**
  * Pattern object used with {@link Context2d}.
  *
@@ -24,6 +27,10 @@ package org.gwtproject.canvas.dom.client;
  * @see <a href="http://www.w3.org/TR/2dcontext/#canvaspattern">HTML Canvas 2D
  *      CanvasPattern</a>
  */
+@JsType(
+        isNative = true,
+        namespace = JsPackage.GLOBAL
+)
 public class CanvasPattern extends FillStrokeStyle {
 
   protected CanvasPattern() {

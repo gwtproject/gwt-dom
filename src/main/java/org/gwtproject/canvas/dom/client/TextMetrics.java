@@ -15,6 +15,9 @@
  */
 package org.gwtproject.canvas.dom.client;
 
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 import org.gwtproject.core.client.JavaScriptObject;
 
 /**
@@ -23,6 +26,11 @@ import org.gwtproject.core.client.JavaScriptObject;
  * @see <a href="http://www.w3.org/TR/2dcontext/#textmetrics">HTML Canvas 2D
  *      TextMetrics</a>
  */
+@JsType(
+        isNative = true,
+        name = "Object",
+        namespace = JsPackage.GLOBAL
+)
 public class TextMetrics extends JavaScriptObject {
 
   protected TextMetrics() {
@@ -33,7 +41,6 @@ public class TextMetrics extends JavaScriptObject {
    * 
    * @return the width of the text
    */
-  public final native double getWidth() /*-{
-    return this.width;
-  }-*/;
+  @JsProperty
+  public final native double getWidth();
 }

@@ -15,7 +15,10 @@
  */
 package org.gwtproject.canvas.dom.client;
 
-import com.google.gwt.core.client.GWT;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 import org.gwtproject.core.client.JavaScriptObject;
 import org.gwtproject.dom.client.CanvasElement;
 import org.gwtproject.dom.client.ImageElement;
@@ -27,6 +30,11 @@ import org.gwtproject.dom.client.VideoElement;
  * @see <a href="http://www.w3.org/TR/2dcontext/#canvasrenderingcontext2d">W3C
  *      HTML 5 Specification</a>
  */
+@JsType(
+        isNative = true,
+        name = "Object",
+        namespace = JsPackage.GLOBAL
+)
 public class Context2d extends JavaScriptObject implements Context {
   /**
    * Enum for composite style.
@@ -211,6 +219,7 @@ public class Context2d extends JavaScriptObject implements Context {
   /**
    * Specifies the context id property used in creating a Context.
    */
+  @JsOverlay
   public static final String CONTEXT_ID = "2d";
 
   protected Context2d() {
@@ -230,12 +239,11 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param endAngle the end angle, measured in radians clockwise from the
    *          positive x-axis
    */
-  public final native void arc(double x, double y, double radius, double startAngle,
-      double endAngle) /*-{
-    // We must explicitly use false for the anticlockwise parameter because firefox has a bug where 
-    // the last parameter is not actually optional.
-    this.arc(x, y, radius, startAngle, endAngle, false);
-  }-*/;
+  @JsOverlay
+  public final void arc(double x, double y, double radius, double startAngle,
+      double endAngle) {
+    arc(x, y, radius, startAngle, endAngle, false);
+  };
 
   /**
    * Draws an arc. If a current subpath exists, a line segment is added from the
@@ -256,9 +264,7 @@ public class Context2d extends JavaScriptObject implements Context {
    *       direction
    */
   public final native void arc(double x, double y, double radius, double startAngle, double endAngle,
-      boolean anticlockwise) /*-{
-    this.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-  }-*/;
+      boolean anticlockwise);
 
   /**
    * Adds an arc to the current subpath, connecting it to the current point
@@ -270,16 +276,12 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param y2 the y coordinate of the ending point of the arc
    * @param radius the radius of a circle containing the arc
    */
-  public final native void arcTo(double x1, double y1, double x2, double y2, double radius) /*-{
-    this.arcTo(x1, y1, x2, y2, radius);
-  }-*/;
+  public final native void arcTo(double x1, double y1, double x2, double y2, double radius);
 
   /**
    * Begins a new path.
    */
-  public final native void beginPath() /*-{
-    this.beginPath();
-  }-*/;
+  public final native void beginPath();
 
   /**
    * Draws a cubic B\u00e9zier curve from the current point to the point
@@ -293,9 +295,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param y the y coordinate of the end point
    */
   public final native void bezierCurveTo(double cp1x, double cp1y,
-      double cp2x, double cp2y, double x, double y) /*-{
-    this.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
-  }-*/;
+      double cp2x, double cp2y, double x, double y);
 
   /**
    * Clears a rectangle.
@@ -305,23 +305,17 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param w the width of the rectangle
    * @param h the height of the rectangle
    */
-  public final native void clearRect(double x, double y, double w, double h) /*-{
-    this.clearRect(x, y, w, h);
-  }-*/;
+  public final native void clearRect(double x, double y, double w, double h);
 
   /**
    * Creates a new clipping region from the current path.
    */
-  public final native void clip() /*-{
-    this.clip();
-  }-*/;
+  public final native void clip();
 
   /**
    * Closes the current path.
    */
-  public final native void closePath() /*-{
-    this.closePath();
-  }-*/;
+  public final native void closePath();
 
   /**
    * Creates an image data object of the same size as the given object.
@@ -329,9 +323,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param imagedata an {@link ImageData} object
    * @return a new {@link ImageData} object
    */
-  public final native ImageData createImageData(ImageData imagedata) /*-{
-    return this.createImageData(imagedata);
-  }-*/;
+  public final native ImageData createImageData(ImageData imagedata);
 
   /**
    * Creates an image data object of the given size.
@@ -340,9 +332,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param h the height of the image
    * @return an {@link ImageData} object
    */
-  public final native ImageData createImageData(int w, int h) /*-{
-    return this.createImageData(w, h);
-  }-*/;
+  public final native ImageData createImageData(int w, int h);
 
   /**
    * Creates a linear gradient.
@@ -354,9 +344,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @return a {@link CanvasGradient} object
    */
   public final native CanvasGradient createLinearGradient(double x0, double y0, double x1,
-                                                          double y1) /*-{
-    return this.createLinearGradient(x0, y0, x1, y1);
-  }-*/;
+                                                          double y1);
 
   /**
    * Creates a pattern from another canvas.
@@ -365,6 +353,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param repetition a {@link Repetition} object
    * @return a {@link CanvasPattern} object
    */
+  @JsOverlay
   public final CanvasPattern createPattern(CanvasElement image, Repetition repetition) {
     return createPattern(image, repetition.getValue());
   }
@@ -376,9 +365,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param repetition the repetition type as a String
    * @return a {@link CanvasPattern} object
    */
-  public final native CanvasPattern createPattern(CanvasElement image, String repetition) /*-{
-    return this.createPattern(image, repetition);
-  }-*/;
+  public final native CanvasPattern createPattern(CanvasElement image, String repetition);
 
   /**
    * Creates a pattern from an image.
@@ -387,6 +374,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param repetition a {@link Repetition} object
    * @return a {@link CanvasPattern} object
    */
+  @JsOverlay
   public final CanvasPattern createPattern(ImageElement image, Repetition repetition) {
     return createPattern(image, repetition.getValue());
   }
@@ -398,9 +386,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param repetition the repetition type as a String
    * @return a {@link CanvasPattern} object
    */
-  public final native CanvasPattern createPattern(ImageElement image, String repetition) /*-{
-    return this.createPattern(image, repetition);
-  }-*/;
+  public final native CanvasPattern createPattern(ImageElement image, String repetition);
 
   /**
    * Creates a radial gradient.
@@ -414,9 +400,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @return a {@link CanvasGradient} object
    */
   public final native CanvasGradient createRadialGradient(double x0, double y0, double r0, double x1,
-                                                          double y1, double r1) /*-{
-    return this.createRadialGradient(x0, y0, r0, x1, y1, r1);
-  }-*/;
+                                                          double y1, double r1);
 
   /**
    * Draws an image.
@@ -425,9 +409,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dx the x coordinate of the upper-left corner of the destination rectangle
    * @param dy the y coordinate of the upper-left corner of the destination rectangle
    */
-  public final native void drawImage(CanvasElement image, double dx, double dy) /*-{
-    this.drawImage(image, dx, dy);
-  }-*/;
+  public final native void drawImage(CanvasElement image, double dx, double dy);
 
   /**
    * Draws a scaled image.
@@ -439,9 +421,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dh the height of the destination rectangle
    */
   public final native void drawImage(CanvasElement image, double dx, double dy, double dw,
-                                     double dh) /*-{
-    this.drawImage(image, dx, dy, dw, dh);
-  }-*/;
+                                     double dh);
 
   /**
    * Draws a scaled subset of an image.
@@ -457,9 +437,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dh the height of the destination rectangle
    */
   public final native void drawImage(CanvasElement image, double sx, double sy, double sw, double sh,
-                                     double dx, double dy, double dw, double dh) /*-{
-    this.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
-  }-*/;
+                                     double dx, double dy, double dw, double dh);
 
   /**
    * Draws an image.
@@ -468,9 +446,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dx the x coordinate of the upper-left corner of the destination rectangle
    * @param dy the y coordinate of the upper-left corner of the destination rectangle
    */
-  public final native void drawImage(ImageElement image, double dx, double dy) /*-{
-    this.drawImage(image, dx, dy);
-  }-*/;
+  public final native void drawImage(ImageElement image, double dx, double dy);
 
   /**
    * Draws a scaled image.
@@ -482,9 +458,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dh the height of the destination rectangle
    */
   public final native void drawImage(ImageElement image, double dx, double dy, double dw,
-                                     double dh) /*-{
-    this.drawImage(image, dx, dy, dw, dh);
-  }-*/;
+                                     double dh);
 
   /**
    * Draws a scaled subset of an image.
@@ -500,9 +474,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dh the height of the destination rectangle
    */
   public final native void drawImage(ImageElement image, double sx, double sy, double sw, double sh,
-                                     double dx, double dy, double dw, double dh) /*-{
-    this.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
-  }-*/;
+                                     double dx, double dy, double dw, double dh);
 
   /**
    * Draws a video's current frame.
@@ -511,9 +483,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dx the x coordinate of the upper-left corner of the destination rectangle
    * @param dy the y coordinate of the upper-left corner of the destination rectangle
    */
-  public final native void drawImage(VideoElement image, double dx, double dy) /*-{
-    this.drawImage(image, dx, dy);
-  }-*/;
+  public final native void drawImage(VideoElement image, double dx, double dy);
 
   /**
    * Draws a scaled video's current frame.
@@ -525,9 +495,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dh the height of the destination rectangle
    */
   public final native void drawImage(VideoElement image, double dx, double dy, double dw,
-                                     double dh) /*-{
-    this.drawImage(image, dx, dy, dw, dh);
-  }-*/;
+                                     double dh);
 
   /**
    * Draws a scaled subset of a video's current frame.
@@ -543,16 +511,12 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dh the height of the destination rectangle
    */
   public final native void drawImage(VideoElement image, double sx, double sy, double sw, double sh,
-                                     double dx, double dy, double dw, double dh) /*-{
-    this.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
-  }-*/;
+                                     double dx, double dy, double dw, double dh);
 
   /**
    * Fills the current path.
    */
-  public final native void fill() /*-{
-    this.fill();
-  }-*/;
+  public final native void fill();
 
   /**
    * Fills a rectangle.
@@ -562,9 +526,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param w the width of the rectangle
    * @param h the height of the rectangle
    */
-  public final native void fillRect(double x, double y, double w, double h) /*-{
-    this.fillRect(x, y, w, h);
-  }-*/;
+  public final native void fillRect(double x, double y, double w, double h);
 
   /**
    * Draws filled text.
@@ -573,12 +535,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param x the x coordinate of the text position
    * @param y the y coordinate of the text position
    */
-  public final native void fillText(String text, double x, double y) /*-{
-    // FF3.0 does not implement this method.
-    if (this.fillText) {
-      this.fillText(text, x, y);
-    }
-  }-*/;
+  public final native void fillText(String text, double x, double y);
 
   /**
    * Draws filled text squeezed into the given max width.
@@ -588,18 +545,15 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param y the y coordinate of the text position
    * @param maxWidth the maximum width for the text
    */
-  public final native void fillText(String text, double x, double y, double maxWidth) /*-{
-    this.fillText(text, x, y, maxWidth);
-  }-*/;
+  public final native void fillText(String text, double x, double y, double maxWidth);
 
   /**
    * Gets this context's canvas.
    *
    * @return a {@link CanvasElement} object
    */
-  public final native CanvasElement getCanvas() /*-{
-    return this.canvas;
-  }-*/;
+  @JsProperty
+  public final native CanvasElement getCanvas();
 
   /**
    * Returns the context's fillStyle. In dev mode, the returned object will
@@ -610,13 +564,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #setFillStyle(String)
    * @see CssColor
    */
-  public final FillStrokeStyle getFillStyle() {
-    if (GWT.isScript()) {
-      return getFillStyleWeb();
-    } else {
-      return getFillStyleDev();
-    }
-  }
+  @JsProperty
+  public final native FillStrokeStyle getFillStyle();
 
   /**
    * Gets this context's font.
@@ -624,9 +573,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @return the font name as a String
    * @see #setFont(String)
    */
-  public final native String getFont() /*-{
-    return this.font;
-  }-*/;
+  @JsProperty
+  public final native String getFont();
 
   /**
    * Gets the global alpha value.
@@ -634,9 +582,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @return the global alpha value as a double
    * @see #setGlobalAlpha(double)
    */
-  public final native double getGlobalAlpha() /*-{
-    return this.globalAlpha;
-  }-*/;
+  @JsProperty
+  public final native double getGlobalAlpha();
 
   /**
    * Gets the global composite operation.
@@ -645,9 +592,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #setGlobalCompositeOperation(Composite)
    * @see #setGlobalCompositeOperation(String)
    */
-  public final native String getGlobalCompositeOperation() /*-{
-    return this.globalCompositeOperation;
-  }-*/;
+  @JsProperty
+  public final native String getGlobalCompositeOperation();
 
   /**
    * Returns an image data object for the screen area denoted by
@@ -659,9 +605,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param sh the height of the desired area
    * @return an {@link ImageData} object containing screen pixel data
    */
-  public final native ImageData getImageData(double sx, double sy, double sw, double sh) /*-{
-    return this.getImageData(sx, sy, sw, sh);
-  }-*/;
+  public final native ImageData getImageData(double sx, double sy, double sw, double sh);
 
   /**
    * Gets the current line-cap style.
@@ -670,9 +614,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #setLineCap(LineCap)
    * @see #setLineCap(String)
    */
-  public final native String getLineCap() /*-{
-    return this.lineCap;
-  }-*/;
+  @JsProperty
+  public final native String getLineCap();
 
   /**
    * Gets the current line-join style.
@@ -681,9 +624,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #setLineJoin(LineJoin)
    * @see #setLineJoin(String)
    */
-  public final native String getLineJoin() /*-{
-    return this.lineJoin;
-  }-*/;
+  @JsProperty
+  public final native String getLineJoin();
 
   /**
    * Gets the current line-width.
@@ -691,9 +633,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @return the line width as a double
    * @see #setLineWidth(double)
    */
-  public final native double getLineWidth() /*-{
-    return this.lineWidth;
-  }-*/;
+  @JsProperty
+  public final native double getLineWidth();
 
   /**
    * Gets the current miter-limit.
@@ -701,9 +642,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @return the miter limit as a double
    * @see #setMiterLimit(double)
    */
-  public final native double getMiterLimit() /*-{
-    return this.miterLimit;
-  }-*/;
+  @JsProperty
+  public final native double getMiterLimit();
 
   /**
    * Gets the current shadow-blur.
@@ -711,9 +651,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @return the shadow blur amount as a double
    * @see #setShadowBlur(double)
    */
-  public final native double getShadowBlur() /*-{
-    return this.shadowBlur;
-  }-*/;
+  @JsProperty
+  public final native double getShadowBlur();
 
   /**
    * Gets the current shadow color.
@@ -721,9 +660,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @return the shadow color as a String
    * @see #setShadowColor(String)
    */
-  public final native String getShadowColor() /*-{
-    return this.shadowColor;
-  }-*/;
+  @JsProperty
+  public final native String getShadowColor();
 
   /**
    * Gets the current x-shadow-offset.
@@ -732,9 +670,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #setShadowOffsetX(double)
    * @see #getShadowOffsetY()
    */
-  public final native double getShadowOffsetX() /*-{
-    return this.shadowOffsetX;
-  }-*/;
+  @JsProperty
+  public final native double getShadowOffsetX();
 
   /**
    * Gets the current y-shadow-offset.
@@ -743,9 +680,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #setShadowOffsetY(double)
    * @see #getShadowOffsetX()
    */
-  public final native double getShadowOffsetY() /*-{
-    return this.shadowOffsetY;
-  }-*/;
+  @JsProperty
+  public final native double getShadowOffsetY();
 
   /**
    * Returns the context's strokeStyle. In dev mode, the returned object will
@@ -756,13 +692,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #setStrokeStyle(String)
    * @see CssColor
    */
-  public final FillStrokeStyle getStrokeStyle() {
-    if (GWT.isScript()) {
-      return getStrokeStyleWeb();
-    } else {
-      return getStrokeStyleDev();
-    }
-  }
+  @JsProperty
+  public final native FillStrokeStyle getStrokeStyle();
 
   /**
    * Gets the current text align.
@@ -771,9 +702,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #setTextAlign(TextAlign)
    * @see #setTextAlign(String)
    */
-  public final native String getTextAlign() /*-{
-    return this.textAlign;
-  }-*/;
+  @JsProperty
+  public final native String getTextAlign();
 
   /**
    * Gets the current text baseline.
@@ -782,9 +712,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #setTextBaseline(TextBaseline)
    * @see #setTextBaseline(String)
    */
-  public final native String getTextBaseline() /*-{
-    return this.textBaseline;
-  }-*/;
+  @JsProperty
+  public final native String getTextBaseline();
 
   /**
    * Returns true if the given point is in the current path.
@@ -793,9 +722,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param y the y coordinate of the point to test.
    * @return {@code true} if the given point is in the current path.
    */
-  public final native boolean isPointInPath(double x, double y) /*-{
-    return this.isPointInPath(x, y);
-  }-*/;
+  public final native boolean isPointInPath(double x, double y);
 
   /**
    * Adds a line from the current point to the point (x, y) to the current
@@ -804,9 +731,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param x the x coordinate of the line endpoint
    * @param y the y coordinate of the line endpoint
    */
-  public final native void lineTo(double x, double y) /*-{
-    this.lineTo(x, y);
-  }-*/;
+  public final native void lineTo(double x, double y);
 
   /**
    * Returns the metrics for the given text.
@@ -814,9 +739,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param text the text to measure, as a String
    * @return a {@link TextMetrics} object
    */
-  public final native TextMetrics measureText(String text) /*-{
-    return this.measureText(text);
-  }-*/;
+  public final native TextMetrics measureText(String text);
 
   /**
    * Terminates the current path and sets the current path position to the point
@@ -825,10 +748,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param x the x coordinate of the new position
    * @param y the y coordinate of the new position
    */
-  public final native void moveTo(double x, double y) /*-{
-    this.moveTo(x, y);
-  }-*/;
-
+  public final native void moveTo(double x, double y);
   /**
    * Draws the given image data at the given screen position.
    *
@@ -836,9 +756,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param x the x coordinate of the upper-left corner at which to draw
    * @param y the y coordinate of the upper-left corner at which to draw
    */
-  public final native void putImageData(ImageData imagedata, double x, double y) /*-{
-    return this.putImageData(imagedata, x, y);
-  }-*/;
+  public final native void putImageData(ImageData imagedata, double x, double y);
 
   /**
    * Draws a quadratic B\u00e9zier curve from the current point to the point
@@ -849,9 +767,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param x the x coordinate of the end point
    * @param y the y coordinate of the end point
    */
-  public final native void quadraticCurveTo(double cpx, double cpy, double x, double y) /*-{
-    this.quadraticCurveTo(cpx, cpy, x, y);
-  }-*/;
+  public final native void quadraticCurveTo(double cpx, double cpy, double x, double y);
 
   /**
    * Creates a new rectangular path.
@@ -861,32 +777,24 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param w the width of the rectangle
    * @param h the height of the rectangle
    */
-  public final native void rect(double x, double y, double w, double h) /*-{
-    this.rect(x, y, w, h);
-  }-*/;
+  public final native void rect(double x, double y, double w, double h);
 
   /**
    * Restores the context's state.
    */
-  public final native void restore() /*-{
-    this.restore();
-  }-*/;
+  public final native void restore();
 
   /**
    * Applies rotation to the current transform.
    *
    * @param angle the clockwise rotation angle, in radians
    */
-  public final native void rotate(double angle) /*-{
-    this.rotate(angle);
-  }-*/;
+  public final native void rotate(double angle);
 
   /**
    * Saves the context's state.
    */
-  public final native void save() /*-{
-    this.save();
-  }-*/;
+  public final native void save();
 
   /**
    * Applies scale to the current transform.
@@ -894,9 +802,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param x the scale factor along the x-axis
    * @param y the scale factor along the y-axis
    */
-  public final native void scale(double x, double y) /*-{
-    this.scale(x, y);
-  }-*/;
+  public final native void scale(double x, double y);
 
   /**
    * Sets the context's fillStyle.
@@ -905,13 +811,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #getFillStyle()
    * @see CssColor
    */
-  public final void setFillStyle(FillStrokeStyle fillStyle) {
-    if (GWT.isScript()) {
-      setFillStyleWeb(fillStyle);
-    } else {
-      setFillStyleDev(fillStyle);
-    }
-  }
+  @JsProperty
+  public final native void setFillStyle(FillStrokeStyle fillStyle);
 
   /**
    * Convenience method to set the context's fillStyle to a {@link CssColor},
@@ -920,6 +821,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param fillStyleColor the color as a String
    * @see #getFillStyle()
    */
+  @JsOverlay
   public final void setFillStyle(String fillStyleColor) {
     setFillStyle(CssColor.make(fillStyleColor));
   }
@@ -930,9 +832,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param f the font name as a String
    * @see #getFont()
    */
-  public final native void setFont(String f) /*-{
-    this.font = f;
-  }-*/;
+  @JsProperty
+  public final native void setFont(String f);
 
   /**
    * Sets the global alpha value.
@@ -940,9 +841,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param alpha the global alpha value as a double
    * @see #getGlobalAlpha()
    */
-  public final native void setGlobalAlpha(double alpha) /*-{
-    this.globalAlpha = alpha;
-  }-*/;
+  @JsProperty
+  public final native void setGlobalAlpha(double alpha);
 
   /**
    * Sets the global composite operation.
@@ -950,6 +850,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param composite a {@link Composite} value
    * @see #getGlobalCompositeOperation()
    */
+  @JsOverlay
   public final void setGlobalCompositeOperation(Composite composite) {
     setGlobalCompositeOperation(composite.getValue());
   }
@@ -960,9 +861,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param globalCompositeOperation the operation as a String
    * @see #getGlobalCompositeOperation()
    */
-  public final native void setGlobalCompositeOperation(String globalCompositeOperation) /*-{
-    this.globalCompositeOperation = globalCompositeOperation;
-  }-*/;
+  @JsProperty
+  public final native void setGlobalCompositeOperation(String globalCompositeOperation);
 
   /**
    * Sets the line-cap style.
@@ -970,6 +870,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param lineCap the line cap style as a {@link LineCap} value
    * @see #getLineCap()
    */
+  @JsOverlay
   public final void setLineCap(LineCap lineCap) {
     setLineCap(lineCap.getValue());
   }
@@ -980,9 +881,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param lineCap the line cap style as a String
    * @see #getLineCap()
    */
-  public final native void setLineCap(String lineCap) /*-{
-    this.lineCap = lineCap;
-  }-*/;
+  @JsProperty
+  public final native void setLineCap(String lineCap);
 
   /**
    * Sets the line-join style.
@@ -990,6 +890,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param lineJoin the line join style as a {@link LineJoin} value
    * @see #getLineJoin()
    */
+  @JsOverlay
   public final void setLineJoin(LineJoin lineJoin) {
     setLineJoin(lineJoin.getValue());
   }
@@ -1000,9 +901,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param lineJoin the ling join style as a String
    * @see #getLineJoin()
    */
-  public final native void setLineJoin(String lineJoin) /*-{
-    this.lineJoin = lineJoin;
-  }-*/;
+  @JsProperty
+  public final native void setLineJoin(String lineJoin);
 
   /**
    * Sets the line-width.
@@ -1011,9 +911,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #getMiterLimit()
    * @see #getLineWidth()
    */
-  public final native void setLineWidth(double lineWidth) /*-{
-    this.lineWidth = lineWidth;
-  }-*/;
+  @JsProperty
+  public final native void setLineWidth(double lineWidth);
 
   /**
    * Sets the miter-limit.
@@ -1021,9 +920,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param miterLimit the miter limit as a double
    * @see #getMiterLimit()
    */
-  public final native void setMiterLimit(double miterLimit) /*-{
-    this.miterLimit = miterLimit;
-  }-*/;
+  @JsProperty
+  public final native void setMiterLimit(double miterLimit);
 
   /**
    * Sets the shadow-blur.
@@ -1031,19 +929,16 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param shadowBlur the amount of blur as a double
    * @see #getShadowBlur()
    */
-  public final native void setShadowBlur(double shadowBlur) /*-{
-    this.shadowBlur = shadowBlur;
-  }-*/;
-
+  @JsProperty
+  public final native void setShadowBlur(double shadowBlur);
   /**
    * Sets the shadow-color.
    *
    * @param shadowColor the shadow color as a String
    * @see #getShadowColor()
    */
-  public final native void setShadowColor(String shadowColor) /*-{
-    this.shadowColor = shadowColor;
-  }-*/;
+  @JsProperty
+  public final native void setShadowColor(String shadowColor);
 
   /**
    * Sets the x-shadow-offset.
@@ -1052,9 +947,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #getShadowOffsetX()
    * @see #getShadowOffsetY()
    */
-  public final native void setShadowOffsetX(double shadowOffsetX) /*-{
-    this.shadowOffsetX = shadowOffsetX;
-  }-*/;
+  @JsProperty
+  public final native void setShadowOffsetX(double shadowOffsetX);
 
   /**
    * Sets the y-shadow-offset.
@@ -1063,9 +957,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #getShadowOffsetX()
    * @see #getShadowOffsetY()
    */
-  public final native void setShadowOffsetY(double shadowOffsetY) /*-{
-    this.shadowOffsetY = shadowOffsetY;
-  }-*/;
+  @JsProperty
+  public final native void setShadowOffsetY(double shadowOffsetY);
 
   /**
    * Sets the context's stroke style.
@@ -1074,13 +967,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @see #getStrokeStyle()
    * @see CssColor
    */
-  public final void setStrokeStyle(FillStrokeStyle strokeStyle) {
-    if (GWT.isScript()) {
-      setStrokeStyleWeb(strokeStyle);
-    } else {
-      setStrokeStyleDev(strokeStyle);
-    }
-  }
+  @JsProperty
+  public final native void setStrokeStyle(FillStrokeStyle strokeStyle);
 
   /**
    * Convenience method to set the context's strokeStyle to a {@link CssColor}.
@@ -1088,6 +976,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param strokeStyleColor the stroke color as a String
    * @see #getStrokeStyle()
    */
+  @JsOverlay
   public final void setStrokeStyle(String strokeStyleColor) {
     setStrokeStyle(CssColor.make(strokeStyleColor));
   }
@@ -1098,9 +987,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param align the alignment setting as a String
    * @see #getTextAlign()
    */
-  public final native void setTextAlign(String align) /*-{
-    this.textAlign = align
-  }-*/;
+  @JsProperty
+  public final native void setTextAlign(String align);
 
   /**
    * Sets the text alignment.
@@ -1108,6 +996,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param align the alignment setting as a {@link TextAlign} value
    * @see #getTextAlign()
    */
+  @JsOverlay
   public final void setTextAlign(TextAlign align) {
     setTextAlign(align.getValue());
   }
@@ -1118,9 +1007,8 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param baseline the baseline setting as a String
    * @see #getTextBaseline()
    */
-  public final native void setTextBaseline(String baseline) /*-{
-    this.textBaseline = baseline
-  }-*/;
+  @JsProperty
+  public final native void setTextBaseline(String baseline);
 
   /**
    * Sets the text baseline.
@@ -1128,6 +1016,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param baseline a the baseline setting as a {@link TextBaseline} value
    * @see #getTextBaseline()
    */
+  @JsOverlay
   public final void setTextBaseline(TextBaseline baseline) {
     setTextBaseline(baseline.getValue());
   }
@@ -1143,16 +1032,12 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dy the y translation value
    */
   public final native void setTransform(double m11, double m12, double m21,
-      double m22, double dx, double dy) /*-{
-    this.setTransform(m11, m12, m21, m22, dx, dy);
-  }-*/;
+      double m22, double dx, double dy);
 
   /**
    * Draws the current path with the current stroke style.
    */
-  public final native void stroke() /*-{
-    this.stroke();
-  }-*/;
+  public final native void stroke();
 
   /**
    * Draws the outline of a rectangle with the current stroke style.
@@ -1162,9 +1047,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param w the width of the rectangle
    * @param h the height of the rectangle
    */
-  public final native void strokeRect(double x, double y, double w, double h) /*-{
-    this.strokeRect(x, y, w, h);
-  }-*/;
+  public final native void strokeRect(double x, double y, double w, double h);
 
   /**
    * Draws the text outline.
@@ -1173,9 +1056,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param x the x coordinate of the text position
    * @param y the y coordinate of the text position
    */
-  public final native void strokeText(String text, double x, double y) /*-{
-    this.strokeText(text, x, y);
-  }-*/;
+  public final native void strokeText(String text, double x, double y);
 
   /**
    * Draws the text outline, squeezing the text into the given max width by
@@ -1186,9 +1067,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param y the y coordinate of the text position
    * @param maxWidth the maximum width for the text
    */
-  public final native void strokeText(String text, double x, double y, double maxWidth) /*-{
-    this.strokeText(text, x, y, maxWidth);
-  }-*/;
+  public final native void strokeText(String text, double x, double y, double maxWidth);
 
   /**
    * Multiplies the current transform by the given matrix.
@@ -1201,9 +1080,7 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param dy the y translation value
    */
   public final native void transform(double m11, double m12, double m21, double m22, double dx,
-      double dy) /*-{
-    this.transform(m11, m12, m21, m22, dx, dy);
-  }-*/;
+      double dy);
 
   /**
    * Applies a translation to the current transform.
@@ -1211,101 +1088,5 @@ public class Context2d extends JavaScriptObject implements Context {
    * @param x the amount of translation along the x-axis
    * @param y the amount of translation along the y-axis
    */
-  public final native void translate(double x, double y) /*-{
-    this.translate(x, y);
-  }-*/;
-
-  /**
-   * Returns the fill style when in dev mode. The JSO is wrapped in
-   * an array before being returned.
-   *
-   * @return the fill style.
-   * @see CssColor
-   */
-  private native FillStrokeStyle getFillStyleDev() /*-{
-    if (typeof(this.fillStyle) == 'string') { // it's a color
-      return [this.fillStyle];
-    } else {
-      return this.fillStyle;
-    }
-  }-*/;
-
-  /**
-   * Returns the fill style when in Production Mode.
-   *
-   * @return the fill style
-   */
-  private native FillStrokeStyle getFillStyleWeb() /*-{
-    return this.fillStyle;
-  }-*/;
-
-  /**
-   * Returns the stroke style when in dev mode. The JSO is wrapped in
-   * an array before being returned.
-   *
-   * @return the stroke style
-   * @see CssColor
-   */
-  private native FillStrokeStyle getStrokeStyleDev() /*-{
-    if (typeof(this.strokeStyle) == 'string') { // if it's a color
-      return [this.strokeStyle];
-    } else {
-      return this.strokeStyle;
-    }
-  }-*/;
-
-  /**
-   * Returns the stroke style when in Production Mode.
-   *
-   * @return the stroke style
-   */
-  private native FillStrokeStyle getStrokeStyleWeb() /*-{
-    return this.strokeStyle;
-  }-*/;
-
-  /**
-   * Sets the fill style when in dev mode. The incoming JSO is wrapped in
-   * an array.
-   *
-   * @param fillStyle the fill style to set
-   */
-  private native void setFillStyleDev(FillStrokeStyle fillStyle) /*-{
-    if (fillStyle[0] && typeof(fillStyle[0]) == 'string') {
-      this.fillStyle = fillStyle[0];
-    } else {
-      this.fillStyle = fillStyle;
-    }
-  }-*/;
-
-  /**
-   * Sets the fill style when in Production Mode.
-   *
-   * @param fillStyle the fill style to set
-   */
-  private native void setFillStyleWeb(FillStrokeStyle fillStyle) /*-{
-    this.fillStyle = fillStyle;
-  }-*/;
-
-  /**
-   * Sets the stroke style when in dev mode. The incoming JSO is wrapped in
-   * an array.
-   *
-   * @param strokeStyle the stroke style to set
-   */
-  private native void setStrokeStyleDev(FillStrokeStyle strokeStyle) /*-{
-    if (strokeStyle[0] && typeof(strokeStyle[0]) == 'string') {
-      this.strokeStyle = strokeStyle[0];
-    } else {
-      this.strokeStyle = strokeStyle;
-    }
-  }-*/;
-
-  /**
-   * Sets the stroke style when in Production Mode.
-   *
-   * @param strokeStyle the strokeStyle to set
-   */
-  private native void setStrokeStyleWeb(FillStrokeStyle strokeStyle) /*-{
-    this.strokeStyle = strokeStyle;
-  }-*/;
+  public final native void translate(double x, double y);
 }

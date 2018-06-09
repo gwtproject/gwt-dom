@@ -15,10 +15,18 @@
  */
 package org.gwtproject.canvas.dom.client;
 
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+
 /**
  * Rendering Context interface used to draw on a
  * {@link org.gwtproject.dom.client.CanvasElement}.
  */
+@JsType(
+        isNative = true,
+        name = "Object",
+        namespace = JsPackage.GLOBAL
+)
 public interface Context {
 
 }

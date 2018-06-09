@@ -15,6 +15,11 @@
  */
 package org.gwtproject.canvas.dom.client;
 
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
+
 /**
  * CSS Color object.
  *
@@ -27,6 +32,11 @@ package org.gwtproject.canvas.dom.client;
  * @see <a href="http://www.w3.org/TR/CSS1/#color">Cascading Style Sheets, level
  *      1</a>
  */
+@JsType(
+        isNative = true,
+        name = "String",
+        namespace = JsPackage.GLOBAL
+)
 public class CssColor extends FillStrokeStyle {
 
   /**
@@ -37,21 +47,23 @@ public class CssColor extends FillStrokeStyle {
    * @param b blue, integer between 0 and 255
    * @return a {@link CssColor} object
    */
+  @JsOverlay
   public static final CssColor make(int r, int g, int b) {
     return make("rgb(" + r + "," + g + "," + b + ")");
   }
 
   /**
    * Creates a CssColor object.
-   * 
+   *
    * Examples: blue, #ff0000, #f00, rgb(255,0,0)
-   * 
+   *
    * @param cssColor the CSS color
    * @return a {@link CssColor} object
    */
-  public static final native CssColor make(String cssColor) /*-{
-    return @com.google.gwt.core.client.GWT::isScript()() ? cssColor : [cssColor];
-  }-*/;
+  @JsOverlay
+  public static final CssColor make(String cssColor) {
+    return Js.uncheckedCast(cssColor);
+  }
 
   protected CssColor() {
   }
@@ -61,7 +73,8 @@ public class CssColor extends FillStrokeStyle {
    * 
    * @return the value of the color, as a String.
    */
-  public final native String value() /*-{
-    return @com.google.gwt.core.client.GWT::isScript()() ? this : this[0];
-  }-*/;
+  @JsOverlay
+  public final String value() {
+    return cast();
+  }
 }

@@ -15,6 +15,9 @@
  */
 package org.gwtproject.canvas.dom.client;
 
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+
 /**
  * Gradient object used with {@link Context2d}.
  *
@@ -24,6 +27,10 @@ package org.gwtproject.canvas.dom.client;
  * @see <a href="http://www.w3.org/TR/2dcontext/#canvasgradient">HTML Canvas 2D
  *      CanvasGradient</a>
  */
+@JsType(
+        isNative = true,
+        namespace = JsPackage.GLOBAL
+)
 public class CanvasGradient extends FillStrokeStyle {
 
   protected CanvasGradient() {
@@ -35,7 +42,5 @@ public class CanvasGradient extends FillStrokeStyle {
    * @param offset value between 0 and 1 for where the color stop is located.
    * @param color color at the stop.
    */
-  public final native void addColorStop(double offset, String color) /*-{
-    this.addColorStop(offset, color);
-  }-*/;
+  public final native void addColorStop(double offset, String color);
 }
