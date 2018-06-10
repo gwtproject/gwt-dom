@@ -21,6 +21,7 @@
   <inherits name="org.gwtproject.dom.DOM"/>
   <inherits name="org.gwtproject.safehtml.SafeHtml"/>
   <inherits name="org.gwtproject.safecss.SafeCss"/>
+  <inherits name="org.gwtproject.regexp.RegExp" />
 
   <!-- Default to string concatenation with inner HTML. -->
   <!-- TODO(jlabanca): Research performance using different methods.  -->

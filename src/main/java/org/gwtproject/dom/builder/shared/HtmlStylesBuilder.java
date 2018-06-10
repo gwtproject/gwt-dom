@@ -15,8 +15,8 @@
  */
 package org.gwtproject.dom.builder.shared;
 
-import com.google.gwt.regexp.shared.MatchResult;
-import com.google.gwt.regexp.shared.RegExp;
+import org.gwtproject.regexp.shared.MatchResult;
+import org.gwtproject.regexp.shared.RegExp;
 import org.gwtproject.safecss.shared.SafeStylesUtils;
 import org.gwtproject.safehtml.shared.SafeUri;
 import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
