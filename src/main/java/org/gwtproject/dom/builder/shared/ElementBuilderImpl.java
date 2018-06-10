@@ -15,7 +15,6 @@
  */
 package org.gwtproject.dom.builder.shared;
 
-import com.google.gwt.core.shared.GWT;
 import org.gwtproject.regexp.shared.RegExp;
 import org.gwtproject.safehtml.shared.SafeHtml;
 import org.gwtproject.dom.client.Element;
@@ -196,9 +195,6 @@ public abstract class ElementBuilderImpl {
    * @return the {@link Element} that was built
    */
   public Element finish() {
-    if (!GWT.isClient()) {
-      throw new RuntimeException("asElement() can only be called from GWT client code.");
-    }
     if (asElementCalled) {
       throw new IllegalStateException("asElement() can only be called once.");
     }

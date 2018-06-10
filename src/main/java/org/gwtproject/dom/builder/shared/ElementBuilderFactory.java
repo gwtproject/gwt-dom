@@ -15,7 +15,7 @@
  */
 package org.gwtproject.dom.builder.shared;
 
-import com.google.gwt.core.shared.GWT;
+import org.gwtproject.dom.builder.client.DomBuilderFactory;
 
 /**
  * Factory for creating element builders.
@@ -101,10 +101,11 @@ public abstract class ElementBuilderFactory {
    */
   public static ElementBuilderFactory get() {
     if (instance == null) {
-      if (GWT.isClient()) {
-        instance = GWT.create(ElementBuilderFactory.class);
+      if ("safari".equals(System.getProperty("user.agent"))) {
+        // The old GWT module was configured to only allow "safari" user agent to manipulate the dom directly
+        instance = DomBuilderFactory.get();
       } else {
-        // The DOM implementation will not work on the server.
+        // All other browsers (and the JVM itself) get the string-based implementation
         instance = HtmlBuilderFactory.get();
       }
     }

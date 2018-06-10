@@ -17,7 +17,6 @@
 <!-- This module is typically inherited via com.google.gwt.user.User        -->
 <!--                                                                        -->
 <module>
-  <inherits name="com.google.gwt.core.Core"/>
   <inherits name="org.gwtproject.dom.DOM"/>
   <inherits name="org.gwtproject.safehtml.SafeHtml"/>
   <inherits name="org.gwtproject.safecss.SafeCss"/>
