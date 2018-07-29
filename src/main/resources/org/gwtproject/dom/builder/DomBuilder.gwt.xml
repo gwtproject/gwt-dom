@@ -22,20 +22,6 @@
   <inherits name="org.gwtproject.safecss.SafeCss"/>
   <inherits name="org.gwtproject.regexp.RegExp" />
 
-  <!-- Default to string concatenation with inner HTML. -->
-  <!-- TODO(jlabanca): Research performance using different methods.  -->
-  <replace-with class="org.gwtproject.dom.builder.shared.HtmlBuilderFactory">
-    <when-type-is class="org.gwtproject.dom.builder.shared.ElementBuilderFactory" />
-  </replace-with>
-
-  <!-- Some browsers perform DOM manipulation faster. -->
-  <replace-with class="org.gwtproject.dom.builder.client.DomBuilderFactory">
-    <when-type-is class="org.gwtproject.dom.builder.shared.ElementBuilderFactory" />
-    <any>
-      <when-property-is name="user.agent" value="safari" />
-    </any>
-  </replace-with>
-
   <source path="client"/>
   <source path="shared"/>
   <public path="public" />
