@@ -44,7 +44,7 @@ import org.gwtproject.dom.builder.client.DomBuilderFactory;
  * 
  * <p>
  * See this example: {@example
- * com.google.gwt.examples.dom.builder.ElementBuilderFactoryChainingExample}.
+ * org.gwtproject.examples.dom.builder.ElementBuilderFactoryChainingExample}.
  * </p>
  * 
  * <p>
@@ -63,7 +63,7 @@ import org.gwtproject.dom.builder.client.DomBuilderFactory;
  * 
  * <p>
  * See an example: {@example
- * com.google.gwt.examples.dom.builder.ElementBuilderFactoryNonChainingExample}.
+ * org.gwtproject.examples.dom.builder.ElementBuilderFactoryNonChainingExample}.
  * </p>
  * 
  * <p>

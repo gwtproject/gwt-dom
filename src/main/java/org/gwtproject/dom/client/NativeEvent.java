@@ -180,7 +180,7 @@ public class NativeEvent extends JavaScriptObject {
    * this event.
    * 
    * @return the key code
-   * @see com.google.gwt.event.dom.client.KeyCodes
+   * @see org.gwtproject.event.dom.client.KeyCodes
    */
   @JsOverlay
   @Deprecated

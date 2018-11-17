@@ -12,10 +12,6 @@
 <!-- implied. License for the specific language governing permissions and   -->
 <!-- limitations under the License.                                         -->
 
-<!-- Deferred binding rules for browser selection.                          -->
-<!--                                                                        -->
-<!-- This module is typically inherited via com.google.gwt.user.User        -->
-<!--                                                                        -->
 <module>
   <inherits name="org.gwtproject.dom.DOM"/>
   <inherits name="org.gwtproject.safehtml.SafeHtml"/>
