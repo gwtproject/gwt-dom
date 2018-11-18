@@ -15,11 +15,14 @@
  */
 package org.gwtproject.canvas.dom.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.DoNotRunWith;
 import com.google.gwt.junit.Platform;
 import com.google.gwt.junit.client.GWTTestCase;
-import elemental2.dom.DomGlobal;
 import org.gwtproject.canvas.dom.client.Context2d.*;
+import org.gwtproject.dom.client.CanvasElement;
+import org.gwtproject.dom.client.Document;
+import org.gwtproject.dom.client.Style;
 
 import java.util.Locale;
 
@@ -33,8 +36,9 @@ import java.util.Locale;
  */
 @DoNotRunWith(Platform.HtmlUnitUnknown)
 public class Context2dTest extends GWTTestCase {
-  protected Canvas canvas1;
-  protected Canvas canvas2;
+
+  private CanvasElement canvas1;
+  private CanvasElement canvas2;
 
   @Override
   public String getModuleName() {
@@ -42,30 +46,38 @@ public class Context2dTest extends GWTTestCase {
   }
 
   @Override
-  protected void gwtSetUp() throws Exception {
-    canvas1 = Canvas.createIfSupported();
-    canvas2 = Canvas.createIfSupported();
+  protected void gwtSetUp() {
+    Document doc = Document.get();
 
-    if (canvas1 == null) {
-      return; // don't continue if not supported
-    }
+    canvas1 = doc.createCanvasElement();
+    // element size
+    Style style = canvas1.getStyle();
+    style.setHeight(40, Style.Unit.PX);
+    style.setWidth(60, Style.Unit.PX);
+    // coordinate space
+    canvas1.setHeight(80);
+    canvas1.setWidth(120);
 
-    DomGlobal.document.body.appendChild(canvas1.getElement().cast());
-    DomGlobal.document.body.appendChild(canvas2.getElement().cast());
+    canvas2 = doc.createCanvasElement();
+
+    doc.getBody().appendChild(canvas1);
+    doc.getBody().appendChild(canvas2);
   }
 
   @Override
-  protected void gwtTearDown() throws Exception {
-    DomGlobal.document.body.removeChild(canvas1.getElement().cast());
-    DomGlobal.document.body.removeChild(canvas2.getElement().cast());
+  protected void gwtTearDown() {
+    canvas1.removeFromParent();
+    canvas2.removeFromParent();
+  }
+
+  public void testSizing() {
+    assertEquals(40, canvas1.getOffsetHeight());
+    assertEquals(60, canvas1.getOffsetWidth());
+    assertEquals(80, canvas1.getHeight());
+    assertEquals(120, canvas1.getWidth());
   }
 
   public void testArc() {
-    canvas1.setHeight("40px");
-    canvas1.setWidth("60px");
-    canvas1.setCoordinateSpaceHeight(80);
-    canvas1.setCoordinateSpaceWidth(120);
-
     // get a 2d context
     Context2d context = canvas1.getContext2d();
 
@@ -81,15 +93,6 @@ public class Context2dTest extends GWTTestCase {
   }
 
   public void testFillRect() {
-    canvas1.setHeight("40px");
-    canvas1.setWidth("60px");
-    canvas1.setCoordinateSpaceHeight(80);
-    canvas1.setCoordinateSpaceWidth(120);
-    assertEquals(40, canvas1.getOffsetHeight());
-    assertEquals(60, canvas1.getOffsetWidth());
-    assertEquals(80, canvas1.getCoordinateSpaceHeight());
-    assertEquals(120, canvas1.getCoordinateSpaceWidth());
-
     // get a 2d context
     Context2d context = canvas1.getContext2d();
 
@@ -147,8 +150,7 @@ public class Context2dTest extends GWTTestCase {
     assertFalse("fillStyleGrad is a gradient", fillStyleGrad.getType() == FillStrokeStyle.TYPE_PATTERN);
 
     // test that a pattern can be set and is correct
-    CanvasPattern pattern = context1.createPattern(canvas1.getCanvasElement(), 
-        Context2d.Repetition.REPEAT);
+    CanvasPattern pattern = context1.createPattern(canvas1, Context2d.Repetition.REPEAT);
     context1.setFillStyle(pattern);
     FillStrokeStyle fillStylePat = context1.getFillStyle();
     assertFalse("fillStylePat is a pattern", fillStylePat.getType() == FillStrokeStyle.TYPE_CSSCOLOR);
@@ -186,10 +188,8 @@ public class Context2dTest extends GWTTestCase {
   }
 
   public void testGradient() {
-    canvas1.setHeight("40px");
-    canvas1.setWidth("60px");
-    canvas1.setCoordinateSpaceHeight(40);
-    canvas1.setCoordinateSpaceWidth(60);
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
     Context2d context = canvas1.getContext2d();
 
     // fill the canvas with black
@@ -222,10 +222,8 @@ public class Context2dTest extends GWTTestCase {
   }
 
   public void testImageData() {
-    canvas1.setHeight("40px");
-    canvas1.setWidth("60px");
-    canvas1.setCoordinateSpaceHeight(40);
-    canvas1.setCoordinateSpaceWidth(60);
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
     Context2d context = canvas1.getContext2d();
 
     // fill the canvas with ffff00
@@ -276,10 +274,8 @@ public class Context2dTest extends GWTTestCase {
   }
 
   public void testIsPointInPath() {
-    canvas1.setHeight("40px");
-    canvas1.setWidth("60px");
-    canvas1.setCoordinateSpaceHeight(40);
-    canvas1.setCoordinateSpaceWidth(60);
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
 
     Context2d context = canvas1.getContext2d();
     context.beginPath();
@@ -293,10 +289,8 @@ public class Context2dTest extends GWTTestCase {
   }
 
   public void testLines() {
-    canvas1.setHeight("40px");
-    canvas1.setWidth("60px");
-    canvas1.setCoordinateSpaceHeight(40);
-    canvas1.setCoordinateSpaceWidth(60);
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
     
     Context2d context = canvas1.getContext2d();
     context.setFillStyle("#ff00ff");
@@ -322,10 +316,8 @@ public class Context2dTest extends GWTTestCase {
   }
 
   public void testPixelManipulation() {
-    canvas1.setHeight("40px");
-    canvas1.setWidth("60px");
-    canvas1.setCoordinateSpaceHeight(40);
-    canvas1.setCoordinateSpaceWidth(60);
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
     Context2d context = canvas1.getContext2d();
 
     // fill the canvas with ff0000
@@ -343,10 +335,8 @@ public class Context2dTest extends GWTTestCase {
   }
 
   public void testShadows() {
-    canvas1.setHeight("40px");
-    canvas1.setWidth("60px");
-    canvas1.setCoordinateSpaceHeight(40);
-    canvas1.setCoordinateSpaceWidth(60);
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
 
     Context2d context = canvas1.getContext2d();
     context.setShadowBlur(3);
@@ -382,8 +372,7 @@ public class Context2dTest extends GWTTestCase {
     assertFalse("strokeStyleGrad is a gradient", strokeStyleGrad.getType() == FillStrokeStyle.TYPE_PATTERN);
 
     // test that a pattern can be set and is correct
-    CanvasPattern pattern = context1.createPattern(canvas1.getCanvasElement(), 
-        Context2d.Repetition.REPEAT);
+    CanvasPattern pattern = context1.createPattern(canvas1, Context2d.Repetition.REPEAT);
     context1.setStrokeStyle(pattern);
     FillStrokeStyle strokeStylePat = context1.getStrokeStyle();
     assertFalse("strokeStylePat is a pattern", strokeStylePat.getType() == FillStrokeStyle.TYPE_CSSCOLOR);
@@ -400,8 +389,6 @@ public class Context2dTest extends GWTTestCase {
   }
 
   public void testText() {
-    canvas1.setHeight("40px");
-    canvas1.setWidth("60px");
     Context2d context = canvas1.getContext2d();
     context.setFont("bold 40px sans-serif");
     context.setTextAlign(TextAlign.CENTER);
