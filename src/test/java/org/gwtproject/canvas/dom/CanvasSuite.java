@@ -17,9 +17,7 @@
 package org.gwtproject.canvas.dom;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
-
 import junit.framework.Test;
-import org.gwtproject.canvas.dom.client.CanvasTest;
 import org.gwtproject.canvas.dom.client.Context2dTest;
 
 /**
@@ -29,7 +27,6 @@ public class CanvasSuite {
   public static Test suite() {
     GWTTestSuite suite = new GWTTestSuite("Test suite for Canvas GWTTestCases");
     
-    suite.addTestSuite(CanvasTest.class);
     suite.addTestSuite(Context2dTest.class);
     
     return suite;
