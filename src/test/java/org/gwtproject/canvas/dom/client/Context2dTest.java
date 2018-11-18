@@ -25,6 +25,7 @@ import org.gwtproject.dom.client.Document;
 import org.gwtproject.dom.client.Style;
 
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Tests {@link Context2d}.
@@ -36,6 +37,53 @@ import java.util.Locale;
  */
 @DoNotRunWith(Platform.HtmlUnitUnknown)
 public class Context2dTest extends GWTTestCase {
+
+  private static class Pixel {
+
+    private static final Pixel RED = new Pixel(255,0,0,255);
+    private static final Pixel GREEN = new Pixel(0,255,0,255);
+    private static final Pixel BLUE = new Pixel(0,0,255,255);
+
+    private int r;
+    private int g;
+    private int b;
+    private int a;
+
+    private Pixel(int r, int g, int b, int a) {
+      this.r = r;
+      this.g = g;
+      this.b = b;
+      this.a = a;
+    }
+
+    private Pixel(CanvasPixelArray array, int index) {
+      r = array.get(index);
+      g = array.get(index + 1);
+      b = array.get(index + 2);
+      a = array.get(index + 3);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      Pixel pixel = (Pixel) o;
+      return r == pixel.r && g == pixel.g && b == pixel.b && a == pixel.a;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(r, g, b, a);
+    }
+
+    @Override
+    public String toString() {
+      return "Pixel [" + r + ", " + g + ", " + b + ", " + a + "]";
+    }
+  }
+
+  private static final int COORDINATE_SPACE_WIDTH = 120;
+  private static final int COORDINATE_SPACE_HEIGHT = 80;
 
   private CanvasElement canvas1;
   private CanvasElement canvas2;
@@ -55,8 +103,8 @@ public class Context2dTest extends GWTTestCase {
     style.setHeight(40, Style.Unit.PX);
     style.setWidth(60, Style.Unit.PX);
     // coordinate space
-    canvas1.setHeight(80);
-    canvas1.setWidth(120);
+    canvas1.setHeight(COORDINATE_SPACE_HEIGHT);
+    canvas1.setWidth(COORDINATE_SPACE_WIDTH);
 
     canvas2 = doc.createCanvasElement();
 
@@ -73,8 +121,8 @@ public class Context2dTest extends GWTTestCase {
   public void testSizing() {
     assertEquals(40, canvas1.getOffsetHeight());
     assertEquals(60, canvas1.getOffsetWidth());
-    assertEquals(80, canvas1.getHeight());
-    assertEquals(120, canvas1.getWidth());
+    assertEquals(COORDINATE_SPACE_HEIGHT, canvas1.getHeight());
+    assertEquals(COORDINATE_SPACE_WIDTH, canvas1.getWidth());
   }
 
   public void testArc() {
@@ -98,34 +146,40 @@ public class Context2dTest extends GWTTestCase {
 
     // draw green rectangle filling 1st half of canvas
     context.setFillStyle(CssColor.make("#00fF00"));
-    context.fillRect(0, 0, 60, 80);
+    int halfWidth = COORDINATE_SPACE_WIDTH / 2;
+    context.fillRect(0, 0, halfWidth, COORDINATE_SPACE_HEIGHT);
     // draw red rectangle filling 2nd half of canvas
     context.setFillStyle("#fF0000");
-    context.fillRect(60, 0, 60, 80);
+    context.fillRect(halfWidth, 0, halfWidth, COORDINATE_SPACE_HEIGHT);
 
     // test that the first pixel is green and the last pixel is red
-    ImageData imageData = context.getImageData(0, 0, 120, 80);
+    ImageData imageData = context.getImageData(0, 0, COORDINATE_SPACE_WIDTH, COORDINATE_SPACE_HEIGHT);
     CanvasPixelArray pixelArray = imageData.getData();
-    assertEquals(000, pixelArray.get(0));
-    assertEquals(255, pixelArray.get(1));
-    assertEquals(000, pixelArray.get(2));
-    assertEquals(255, pixelArray.get(3));
-    assertEquals(255, pixelArray.get((40 * 20 - 1) * 4 + 0));
-    assertEquals(000, pixelArray.get((40 * 20 - 1) * 4 + 1));
-    assertEquals(000, pixelArray.get((40 * 20 - 1) * 4 + 2));
-    assertEquals(255, pixelArray.get((40 * 20 - 1) * 4 + 3));
-    
+    int firstRowStart = 0;
+    int lastRowStart = (COORDINATE_SPACE_HEIGHT - 1) * COORDINATE_SPACE_WIDTH * 4;
+    int firstGreenPixel = 0;
+    int lastGreenPixel = (halfWidth - 1) * 4;
+    int firstRedPixel = halfWidth * 4;
+    int lastRedPixel = (COORDINATE_SPACE_WIDTH - 1) * 4;
+
+    assertEquals(Pixel.GREEN, new Pixel(pixelArray, firstRowStart + firstGreenPixel));
+    assertEquals(Pixel.GREEN, new Pixel(pixelArray, firstRowStart + lastGreenPixel));
+    assertEquals(Pixel.RED, new Pixel(pixelArray, firstRowStart + firstRedPixel));
+    assertEquals(Pixel.RED, new Pixel(pixelArray, firstRowStart + lastRedPixel));
+
+    assertEquals(Pixel.GREEN, new Pixel(pixelArray, lastRowStart + firstGreenPixel));
+    assertEquals(Pixel.GREEN, new Pixel(pixelArray, lastRowStart + lastGreenPixel));
+    assertEquals(Pixel.RED, new Pixel(pixelArray, lastRowStart + firstRedPixel));
+    assertEquals(Pixel.RED, new Pixel(pixelArray, lastRowStart + lastRedPixel));
+
     // draw a blue square in the top left
     context.setFillStyle("#0000fF");
     context.fillRect(0, 0, 20, 20);
     imageData = context.getImageData(0, 0, 20, 20);
     pixelArray = imageData.getData();
-    
+
     // test that the first pixel is blue
-    assertEquals(000, pixelArray.get(0));
-    assertEquals(000, pixelArray.get(1));
-    assertEquals(255, pixelArray.get(2));
-    assertEquals(255, pixelArray.get(3));
+    assertEquals(Pixel.BLUE, new Pixel(pixelArray, 0));
   }
 
   public void testFillStyle() {
@@ -136,34 +190,34 @@ public class Context2dTest extends GWTTestCase {
     // test that a color can be set and is correct
     context1.setFillStyle(CssColor.make("#ffff00"));
     FillStrokeStyle fillStyleCol = context1.getFillStyle();
-    assertTrue("fillStyleCol is a color", fillStyleCol.getType() == FillStrokeStyle.TYPE_CSSCOLOR);
-    assertFalse("fillStyleCol is a color", fillStyleCol.getType() == FillStrokeStyle.TYPE_GRADIENT);
-    assertFalse("fillStyleCol is a color", fillStyleCol.getType() == FillStrokeStyle.TYPE_PATTERN);
+    assertSame("fillStyleCol is a color", FillStrokeStyle.TYPE_CSSCOLOR, fillStyleCol.getType());
+    assertNotSame("fillStyleCol is a color", FillStrokeStyle.TYPE_GRADIENT, fillStyleCol.getType());
+    assertNotSame("fillStyleCol is a color", FillStrokeStyle.TYPE_PATTERN, fillStyleCol.getType());
 
     // test that a gradient can be set and is correct
     CanvasGradient gradient = context1.createLinearGradient(0, 0, 10, 20);
     gradient.addColorStop(0.5f, "#ffaaff");
     context1.setFillStyle(gradient);
     FillStrokeStyle fillStyleGrad = context1.getFillStyle();
-    assertFalse("fillStyleGrad is a gradient", fillStyleGrad.getType() == FillStrokeStyle.TYPE_CSSCOLOR);
-    assertTrue("fillStyleGrad is a gradient", fillStyleGrad.getType() == FillStrokeStyle.TYPE_GRADIENT);
-    assertFalse("fillStyleGrad is a gradient", fillStyleGrad.getType() == FillStrokeStyle.TYPE_PATTERN);
+    assertNotSame("fillStyleGrad is a gradient", FillStrokeStyle.TYPE_CSSCOLOR, fillStyleGrad.getType());
+    assertSame("fillStyleGrad is a gradient", FillStrokeStyle.TYPE_GRADIENT, fillStyleGrad.getType());
+    assertNotSame("fillStyleGrad is a gradient", FillStrokeStyle.TYPE_PATTERN, fillStyleGrad.getType());
 
     // test that a pattern can be set and is correct
     CanvasPattern pattern = context1.createPattern(canvas1, Context2d.Repetition.REPEAT);
     context1.setFillStyle(pattern);
     FillStrokeStyle fillStylePat = context1.getFillStyle();
-    assertFalse("fillStylePat is a pattern", fillStylePat.getType() == FillStrokeStyle.TYPE_CSSCOLOR);
-    assertFalse("fillStylePat is a pattern", fillStylePat.getType() == FillStrokeStyle.TYPE_GRADIENT);
-    assertTrue("fillStylePat is a pattern", fillStylePat.getType() == FillStrokeStyle.TYPE_PATTERN);
+    assertNotSame("fillStylePat is a pattern", FillStrokeStyle.TYPE_CSSCOLOR, fillStylePat.getType());
+    assertNotSame("fillStylePat is a pattern", FillStrokeStyle.TYPE_GRADIENT, fillStylePat.getType());
+    assertSame("fillStylePat is a pattern", FillStrokeStyle.TYPE_PATTERN, fillStylePat.getType());
     
     // test that a StrokeStyle can be passed around w/o knowing what it is
     FillStrokeStyle fillStyle = context1.getFillStyle();
     context2.setFillStyle(fillStyle);
     FillStrokeStyle fillStyle2 = context2.getFillStyle();
-    assertFalse("fillStyle2 is a pattern", fillStyle2.getType() == FillStrokeStyle.TYPE_CSSCOLOR);
-    assertFalse("fillStyle2 is a pattern", fillStyle2.getType() == FillStrokeStyle.TYPE_GRADIENT);
-    assertTrue("fillStyle2 is a pattern", fillStyle2.getType() == FillStrokeStyle.TYPE_PATTERN);
+    assertNotSame("fillStyle2 is a pattern", FillStrokeStyle.TYPE_CSSCOLOR, fillStyle2.getType());
+    assertNotSame("fillStyle2 is a pattern", FillStrokeStyle.TYPE_GRADIENT, fillStyle2.getType());
+    assertSame("fillStyle2 is a pattern", FillStrokeStyle.TYPE_PATTERN, fillStyle2.getType());
   }
 
   public void testFont() {
@@ -179,7 +233,7 @@ public class Context2dTest extends GWTTestCase {
   }
 
   // This test currently fails on IE9 and is disabled.
-  public void disabled_testGlobalComposite() {
+  public void testGlobalComposite() {
     Context2d context = canvas1.getContext2d();
     context.setGlobalCompositeOperation(Composite.SOURCE_OVER);
     assertEquals(Composite.SOURCE_OVER.getValue(), context.getGlobalCompositeOperation());
@@ -210,12 +264,12 @@ public class Context2dTest extends GWTTestCase {
     CanvasPixelArray pixelArray = imageData.getData();
 
     assertTrue(255 - pixelArray.get(0) < approx);
-    assertTrue(pixelArray.get(1) - 000 < approx);
-    assertTrue(pixelArray.get(2) - 000 < approx);
+    assertTrue(pixelArray.get(1) < approx);
+    assertTrue(pixelArray.get(2) < approx);
     assertTrue(255 - pixelArray.get(3) < approx);
-    assertFalse(000 == pixelArray.get((60 * 40 / 2) * 4 + 0));
+    assertFalse(0 == pixelArray.get((60 * 40 / 2) * 4 + 0));
     assertFalse(255 == pixelArray.get((60 * 40 / 2) * 4 + 0));
-    assertTrue(pixelArray.get((60 * 40 - 1) * 4 + 0) - 000 < approx);
+    assertTrue(pixelArray.get((60 * 40 - 1) * 4 + 0) - 0 < approx);
     assertTrue(255 - pixelArray.get((60 * 40 - 1) * 4 + 1) < approx);
     assertTrue(255 - pixelArray.get((60 * 40 - 1) * 4 + 2) < approx);
     assertTrue(255 - pixelArray.get((60 * 40 - 1) * 4 + 3) < approx);
@@ -237,8 +291,8 @@ public class Context2dTest extends GWTTestCase {
     
     // set the image to a single blue pixel
     CanvasPixelArray onePxArray = onePx.getData();
-    onePxArray.set(0, 000);
-    onePxArray.set(1, 000);
+    onePxArray.set(0, 0);
+    onePxArray.set(1, 0);
     onePxArray.set(2, 255);
     onePxArray.set(3, 255);
     
@@ -248,10 +302,7 @@ public class Context2dTest extends GWTTestCase {
     assertEquals(1, verifyPx.getWidth());
     assertEquals(1, verifyPx.getHeight());
     CanvasPixelArray verifyPxArray = verifyPx.getData();
-    assertEquals(onePxArray.get(0), verifyPxArray.get(0));
-    assertEquals(onePxArray.get(1), verifyPxArray.get(1));
-    assertEquals(onePxArray.get(2), verifyPxArray.get(2));
-    assertEquals(onePxArray.get(3), verifyPxArray.get(3));
+    assertEquals(new Pixel(onePxArray, 0), new Pixel(verifyPxArray, 0));
 
     // test that edge cases don't blow up: values outside the range 0...255
     ImageData clampPixels = context.createImageData(3, 3); // will fail on FF3.0 (not such method)
@@ -358,34 +409,34 @@ public class Context2dTest extends GWTTestCase {
     // test that a color can be set and is correct
     context1.setStrokeStyle(CssColor.make("#ffff00"));
     FillStrokeStyle strokeStyleCol = context1.getStrokeStyle();
-    assertTrue("strokeStyleCol is a color", strokeStyleCol.getType() == FillStrokeStyle.TYPE_CSSCOLOR);
-    assertFalse("strokeStyleCol is a color", strokeStyleCol.getType() == FillStrokeStyle.TYPE_GRADIENT);
-    assertFalse("strokeStyleCol is a color", strokeStyleCol.getType() == FillStrokeStyle.TYPE_PATTERN);
+    assertSame("strokeStyleCol is a color", strokeStyleCol.getType(), FillStrokeStyle.TYPE_CSSCOLOR);
+    assertNotSame("strokeStyleCol is a color", strokeStyleCol.getType(), FillStrokeStyle.TYPE_GRADIENT);
+    assertNotSame("strokeStyleCol is a color", strokeStyleCol.getType(), FillStrokeStyle.TYPE_PATTERN);
 
     // test that a gradient can be set and is correct
     CanvasGradient gradient = context1.createLinearGradient(0, 0, 10, 20);
     gradient.addColorStop(0.5, "#ff000f");
     context1.setStrokeStyle(gradient);
     FillStrokeStyle strokeStyleGrad = context1.getStrokeStyle();
-    assertFalse("strokeStyleGrad is a gradient", strokeStyleGrad.getType() == FillStrokeStyle.TYPE_CSSCOLOR);
-    assertTrue("strokeStyleGrad is a gradient", strokeStyleGrad.getType() == FillStrokeStyle.TYPE_GRADIENT);
-    assertFalse("strokeStyleGrad is a gradient", strokeStyleGrad.getType() == FillStrokeStyle.TYPE_PATTERN);
+    assertNotSame("strokeStyleGrad is a gradient", strokeStyleGrad.getType(), FillStrokeStyle.TYPE_CSSCOLOR);
+    assertSame("strokeStyleGrad is a gradient", strokeStyleGrad.getType(), FillStrokeStyle.TYPE_GRADIENT);
+    assertNotSame("strokeStyleGrad is a gradient", strokeStyleGrad.getType(), FillStrokeStyle.TYPE_PATTERN);
 
     // test that a pattern can be set and is correct
     CanvasPattern pattern = context1.createPattern(canvas1, Context2d.Repetition.REPEAT);
     context1.setStrokeStyle(pattern);
     FillStrokeStyle strokeStylePat = context1.getStrokeStyle();
-    assertFalse("strokeStylePat is a pattern", strokeStylePat.getType() == FillStrokeStyle.TYPE_CSSCOLOR);
-    assertFalse("strokeStylePat is a pattern", strokeStylePat.getType() == FillStrokeStyle.TYPE_GRADIENT);
-    assertTrue("strokeStylePat is a pattern", strokeStylePat.getType() == FillStrokeStyle.TYPE_PATTERN);
+    assertNotSame("strokeStylePat is a pattern", strokeStylePat.getType(), FillStrokeStyle.TYPE_CSSCOLOR);
+    assertNotSame("strokeStylePat is a pattern", strokeStylePat.getType(), FillStrokeStyle.TYPE_GRADIENT);
+    assertSame("strokeStylePat is a pattern", strokeStylePat.getType(), FillStrokeStyle.TYPE_PATTERN);
     
     // test that a StrokeStyle can be passed around w/o knowing what it is
     FillStrokeStyle strokeStyle = context1.getStrokeStyle();
     context2.setStrokeStyle(strokeStyle);
     FillStrokeStyle strokeStyle2 = context2.getStrokeStyle();
-    assertFalse("strokeStyle2 is a pattern", strokeStyle2.getType() == FillStrokeStyle.TYPE_CSSCOLOR);
-    assertFalse("strokeStyle2 is a pattern", strokeStyle2.getType() == FillStrokeStyle.TYPE_GRADIENT);
-    assertTrue("strokeStyle2 is a pattern", strokeStyle2.getType() == FillStrokeStyle.TYPE_PATTERN);
+    assertNotSame("strokeStyle2 is a pattern", strokeStyle2.getType(), FillStrokeStyle.TYPE_CSSCOLOR);
+    assertNotSame("strokeStyle2 is a pattern", strokeStyle2.getType(), FillStrokeStyle.TYPE_GRADIENT);
+    assertSame("strokeStyle2 is a pattern", strokeStyle2.getType(), FillStrokeStyle.TYPE_PATTERN);
   }
 
   public void testText() {
