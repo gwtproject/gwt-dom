@@ -49,7 +49,8 @@ public class CanvasPixelArray extends JavaScriptObject {
    */
   @JsOverlay
   public final int get(int i) {
-    return Js.asInt(this.<Uint8ClampedArray>cast().getAt(i));
+    Double value = this.<Uint8ClampedArray>cast().getAt(i);
+    return Js.isTruthy(value) ? Js.asInt(value) : 0;
   }
 
   /**
