@@ -16,6 +16,7 @@
   <inherits name="org.gwtproject.core.Core"/>
   <inherits name="jsinterop.base.Base"/>
   <inherits name="elemental2.dom.Dom"/>
+  <inherits name="org.gwtproject.dom.style.Style" />
   <inherits name="org.gwtproject.canvas.dom.DOM"/>
   <inherits name="org.gwtproject.media.dom.DOM"/>
   <inherits name="org.gwtproject.safehtml.SafeHtml"/>

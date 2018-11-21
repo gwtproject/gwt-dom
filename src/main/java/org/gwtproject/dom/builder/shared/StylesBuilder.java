@@ -15,10 +15,10 @@
  */
 package org.gwtproject.dom.builder.shared;
 
+import org.gwtproject.dom.style.shared.*;
+import org.gwtproject.dom.style.shared.Float;
 import org.gwtproject.safehtml.shared.SafeUri;
 import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
-import org.gwtproject.dom.client.Style.*;
-import org.gwtproject.dom.client.Style.Float;
 
 /**
  * Builds the style attribute on an element.

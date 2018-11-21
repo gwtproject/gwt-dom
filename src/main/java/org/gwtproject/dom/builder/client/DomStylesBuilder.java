@@ -15,15 +15,15 @@
  */
 package org.gwtproject.dom.builder.client;
 
+import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
+import org.gwtproject.dom.builder.shared.StylesBuilder;
+import org.gwtproject.dom.style.shared.*;
+import org.gwtproject.dom.style.shared.Float;
 import org.gwtproject.regexp.shared.MatchResult;
 import org.gwtproject.regexp.shared.RegExp;
 import org.gwtproject.safehtml.shared.SafeUri;
 import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
-import jsinterop.base.Js;
-import jsinterop.base.JsPropertyMap;
-import org.gwtproject.dom.builder.shared.StylesBuilder;
-import org.gwtproject.dom.client.Style.*;
-import org.gwtproject.dom.client.Style.Float;
 
 import java.util.Locale;
 
