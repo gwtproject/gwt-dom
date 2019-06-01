@@ -47,13 +47,19 @@ public class Document extends Node {
   @JsOverlay
   public static Document get() {
     if (doc == null) {
-      doc = nativeGet();
+      doc = nativeGet$doc();
+      if (doc == null) {
+        doc = nativeGetDocument();
+      }
     }
     return doc;
   }
 
+  @JsProperty(name = "document", namespace = "<window>")
+  private static native Document nativeGetDocument();
+
   @JsProperty(name = "$doc", namespace = "<window>")
-  private static native Document nativeGet();
+  private static native Document nativeGet$doc();
 
   protected Document() {
   }
