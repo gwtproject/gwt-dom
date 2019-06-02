@@ -163,7 +163,7 @@ public class Element extends Node {
    * thrown from within handlers triggered by this method cannot be caught by
    * wrapping this method in a try/catch block. Such exceptions will be caught
    * by the
-   * {@link org.gwtproject.core.client.GWT#setUncaughtExceptionHandler(com.google.gwt.core.client.GWT.UncaughtExceptionHandler) uncaught exception handler}
+   * {@link org.gwtproject.core.client.GWT#setUncaughtExceptionHandler(org.gwtproject.core.client.GWT.UncaughtExceptionHandler) uncaught exception handler}
    * as usual.
    * 
    * @param evt the event to be dispatched
