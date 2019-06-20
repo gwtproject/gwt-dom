@@ -300,6 +300,7 @@ public class StyleTest extends GWTTestCase {
     assertEmpty(style.getTextJustify());
   }
 
+  @DoNotRunWith(Platform.HtmlUnitUnknown)
   public void testTextOverflow() {
     DivElement div = Document.get().createDivElement();
     Style style = div.getStyle();
