@@ -16,8 +16,7 @@
 package org.gwtproject.dom.client;
 
 import com.google.gwt.junit.client.GWTTestCase;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DeferredCommand;
+import org.gwtproject.core.client.Scheduler;
 
 /**
  * Tests StyleInjector by looking for effects of injected CSS on DOM elements.
@@ -45,15 +44,13 @@ public class StyleInjectorTest extends GWTTestCase {
     // We need to allow the document to be redrawn
     delayTestFinish(TEST_DELAY);
 
-    DeferredCommand.addCommand(new Command() {
-      @Override
-      public void execute() {
+    Scheduler.get().scheduleDeferred(() -> {
         assertEquals(100, elt.getOffsetLeft());
         assertEquals(100, elt.getClientHeight());
         assertEquals(100, elt.getClientWidth());
 
         finishTest();
-      }
+
     });
   }
 
@@ -81,14 +78,11 @@ public class StyleInjectorTest extends GWTTestCase {
     // We need to allow the document to be redrawn
     delayTestFinish(TEST_DELAY);
 
-    DeferredCommand.addCommand(new Command() {
-      @Override
-      public void execute() {
-        assertEquals(100, elt.getOffsetLeft());
-        assertEquals(100, elt.getClientHeight());
-        assertEquals(100, elt.getClientWidth());
-        finishTest();
-      }
+    Scheduler.get().scheduleDeferred(() -> {
+      assertEquals(100, elt.getOffsetLeft());
+      assertEquals(100, elt.getClientHeight());
+      assertEquals(100, elt.getClientWidth());
+      finishTest();
     });
   }
 
@@ -118,7 +112,7 @@ public class StyleInjectorTest extends GWTTestCase {
         + " {left: 25px; width: 100px !important;}", immediate);
     StyleInjector.injectAtEnd("#" + testName + " {height: 100px;}", immediate);
 
-    Command command = new Command() {
+    Scheduler.ScheduledCommand command = new Scheduler.ScheduledCommand() {
       @Override
       public void execute() {
         assertEquals(100, elt.getOffsetLeft());
@@ -134,7 +128,7 @@ public class StyleInjectorTest extends GWTTestCase {
     if (immediate) {
       command.execute();
     } else {
-      DeferredCommand.addCommand(command);
+      Scheduler.get().scheduleDeferred(command);
       // We need to allow the BatchedCommands to execute
       delayTestFinish(TEST_DELAY);
     }
