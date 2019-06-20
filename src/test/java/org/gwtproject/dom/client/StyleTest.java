@@ -18,6 +18,7 @@ package org.gwtproject.dom.client;
 import com.google.gwt.junit.DoNotRunWith;
 import com.google.gwt.junit.Platform;
 import com.google.gwt.junit.client.GWTTestCase;
+import jsinterop.base.Js;
 import org.gwtproject.dom.client.Style.*;
 import org.gwtproject.dom.style.shared.HasCssName;
 
@@ -427,7 +428,7 @@ public class StyleTest extends GWTTestCase {
   /**
    * Sets a style property as an int.
    */
-  private native void setPropertyInt(Style style, String name, int value) /*-{
-    style[name] = value;
-  }-*/;
+  private void setPropertyInt(Style style, String name, int value) {
+    Js.asPropertyMap(style).set(name, value);
+  }
 }
