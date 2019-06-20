@@ -16,22 +16,16 @@
 
 package org.gwtproject.canvas.dom;
 
-import com.google.gwt.junit.tools.GWTTestSuite;
-import junit.framework.Test;
 import org.gwtproject.canvas.dom.client.Context2dTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * Tests of Canvas.
  */
+@Suite.SuiteClasses({
+        Context2dTest.class
+})
+@RunWith(Suite.class)
 public class CanvasSuite {
-  public static Test suite() {
-    GWTTestSuite suite = new GWTTestSuite("Test suite for Canvas GWTTestCases");
-    
-    suite.addTestSuite(Context2dTest.class);
-    
-    return suite;
-  }
-  
-  private CanvasSuite() {
-  }
 }

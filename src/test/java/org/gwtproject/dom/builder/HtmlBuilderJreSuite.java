@@ -15,68 +15,65 @@
  */
 package org.gwtproject.dom.builder;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
 import org.gwtproject.dom.builder.shared.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * Tests of the html implementation of element builders.
  */
+@Suite.SuiteClasses({
+
+        // Element builders.
+        HtmlAnchorBuilderTest.class,
+        HtmlAreaBuilderTest.class,
+        HtmlAudioBuilderTest.class,
+        HtmlBaseBuilderTest.class,
+        HtmlBodyBuilderTest.class,
+        HtmlBRBuilderTest.class,
+        HtmlButtonBuilderTest.class,
+        HtmlCanvasBuilderTest.class,
+        HtmlDivBuilderTest.class,
+        HtmlDListBuilderTest.class,
+        HtmlFieldSetBuilderTest.class,
+        HtmlFormBuilderTest.class,
+        HtmlFrameBuilderTest.class,
+        HtmlFrameSetBuilderTest.class,
+        HtmlHeadBuilderTest.class,
+        HtmlHeadingBuilderTest.class,
+        HtmlHRBuilderTest.class,
+        HtmlIFrameBuilderTest.class,
+        HtmlImageBuilderTest.class,
+        HtmlInputBuilderTest.class,
+        HtmlLabelBuilderTest.class,
+        HtmlLegendBuilderTest.class,
+        HtmlLIBuilderTest.class,
+        HtmlLinkBuilderTest.class,
+        HtmlMapBuilderTest.class,
+        HtmlMetaBuilderTest.class,
+        HtmlOListBuilderTest.class,
+        HtmlOptGroupBuilderTest.class,
+        HtmlOptionBuilderTest.class,
+        HtmlParagraphBuilderTest.class,
+        HtmlParamBuilderTest.class,
+        HtmlPreBuilderTest.class,
+        HtmlQuoteBuilderTest.class,
+        HtmlScriptBuilderTest.class,
+        HtmlSelectBuilderTest.class,
+        HtmlSourceBuilderTest.class,
+        HtmlSpanBuilderTest.class,
+        HtmlStyleBuilderTest.class,
+        HtmlTableCaptionBuilderTest.class,
+        HtmlTableCellBuilderTest.class,
+        HtmlTableColBuilderTest.class,
+        HtmlTableBuilderTest.class,
+        HtmlTableRowBuilderTest.class,
+        HtmlTableSectionBuilderTest.class,
+        HtmlTextAreaBuilderTest.class,
+        HtmlTitleBuilderTest.class,
+        HtmlUListBuilderTest.class,
+        HtmlVideoBuilderTest.class,
+})
+@RunWith(Suite.class)
 public class HtmlBuilderJreSuite {
-
-  public static Test suite() {
-    TestSuite suite = new TestSuite("JRE tests for all html builders");
-
-    // Element builders.
-    suite.addTestSuite(HtmlAnchorBuilderTest.class);
-    suite.addTestSuite(HtmlAreaBuilderTest.class);
-    suite.addTestSuite(HtmlAudioBuilderTest.class);
-    suite.addTestSuite(HtmlBaseBuilderTest.class);
-    suite.addTestSuite(HtmlBodyBuilderTest.class);
-    suite.addTestSuite(HtmlBRBuilderTest.class);
-    suite.addTestSuite(HtmlButtonBuilderTest.class);
-    suite.addTestSuite(HtmlCanvasBuilderTest.class);
-    suite.addTestSuite(HtmlDivBuilderTest.class);
-    suite.addTestSuite(HtmlDListBuilderTest.class);
-    suite.addTestSuite(HtmlFieldSetBuilderTest.class);
-    suite.addTestSuite(HtmlFormBuilderTest.class);
-    suite.addTestSuite(HtmlFrameBuilderTest.class);
-    suite.addTestSuite(HtmlFrameSetBuilderTest.class);
-    suite.addTestSuite(HtmlHeadBuilderTest.class);
-    suite.addTestSuite(HtmlHeadingBuilderTest.class);
-    suite.addTestSuite(HtmlHRBuilderTest.class);
-    suite.addTestSuite(HtmlIFrameBuilderTest.class);
-    suite.addTestSuite(HtmlImageBuilderTest.class);
-    suite.addTestSuite(HtmlInputBuilderTest.class);
-    suite.addTestSuite(HtmlLabelBuilderTest.class);
-    suite.addTestSuite(HtmlLegendBuilderTest.class);
-    suite.addTestSuite(HtmlLIBuilderTest.class);
-    suite.addTestSuite(HtmlLinkBuilderTest.class);
-    suite.addTestSuite(HtmlMapBuilderTest.class);
-    suite.addTestSuite(HtmlMetaBuilderTest.class);
-    suite.addTestSuite(HtmlOListBuilderTest.class);
-    suite.addTestSuite(HtmlOptGroupBuilderTest.class);
-    suite.addTestSuite(HtmlOptionBuilderTest.class);
-    suite.addTestSuite(HtmlParagraphBuilderTest.class);
-    suite.addTestSuite(HtmlParamBuilderTest.class);
-    suite.addTestSuite(HtmlPreBuilderTest.class);
-    suite.addTestSuite(HtmlQuoteBuilderTest.class);
-    suite.addTestSuite(HtmlScriptBuilderTest.class);
-    suite.addTestSuite(HtmlSelectBuilderTest.class);
-    suite.addTestSuite(HtmlSourceBuilderTest.class);
-    suite.addTestSuite(HtmlSpanBuilderTest.class);
-    suite.addTestSuite(HtmlStyleBuilderTest.class);
-    suite.addTestSuite(HtmlTableCaptionBuilderTest.class);
-    suite.addTestSuite(HtmlTableCellBuilderTest.class);
-    suite.addTestSuite(HtmlTableColBuilderTest.class);
-    suite.addTestSuite(HtmlTableBuilderTest.class);
-    suite.addTestSuite(HtmlTableRowBuilderTest.class);
-    suite.addTestSuite(HtmlTableSectionBuilderTest.class);
-    suite.addTestSuite(HtmlTextAreaBuilderTest.class);
-    suite.addTestSuite(HtmlTitleBuilderTest.class);
-    suite.addTestSuite(HtmlUListBuilderTest.class);
-    suite.addTestSuite(HtmlVideoBuilderTest.class);
-
-    return suite;
-  }
 }

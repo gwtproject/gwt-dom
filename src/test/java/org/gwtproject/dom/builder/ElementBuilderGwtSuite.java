@@ -15,78 +15,74 @@
  */
 package org.gwtproject.dom.builder;
 
-import com.google.gwt.junit.tools.GWTTestSuite;
-import junit.framework.Test;
 import org.gwtproject.dom.builder.client.*;
 import org.gwtproject.dom.builder.shared.GwtHtmlBuilderImplTest;
 import org.gwtproject.dom.builder.shared.GwtHtmlStylesBuilderTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * Tests of the dom and HTML implementation of element builders.
  */
+@Suite.SuiteClasses({
+        // Html implementation tests.
+        GwtHtmlBuilderImplTest.class,
+        GwtHtmlStylesBuilderTest.class,
+
+        // DOM implementation tests.
+        GwtDomBuilderImplTest.class,
+        GwtDomStylesBuilderTest.class,
+
+        // Element builder tests.
+        GwtAnchorBuilderTest.class,
+        GwtAreaBuilderTest.class,
+        GwtAudioBuilderTest.class,
+        GwtBaseBuilderTest.class,
+        GwtBodyBuilderTest.class,
+        GwtBRBuilderTest.class,
+        GwtButtonBuilderTest.class,
+        GwtCanvasBuilderTest.class,
+        GwtDivBuilderTest.class,
+        GwtDListBuilderTest.class,
+        GwtFieldSetBuilderTest.class,
+        GwtFormBuilderTest.class,
+        GwtFrameBuilderTest.class,
+        GwtFrameSetBuilderTest.class,
+        GwtHeadBuilderTest.class,
+        GwtHeadingBuilderTest.class,
+        GwtHRBuilderTest.class,
+        GwtIFrameBuilderTest.class,
+        GwtImageBuilderTest.class,
+        GwtInputBuilderTest.class,
+        GwtLabelBuilderTest.class,
+        GwtLegendBuilderTest.class,
+        GwtLIBuilderTest.class,
+        GwtLinkBuilderTest.class,
+        GwtMapBuilderTest.class,
+        GwtMetaBuilderTest.class,
+        GwtOListBuilderTest.class,
+        GwtOptGroupBuilderTest.class,
+        GwtOptionBuilderTest.class,
+        GwtParagraphBuilderTest.class,
+        GwtParamBuilderTest.class,
+        GwtPreBuilderTest.class,
+        GwtQuoteBuilderTest.class,
+        GwtScriptBuilderTest.class,
+        GwtSelectBuilderTest.class,
+        GwtSourceBuilderTest.class,
+        GwtSpanBuilderTest.class,
+        GwtStyleBuilderTest.class,
+        GwtTableCaptionBuilderTest.class,
+        GwtTableCellBuilderTest.class,
+        GwtTableColBuilderTest.class,
+        GwtTableBuilderTest.class,
+        GwtTableRowBuilderTest.class,
+        GwtTableSectionBuilderTest.class,
+        GwtTextAreaBuilderTest.class,
+        GwtTitleBuilderTest.class,
+        GwtUListBuilderTest.class,
+        GwtVideoBuilderTest.class,
+})
+@RunWith(Suite.class)
 public class ElementBuilderGwtSuite {
-
-  public static Test suite() {
-    GWTTestSuite suite = new GWTTestSuite("GWT tests for all builders");
-
-    // Html implementation tests.
-    suite.addTestSuite(GwtHtmlBuilderImplTest.class);
-    suite.addTestSuite(GwtHtmlStylesBuilderTest.class);
-
-    // DOM implementation tests.
-    suite.addTestSuite(GwtDomBuilderImplTest.class);
-    suite.addTestSuite(GwtDomStylesBuilderTest.class);
-
-    // Element builder tests.
-    suite.addTestSuite(GwtAnchorBuilderTest.class);
-    suite.addTestSuite(GwtAreaBuilderTest.class);
-    suite.addTestSuite(GwtAudioBuilderTest.class);
-    suite.addTestSuite(GwtBaseBuilderTest.class);
-    suite.addTestSuite(GwtBodyBuilderTest.class);
-    suite.addTestSuite(GwtBRBuilderTest.class);
-    suite.addTestSuite(GwtButtonBuilderTest.class);
-    suite.addTestSuite(GwtCanvasBuilderTest.class);
-    suite.addTestSuite(GwtDivBuilderTest.class);
-    suite.addTestSuite(GwtDListBuilderTest.class);
-    suite.addTestSuite(GwtFieldSetBuilderTest.class);
-    suite.addTestSuite(GwtFormBuilderTest.class);
-    suite.addTestSuite(GwtFrameBuilderTest.class);
-    suite.addTestSuite(GwtFrameSetBuilderTest.class);
-    suite.addTestSuite(GwtHeadBuilderTest.class);
-    suite.addTestSuite(GwtHeadingBuilderTest.class);
-    suite.addTestSuite(GwtHRBuilderTest.class);
-    suite.addTestSuite(GwtIFrameBuilderTest.class);
-    suite.addTestSuite(GwtImageBuilderTest.class);
-    suite.addTestSuite(GwtInputBuilderTest.class);
-    suite.addTestSuite(GwtLabelBuilderTest.class);
-    suite.addTestSuite(GwtLegendBuilderTest.class);
-    suite.addTestSuite(GwtLIBuilderTest.class);
-    suite.addTestSuite(GwtLinkBuilderTest.class);
-    suite.addTestSuite(GwtMapBuilderTest.class);
-    suite.addTestSuite(GwtMetaBuilderTest.class);
-    suite.addTestSuite(GwtOListBuilderTest.class);
-    suite.addTestSuite(GwtOptGroupBuilderTest.class);
-    suite.addTestSuite(GwtOptionBuilderTest.class);
-    suite.addTestSuite(GwtParagraphBuilderTest.class);
-    suite.addTestSuite(GwtParamBuilderTest.class);
-    suite.addTestSuite(GwtPreBuilderTest.class);
-    suite.addTestSuite(GwtQuoteBuilderTest.class);
-    suite.addTestSuite(GwtScriptBuilderTest.class);
-    suite.addTestSuite(GwtSelectBuilderTest.class);
-    suite.addTestSuite(GwtSourceBuilderTest.class);
-    suite.addTestSuite(GwtSpanBuilderTest.class);
-    suite.addTestSuite(GwtStyleBuilderTest.class);
-    suite.addTestSuite(GwtTableCaptionBuilderTest.class);
-    suite.addTestSuite(GwtTableCellBuilderTest.class);
-    suite.addTestSuite(GwtTableColBuilderTest.class);
-    suite.addTestSuite(GwtTableBuilderTest.class);
-    suite.addTestSuite(GwtTableRowBuilderTest.class);
-    suite.addTestSuite(GwtTableSectionBuilderTest.class);
-    suite.addTestSuite(GwtTextAreaBuilderTest.class);
-    suite.addTestSuite(GwtTitleBuilderTest.class);
-    suite.addTestSuite(GwtUListBuilderTest.class);
-    suite.addTestSuite(GwtVideoBuilderTest.class);
-
-    return suite;
-  }
 }

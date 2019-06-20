@@ -15,34 +15,35 @@
  */
 package org.gwtproject.dom;
 
-import com.google.gwt.junit.tools.GWTTestSuite;
-import junit.framework.Test;
+import org.gwtproject.canvas.dom.CanvasSuite;
+import org.gwtproject.dom.builder.ElementBuilderGwtSuite;
+import org.gwtproject.dom.builder.HtmlBuilderJreSuite;
 import org.gwtproject.dom.client.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * Tests for the DOM package.
  */
+@Suite.SuiteClasses({
+        DocumentTest.class,
+        NodeTest.class,
+        ElementTest.class,
+        FormTests.class,
+        FrameTests.class,
+        MapTests.class,
+        SelectTests.class,
+        StyleInjectorTest.class,
+        TableTests.class,
+        TextTest.class,
+
+        StyleTest.class,
+
+        ElementBuilderGwtSuite.class,
+        HtmlBuilderJreSuite.class,
+
+        CanvasSuite.class
+})
+@RunWith(Suite.class)
 public class DOMSuite {
-  public static Test suite() {
-    GWTTestSuite suite = new GWTTestSuite(
-        "Test for suite for the org.gwtproject.dom module");
-
-    suite.addTestSuite(DocumentTest.class);
-    suite.addTestSuite(NodeTest.class);
-    suite.addTestSuite(ElementTest.class);
-    suite.addTestSuite(FormTests.class);
-    suite.addTestSuite(FrameTests.class);
-    suite.addTestSuite(MapTests.class);
-    suite.addTestSuite(SelectTests.class);
-    suite.addTestSuite(StyleInjectorTest.class);
-    suite.addTestSuite(TableTests.class);
-    suite.addTestSuite(TextTest.class);
-
-// The Style tests are proving much more brittle than expected. There are too
-// many cases where browsers disallow certain values, coerce them to "", etc.
-// TODO: re-enable these once we find a better way.
-//    suite.addTestSuite(StyleTest.class);
-
-    return suite;
-  }
 }

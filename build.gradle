@@ -42,6 +42,6 @@ tasks.withType(Test) {
 test {
     classpath += sourceSets.main.allJava.sourceDirectories + sourceSets.test.allJava.sourceDirectories
     systemProperty "gwt.args", "-draftCompile"
-    include '**/*Suite.class'
+    include '**/DOMSuite.class'
     scanForTestClasses = false
 }

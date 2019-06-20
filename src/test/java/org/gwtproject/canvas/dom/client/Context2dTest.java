@@ -15,7 +15,6 @@
  */
 package org.gwtproject.canvas.dom.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.DoNotRunWith;
 import com.google.gwt.junit.Platform;
 import com.google.gwt.junit.client.GWTTestCase;
