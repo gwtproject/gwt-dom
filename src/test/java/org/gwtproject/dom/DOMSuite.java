@@ -15,6 +15,7 @@
  */
 package org.gwtproject.dom;
 
+import com.google.j2cl.junit.apt.J2clTestInput;
 import org.gwtproject.canvas.dom.CanvasSuite;
 import org.gwtproject.dom.builder.ElementBuilderGwtSuite;
 import org.gwtproject.dom.builder.HtmlBuilderJreSuite;
@@ -45,5 +46,6 @@ import org.junit.runners.Suite;
         CanvasSuite.class
 })
 @RunWith(Suite.class)
+@J2clTestInput(DOMSuite.class)
 public class DOMSuite {
 }
