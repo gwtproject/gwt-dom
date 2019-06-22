@@ -284,20 +284,17 @@ public class StyleTest extends GWTTestCase {
     DivElement div = Document.get().createDivElement();
     Style style = div.getStyle();
 
-    style.setTextJustify(TextJustify.AUTO);
-    assertEquals(TextJustify.AUTO, style.getTextOverflow());
-    style.setTextJustify(TextJustify.DISTRIBUTE);
-    assertEquals(TextJustify.DISTRIBUTE, style.getTextOverflow());
-    style.setTextJustify(TextJustify.INTER_CLUSTER);
-    assertEquals(TextJustify.INTER_CLUSTER, style.getTextOverflow());
-    style.setTextJustify(TextJustify.INTER_IDEOGRAPH);
-    assertEquals(TextJustify.INTER_IDEOGRAPH, style.getTextOverflow());
-    style.setTextJustify(TextJustify.INTER_WORD);
-    assertEquals(TextJustify.INTER_WORD, style.getTextOverflow());
-    style.setTextJustify(TextJustify.KASHIDA);
-    assertEquals(TextJustify.KASHIDA, style.getTextOverflow());
     style.setTextJustify(TextJustify.NONE);
-    assertEquals(TextJustify.NONE, style.getTextOverflow());
+    assertEquals(TextJustify.NONE, style.getTextJustify());
+    style.setTextJustify(TextJustify.AUTO);
+    assertEquals(TextJustify.AUTO, style.getTextJustify());
+    style.setTextJustify(TextJustify.INTER_WORD);
+    assertEquals(TextJustify.INTER_WORD, style.getTextJustify());
+    style.setTextJustify(TextJustify.INTER_CHARACTER);
+    assertEquals(TextJustify.INTER_CHARACTER, style.getTextJustify());
+    style.setTextJustify(TextJustify.DISTRIBUTE);
+    assertEquals(TextJustify.DISTRIBUTE, style.getTextJustify());
+
     style.clearTextJustify();
     assertEmpty(style.getTextJustify());
   }

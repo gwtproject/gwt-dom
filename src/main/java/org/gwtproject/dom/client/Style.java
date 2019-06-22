@@ -24,6 +24,7 @@ import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 import org.gwtproject.core.client.JavaScriptObject;
 import org.gwtproject.dom.style.shared.CssProperty;
+import org.gwtproject.dom.style.shared.TextJustify;
 import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
 
 import static org.gwtproject.dom.style.shared.CssProperty.*;
@@ -297,6 +298,7 @@ public class Style extends JavaScriptObject {
   public static class TextJustify {
     public static final org.gwtproject.dom.style.shared.TextJustify AUTO = org.gwtproject.dom.style.shared.TextJustify.AUTO;
     public static final org.gwtproject.dom.style.shared.TextJustify DISTRIBUTE = org.gwtproject.dom.style.shared.TextJustify.DISTRIBUTE;
+    public static final org.gwtproject.dom.style.shared.TextJustify INTER_CHARACTER = org.gwtproject.dom.style.shared.TextJustify.INTER_CHARACTER;
     public static final org.gwtproject.dom.style.shared.TextJustify INTER_CLUSTER = org.gwtproject.dom.style.shared.TextJustify.INTER_CLUSTER;
     public static final org.gwtproject.dom.style.shared.TextJustify INTER_IDEOGRAPH = org.gwtproject.dom.style.shared.TextJustify.INTER_IDEOGRAPH;
     public static final org.gwtproject.dom.style.shared.TextJustify INTER_WORD = org.gwtproject.dom.style.shared.TextJustify.INTER_WORD;
