@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
     api 'com.google.elemental2:elemental2-dom:1.0.0-RC1'
+    api 'org.realityforge.com.google.jsinterop:base:1.0.0-b2-e6d791f'
     api 'org.gwtproject.core:gwt-core:1.0-SNAPSHOT'
     api 'org.gwtproject.safehtml:gwt-safehtml:1.0-SNAPSHOT'
     api 'org.gwtproject.safecss:gwt-safecss:1.0-SNAPSHOT'
@@ -25,6 +26,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.google.gwt:gwt-user:2.8.2'
     testRuntimeOnly 'com.google.gwt:gwt-dev:2.8.2'
+}
+configurations {
+    compile.exclude group:'com.google.jsinterop', module:'base'
 }
 
 jar {

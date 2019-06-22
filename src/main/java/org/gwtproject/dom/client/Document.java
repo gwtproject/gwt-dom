@@ -32,34 +32,37 @@ import jsinterop.base.JsPropertyMap;
 public class Document extends Node {
 
   /**
-   * We cache Document.nativeGet() in DevMode, because crossing the JSNI
-   * boundary thousands of times just to read a constant value is slow. 
+   * Helper class to hold the document instance, so that we potentially
+   * don't run the Document class initializer in every class which calls
+   * an instance method.
    */
-  @JsOverlay
-  private static Document doc;
-  
+  private static class DocumentHolder {
+    private static Document doc;
+
+    @JsProperty(name = "document", namespace = JsPackage.GLOBAL)
+    private static native Document nativeGetDocument();
+  }
+
   /**
    * Gets the default document. This is the document in which the module is
    * running.
-   * 
+   *
    * @return the default document
    */
   @JsOverlay
   public static Document get() {
-    if (doc == null) {
-      doc = nativeGet$doc();
-      if (doc == null) {
-        doc = nativeGetDocument();
+    if (DocumentHolder.doc == null) {
+      // Test if `$doc` is defined as a global variable, if so, use that. In GWT2, this evaluates
+      // to `$wnd`, in J2CL+Closure it evaluates to goog.global.
+      if (Js.global().has("$doc")) {
+        DocumentHolder.doc = Js.uncheckedCast(Js.global().get("$doc"));
+      } else {
+        // otherwise, assume that `document` is a thing, not guarded with a "does it exist" call
+        DocumentHolder.doc = DocumentHolder.nativeGetDocument();
       }
     }
-    return doc;
+    return DocumentHolder.doc;
   }
-
-  @JsProperty(name = "document", namespace = "<window>")
-  private static native Document nativeGetDocument();
-
-  @JsProperty(name = "$doc", namespace = "<window>")
-  private static native Document nativeGet$doc();
 
   protected Document() {
   }
