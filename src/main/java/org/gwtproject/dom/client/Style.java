@@ -44,13 +44,19 @@ public class Style extends JavaScriptObject {
 
   /**
    * Interface to be implemented by enumerated CSS values.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.HasCssName} instead
    */
+  @Deprecated
   public interface HasCssName extends org.gwtproject.dom.style.shared.HasCssName {
   }
 
   /**
    * CSS length units.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.Unit} instead
    */
+  @Deprecated
   public static class Unit {
     public static final org.gwtproject.dom.style.shared.Unit PX = org.gwtproject.dom.style.shared.Unit.PX;
     public static final org.gwtproject.dom.style.shared.Unit PCT = org.gwtproject.dom.style.shared.Unit.PCT;
@@ -65,7 +71,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the border-style property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.BorderStyle} instead
    */
+  @Deprecated
   public static class BorderStyle {
     public static final org.gwtproject.dom.style.shared.BorderStyle NONE = org.gwtproject.dom.style.shared.BorderStyle.NONE;
     public static final org.gwtproject.dom.style.shared.BorderStyle DOTTED = org.gwtproject.dom.style.shared.BorderStyle.DOTTED;
@@ -76,7 +85,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the 'clear' CSS property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.Clear} instead
    */
+  @Deprecated
   public static class Clear {
     public static final org.gwtproject.dom.style.shared.Clear BOTH = org.gwtproject.dom.style.shared.Clear.BOTH;
     public static final org.gwtproject.dom.style.shared.Clear LEFT = org.gwtproject.dom.style.shared.Clear.LEFT;
@@ -86,7 +98,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the cursor property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.Cursor} instead
    */
+  @Deprecated
   public static class Cursor {
     public static final org.gwtproject.dom.style.shared.Cursor DEFAULT = org.gwtproject.dom.style.shared.Cursor.DEFAULT;
     public static final org.gwtproject.dom.style.shared.Cursor AUTO = org.gwtproject.dom.style.shared.Cursor.AUTO;
@@ -110,7 +125,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the display property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.Display} instead
    */
+  @Deprecated
   public static class Display {
     public static final org.gwtproject.dom.style.shared.Display NONE = org.gwtproject.dom.style.shared.Display.NONE;
     public static final org.gwtproject.dom.style.shared.Display BLOCK = org.gwtproject.dom.style.shared.Display.BLOCK;
@@ -135,7 +153,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the float property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.Float} instead
    */
+  @Deprecated
   public static class Float {
     public static final org.gwtproject.dom.style.shared.Float LEFT = org.gwtproject.dom.style.shared.Float.LEFT;
     public static final org.gwtproject.dom.style.shared.Float RIGHT = org.gwtproject.dom.style.shared.Float.RIGHT;
@@ -144,7 +165,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the font-style property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.FontStyle} instead
    */
+  @Deprecated
   public static class FontStyle {
     public static final org.gwtproject.dom.style.shared.FontStyle NORMAL = org.gwtproject.dom.style.shared.FontStyle.NORMAL;
     public static final org.gwtproject.dom.style.shared.FontStyle ITALIC = org.gwtproject.dom.style.shared.FontStyle.ITALIC;
@@ -153,7 +177,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the font-weight property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.FontWeight} instead
    */
+  @Deprecated
   public static class FontWeight {
     public static final org.gwtproject.dom.style.shared.FontWeight NORMAL = org.gwtproject.dom.style.shared.FontWeight.NORMAL;
     public static final org.gwtproject.dom.style.shared.FontWeight BOLD = org.gwtproject.dom.style.shared.FontWeight.BOLD;
@@ -163,7 +190,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the list-style-type property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.ListStyleType} instead
    */
+  @Deprecated
   public static class ListStyleType {
     public static final org.gwtproject.dom.style.shared.ListStyleType NONE = org.gwtproject.dom.style.shared.ListStyleType.NONE;
     public static final org.gwtproject.dom.style.shared.ListStyleType DISC = org.gwtproject.dom.style.shared.ListStyleType.DISC;
@@ -178,7 +208,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the outline-style property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.OutlineStyle} instead
    */
+  @Deprecated
   public static class OutlineStyle {
     public static final org.gwtproject.dom.style.shared.OutlineStyle NONE = org.gwtproject.dom.style.shared.OutlineStyle.NONE;
     public static final org.gwtproject.dom.style.shared.OutlineStyle DASHED = org.gwtproject.dom.style.shared.OutlineStyle.DASHED;
@@ -193,7 +226,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the overflow property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.Overflow} instead
    */
+  @Deprecated
   public static class Overflow {
     public static final org.gwtproject.dom.style.shared.Overflow VISIBLE = org.gwtproject.dom.style.shared.Overflow.VISIBLE;
     public static final org.gwtproject.dom.style.shared.Overflow HIDDEN = org.gwtproject.dom.style.shared.Overflow.HIDDEN;
@@ -203,7 +239,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the position property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.Position} instead
    */
+  @Deprecated
   public static class Position {
     public static final org.gwtproject.dom.style.shared.Position STATIC = org.gwtproject.dom.style.shared.Position.STATIC;
     public static final org.gwtproject.dom.style.shared.Position RELATIVE = org.gwtproject.dom.style.shared.Position.RELATIVE;
@@ -213,7 +252,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the table-layout property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.TableLayout} instead
    */
+  @Deprecated
   public static class TableLayout {
     public static final org.gwtproject.dom.style.shared.TableLayout AUTO = org.gwtproject.dom.style.shared.TableLayout.AUTO;
     public static final org.gwtproject.dom.style.shared.TableLayout FIXED = org.gwtproject.dom.style.shared.TableLayout.FIXED;
@@ -221,7 +263,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the text-align property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.TextAlign} instead
    */
+  @Deprecated
   public static class TextAlign {
     public static final org.gwtproject.dom.style.shared.TextAlign CENTER = org.gwtproject.dom.style.shared.TextAlign.CENTER;
     public static final org.gwtproject.dom.style.shared.TextAlign JUSTIFY = org.gwtproject.dom.style.shared.TextAlign.JUSTIFY;
@@ -231,7 +276,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the 'text-decoration' CSS property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.TextDecoration} instead
    */
+  @Deprecated
   public static class TextDecoration {
     public static final org.gwtproject.dom.style.shared.TextDecoration BLINK = org.gwtproject.dom.style.shared.TextDecoration.BLINK;
     public static final org.gwtproject.dom.style.shared.TextDecoration LINE_THROUGH = org.gwtproject.dom.style.shared.TextDecoration.LINE_THROUGH;
@@ -242,7 +290,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the 'text-justify' CSS3 property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.TextJustify} instead
    */
+  @Deprecated
   public static class TextJustify {
     public static final org.gwtproject.dom.style.shared.TextJustify AUTO = org.gwtproject.dom.style.shared.TextJustify.AUTO;
     public static final org.gwtproject.dom.style.shared.TextJustify DISTRIBUTE = org.gwtproject.dom.style.shared.TextJustify.DISTRIBUTE;
@@ -255,7 +306,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the 'text-overflow' CSS3 property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.TextOverflow} instead
    */
+  @Deprecated
   public static class TextOverflow {
     public static final org.gwtproject.dom.style.shared.TextOverflow CLIP = org.gwtproject.dom.style.shared.TextOverflow.CLIP;
     public static final org.gwtproject.dom.style.shared.TextOverflow ELLIPSIS = org.gwtproject.dom.style.shared.TextOverflow.ELLIPSIS;
@@ -263,7 +317,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the 'text-transform' CSS property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.TextTransform} instead
    */
+  @Deprecated
   public static class TextTransform {
     public static final org.gwtproject.dom.style.shared.TextTransform CAPITALIZE = org.gwtproject.dom.style.shared.TextTransform.CAPITALIZE;
     public static final org.gwtproject.dom.style.shared.TextTransform NONE = org.gwtproject.dom.style.shared.TextTransform.NONE;
@@ -273,7 +330,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the vertical-align property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.VerticalAlign} instead
    */
+  @Deprecated
   public static class VerticalAlign {
     public static final org.gwtproject.dom.style.shared.VerticalAlign BASELINE = org.gwtproject.dom.style.shared.VerticalAlign.BASELINE;
     public static final org.gwtproject.dom.style.shared.VerticalAlign SUB = org.gwtproject.dom.style.shared.VerticalAlign.SUB;
@@ -287,7 +347,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the visibility property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.Visibility} instead
    */
+  @Deprecated
   public static class Visibility {
     public static final org.gwtproject.dom.style.shared.Visibility VISIBLE = org.gwtproject.dom.style.shared.Visibility.VISIBLE;
     public static final org.gwtproject.dom.style.shared.Visibility HIDDEN = org.gwtproject.dom.style.shared.Visibility.HIDDEN;
@@ -295,7 +358,10 @@ public class Style extends JavaScriptObject {
 
   /**
    * Enum for the 'white-space' CSS property.
+   *
+   * @deprecated Use {@link org.gwtproject.dom.style.shared.WhiteSpace} instead
    */
+  @Deprecated
   public static class WhiteSpace {
     public static final org.gwtproject.dom.style.shared.WhiteSpace NORMAL = org.gwtproject.dom.style.shared.WhiteSpace.NORMAL;
     public static final org.gwtproject.dom.style.shared.WhiteSpace NOWRAP = org.gwtproject.dom.style.shared.WhiteSpace.NOWRAP;
