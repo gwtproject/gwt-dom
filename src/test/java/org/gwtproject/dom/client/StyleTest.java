@@ -19,6 +19,7 @@ import com.google.gwt.junit.DoNotRunWith;
 import com.google.gwt.junit.Platform;
 import com.google.gwt.junit.client.GWTTestCase;
 import org.gwtproject.dom.client.Style.*;
+import org.gwtproject.dom.style.shared.HasCssName;
 
 import static org.gwtproject.dom.client.Style.Unit.*;
 
