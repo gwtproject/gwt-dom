@@ -12,6 +12,9 @@ repositories {
     maven {
         url 'https://repo.vertispan.com/gwt-snapshot'
     }
+    maven {
+        url 'https://repo.vertispan.com/j2cl'
+    }
     mavenLocal()
 }
 
@@ -25,6 +28,7 @@ dependencies {
     api 'org.gwtproject.dom:gwt-dom-style-definitions:1.0-SNAPSHOT'
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.google.gwt:gwt-user:2.8.2'
+    testImplementation 'com.vertispan.j2cl:junit-annotations:0.3-SNAPSHOT'
     testRuntimeOnly 'com.google.gwt:gwt-dev:2.8.2'
 }
 configurations {
