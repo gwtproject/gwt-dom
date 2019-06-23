@@ -41,6 +41,9 @@ public class Document extends Node {
 
     @JsProperty(name = "document", namespace = JsPackage.GLOBAL)
     private static native Document nativeGetDocument();
+
+    @JsProperty(name = "$doc", namespace = "<window>")
+    private static native Document nativeGet$doc();
   }
 
   /**
@@ -54,11 +57,10 @@ public class Document extends Node {
     if (DocumentHolder.doc == null) {
       // Test if `$doc` is defined as a global variable, if so, use that. In GWT2, this evaluates
       // to `$wnd`, in J2CL+Closure it evaluates to goog.global.
-      if (Js.global().has("$doc")) {
-        DocumentHolder.doc = Js.uncheckedCast(Js.global().get("$doc"));
-      } else {
-        // otherwise, assume that `document` is a thing, not guarded with a "does it exist" call
+      if ("undefined".equals(Js.typeof(DocumentHolder.nativeGet$doc()))) {
         DocumentHolder.doc = DocumentHolder.nativeGetDocument();
+      } else {
+        DocumentHolder.doc = DocumentHolder.nativeGet$doc();
       }
     }
     return DocumentHolder.doc;
