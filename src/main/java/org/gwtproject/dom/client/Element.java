@@ -49,9 +49,9 @@ public class Element extends Node {
     return Js.coerceToInt(val);
   }
 
-  @JsOverlay
-  private static final boolean IS_SAFARI = "safari".equals(System.getProperty("user.agent"));
-
+  private static class UserAgentHolder {
+    private static final boolean IS_SAFARI = "safari".equals(System.getProperty("user.agent"));
+  }
   /**
    * Constant returned from {@link #getDraggable()}.
    */
@@ -504,7 +504,7 @@ public class Element extends Node {
   @JsOverlay
   public final int getScrollLeft() {
     int scrollLeft = Js.coerceToInt(Js.<HTMLElement>uncheckedCast(this).scrollLeft);
-    if (IS_SAFARI) {
+    if (UserAgentHolder.IS_SAFARI) {
       if (!(hasTagName(BodyElement.TAG) || hasTagName("HTML")) && isRTLSafari()) {
         return scrollLeft - (getScrollWidth() - getClientWidth());
       }
@@ -921,7 +921,7 @@ public class Element extends Node {
    */
   @JsOverlay
   public final void setScrollLeft(int scrollLeft) {
-    if (IS_SAFARI) {
+    if (UserAgentHolder.IS_SAFARI) {
       if (!(hasTagName(BodyElement.TAG) || hasTagName("HTML")) && isRTLSafari()) {
         scrollLeft += getScrollWidth() - getClientWidth();
       }
