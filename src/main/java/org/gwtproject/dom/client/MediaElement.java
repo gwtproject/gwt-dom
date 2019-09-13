@@ -15,7 +15,6 @@
  */
 package org.gwtproject.dom.client;
 
-import elemental2.core.Global;
 import elemental2.dom.HTMLMediaElement;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -551,7 +550,7 @@ public class MediaElement extends Element {
   @JsOverlay
   private double getDoubleAttr(String name, double def) {
     String value = this.getAttribute(name);
-    if (value == null || "undefined".equals(Js.typeof(value))) {
+    if (!"number".equals(Js.typeof(value))) {
       return def;
     }
     return Js.uncheckedCast(value);
