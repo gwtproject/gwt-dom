@@ -15,7 +15,6 @@
  */
 package org.gwtproject.dom.client;
 
-import elemental2.core.Global;
 import elemental2.dom.HTMLMediaElement;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -54,46 +53,55 @@ public class MediaElement extends Element {
   /**
    * Constant returned from {@link #getReadyState()}.
    */
+  @JsProperty(namespace ="HTMLMediaElement")
   public static int HAVE_NOTHING;
 
   /**
    * Constant returned from {@link #getReadyState()}.
    */
+  @JsProperty(namespace ="HTMLMediaElement")
   public static int HAVE_METADATA;
 
   /**
    * Constant returned from {@link #getReadyState()}.
    */
+  @JsProperty(namespace ="HTMLMediaElement")
   public static int HAVE_CURRENT_DATA;
 
   /**
    * Constant returned from {@link #getReadyState()}.
    */
+  @JsProperty(namespace ="HTMLMediaElement")
   public static int HAVE_FUTURE_DATA;
 
   /**
    * Constant returned from {@link #getReadyState()}.
    */
+  @JsProperty(namespace ="HTMLMediaElement")
   public static int HAVE_ENOUGH_DATA;
 
   /**
    * Constant returned from {@link #getNetworkState}.
    */
+  @JsProperty(namespace ="HTMLMediaElement")
   public static int NETWORK_EMPTY;
 
   /**
    * Constant returned from {@link #getNetworkState}.
    */
+  @JsProperty(namespace ="HTMLMediaElement")
   public static int NETWORK_IDLE;
 
   /**
    * Constant returned from {@link #getNetworkState}.
    */
+  @JsProperty(namespace ="HTMLMediaElement")
   public static int NETWORK_LOADING;
 
   /**
    * Constant returned from {@link #getNetworkState}.
    */
+  @JsProperty(namespace ="HTMLMediaElement")
   public static int NETWORK_NO_SOURCE;
 
   /**
