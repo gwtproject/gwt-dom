@@ -544,6 +544,7 @@ public class Document extends Node {
     init.setAltKey(altKey);
     init.setShiftKey(shiftKey);
     init.setMetaKey(metaKey);
+    init.setBubbles(true);
     Js.<JsPropertyMap<Integer>>uncheckedCast(init).set("keyCode", keyCode);
 
     KeyboardEvent event = new KeyboardEvent(type, init);
@@ -586,6 +587,7 @@ public class Document extends Node {
     init.setAltKey(altKey);
     init.setShiftKey(shiftKey);
     init.setMetaKey(metaKey);
+    init.setBubbles(true);
     Js.<JsPropertyMap<Integer>>uncheckedCast(init).set("charCode", charCode);
 
     KeyboardEvent event = new KeyboardEvent("keypress", init);
