@@ -155,6 +155,7 @@ public class TableCellElement extends Element {
    *     HTML Specification</a>
    */
   @JsProperty
+  @Deprecated
   public final native String getVAlign();
 
   /**
