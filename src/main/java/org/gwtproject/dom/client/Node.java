@@ -35,19 +35,19 @@ public class Node extends JavaScriptObject {
   /**
    * The node is an {@link Element}.
    */
-  @JsProperty(namespace = "Node")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "Node.ELEMENT_NODE")
   public static short ELEMENT_NODE;
 
   /**
    * The node is a {@link Text} node.
    */
-  @JsProperty(namespace = "Node")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "Node.TEXT_NODE")
   public static short TEXT_NODE;
 
   /**
    * The node is a {@link Document}.
    */
-  @JsProperty(namespace = "Node")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "Node.DOCUMENT_NODE")
   public static short DOCUMENT_NODE;
 
   /**
