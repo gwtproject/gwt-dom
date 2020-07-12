@@ -4,223 +4,190 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.gwtproject.dom</groupId>
-    <artifactId>gwt-dom</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>gwt-dom-parent</artifactId>
 
-    <repositories>
-        <repository>
-            <id>vertispan-gwt-snapshot-repository</id>
-            <name>Vertispan GWT Snapshot Repository</name>
-            <url>https://repo.vertispan.com/gwt-snapshot/</url>
-        </repository>
-        <repository>
-            <id>vertispan-j2cl-snapshot-repository</id>
-            <name>Vertispan J2CL Snapshot Repository</name>
-            <url>https://repo.vertispan.com/j2cl/</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>vertispan-j2cl-snapshot-repository</id>
-            <name>Vertispan J2CL Snapshot Repository</name>
-            <url>https://repo.vertispan.com/j2cl/</url>
-        </pluginRepository>
-    </pluginRepositories>
+    <version>dev</version>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.google.elemental2</groupId>
-            <artifactId>elemental2-dom</artifactId>
-            <version>1.0.0-RC1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.gwtproject.core</groupId>
-            <artifactId>gwt-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.gwtproject.safehtml</groupId>
-            <artifactId>gwt-safehtml</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+    <packaging>pom</packaging>
 
-        <dependency>
-            <groupId>org.gwtproject.safecss</groupId>
-            <artifactId>gwt-safecss</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+    <name>GWT DOM Parent</name>
+    <description>Parent POM containing the gwt-dom module and the test modules (gwt2- and j2cl-tests)</description>
+    <url>https://github.com/org.gwtproject/gwt-dom</url>
 
-        <dependency>
-            <groupId>org.gwtproject.regexp</groupId>
-            <artifactId>gwt-regexp</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+    <organization>
+        <name>The GWT Project Authors</name>
+        <url>https://github.com/org.gwtproject</url>
+    </organization>
 
-        <dependency>
-            <groupId>org.gwtproject.dom</groupId>
-            <artifactId>gwt-dom-style-definitions</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.jsinterop</groupId>
-                    <artifactId>base</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
 
-        <dependency>
-            <groupId>org.realityforge.com.google.jsinterop</groupId>
-            <artifactId>base</artifactId>
-            <version>1.0.0-b2-e6d791f</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.vertispan.jsinterop</groupId>
-            <artifactId>base</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
+    <developers>
+        <developer>
+            <name>The GWT Project Authors</name>
+            <organization>The GWT Project Authors</organization>
+            <url>https://github.com/org.gwtproject</url>
+        </developer>
+    </developers>
 
-        <!--        Test dependencies     -->
+    <scm>
+        <connection>scm:git:git://github.com/org.gwtproject/gwt-dom.git</connection>
+        <developerConnection>scm:git:ssh://github.com/org.gwtproject/gwt-dom.git</developerConnection>
+        <url>https://github.com/org.gwtproject/gwt-dom/tree/master</url>
+    </scm>
 
-        <dependency>
-            <groupId>com.vertispan.j2cl</groupId>
-            <artifactId>junit-annotations</artifactId>
-            <version>0.3-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vertispan.j2cl</groupId>
-            <artifactId>gwttestcase-emul</artifactId>
-            <version>0.3-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vertispan.j2cl</groupId>
-            <artifactId>gwttestcase-emul</artifactId>
-            <version>0.3-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-        <dependency>
-            <groupId>com.vertispan.j2cl</groupId>
-            <artifactId>junit-emul</artifactId>
-            <version>0.3-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.vertispan.j2cl</groupId>
-            <artifactId>junit-emul</artifactId>
-            <version>0.3-SNAPSHOT</version>
-            <classifier>sources</classifier>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <inceptionYear>2019</inceptionYear>
+
+    <modules>
+        <module>gwt-dom</module>
+        <module>gwt-dom-gwt2-tests</module>
+        <module>gwt-dom-j2cl-tests</module>
+    </modules>
+
+    <properties>
+        <revision>HEAD-SNAPSHOT</revision>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
+        <maven.deploy.plugin>3.0.0-M1</maven.deploy.plugin>
+        <maven.flatten.plugin>1.2.2</maven.flatten.plugin>
+        <maven.fmt.plugin>2.9</maven.fmt.plugin>
+        <maven.license.plugin>3.0</maven.license.plugin>
+        <maven.surfire.plugin>3.0.0-M1</maven.surfire.plugin>
+
+        <elemental2.version>1.1.0</elemental2.version>
+        <junit.version>4.12</junit.version>
+    </properties>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.js</include>
-                </includes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <!-- Do not upgrade past 3.1 to avoid triggering https://issues.apache.org/jira/browse/MSOURCES-95 -->
-                <!-- Unless you use annotation processors, then upgrade to 3.5.1 at a minimum -->
-                <version>3.5.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <groupId>com.coveo</groupId>
+                <artifactId>fmt-maven-plugin</artifactId>
+                <version>${maven.fmt.plugin}</version>
                 <executions>
                     <execution>
-                        <id>attach-sources</id>
-                        <phase>package</phase>
                         <goals>
-                            <goal>jar-no-fork</goal>
+                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
-                <groupId>com.vertispan.j2cl</groupId>
-                <artifactId>j2cl-maven-plugin</artifactId>
-                <version>0.8-SNAPSHOT</version>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${maven.license.plugin}</version>
                 <configuration>
-                    <defines>
-                        <user.agent>safari</user.agent>
-                    </defines>
-                    <!--<compilationLevel>ADVANCED</compilationLevel>-->
-                    <tests>
-                        <test>org.gwtproject.dom.client.DocumentTest</test>
-                        <test>org.gwtproject.dom.client.NodeTest</test>
-                        <test>org.gwtproject.dom.client.ElementTest</test>
-                        <test>org.gwtproject.dom.client.FormTests</test>
-                        <test>org.gwtproject.dom.client.FrameTests</test>
-                        <test>org.gwtproject.dom.client.MapTests</test>
-                        <test>org.gwtproject.dom.client.SelectTests</test>
-                        <!-- async gwttestcases dont work yet -->
-                        <!--<test>org.gwtproject.dom.client.StyleInjectorTest</test>-->
-                        <test>org.gwtproject.dom.client.TableTests</test>
-                        <test>org.gwtproject.dom.client.TextTest</test>
-
-                        <test>org.gwtproject.dom.client.StyleTest</test>
-
-                        <test>org.gwtproject.dom.builder.shared.GwtHtmlBuilderImplTest</test>
-                        <test>org.gwtproject.dom.builder.shared.GwtHtmlStylesBuilderTest</test>
-
-                        <test>org.gwtproject.dom.builder.client.GwtDomBuilderImplTest</test>
-                        <test>org.gwtproject.dom.builder.client.GwtDomStylesBuilderTest</test>
-
-                        <test>org.gwtproject.dom.builder.client.GwtAnchorBuilderTest</test>
-                        <test>org.gwtproject.dom.builder.client.GwtAreaBuilderTest</test>
-                        <test>org.gwtproject.dom.builder.client.GwtAudioBuilderTest</test>
-                        <test>org.gwtproject.dom.builder.client.GwtBaseBuilderTest</test>
-                        <test>org.gwtproject.dom.builder.client.GwtBodyBuilderTest</test>
-                        <test>org.gwtproject.dom.builder.client.GwtBRBuilderTest</test>
-                        <!-- ... -->
-
-                        <test>org.gwtproject.canvas.dom.client.Context2dTest</test>
-                    </tests>
+                    <header>LICENSE.header</header>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <skipExistingHeaders>true</skipExistingHeaders>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                    </mapping>
+                    <excludes>
+                        <exclude>**/README.md</exclude>
+                        <exclude>**/LICENSE</exclude>
+                        <exclude>**/LICENSE.header</exclude>
+                        <exclude>**/AUTHORS</exclude>
+                        <exclude>**/src/test/resources/**</exclude>
+                        <exclude>**/src/main/resources/**</exclude>
+                        <exclude>**/pom.xml</exclude>
+                        <exclude>**/.flattened-pom.xml</exclude>
+                        <exclude>**/war</exclude>
+                        <exclude>**/gwt-unitcache</exclude>
+                    </excludes>
+                    <properties>
+                        <year>${project.inceptionYear}</year>
+                        <name>${project.organization.name}</name>
+                    </properties>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${maven.flatten.plugin}</version>
+                <configuration>
+                    <flattenMode>oss</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>gwt-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>oss.sonatype.org-snapshot</id>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

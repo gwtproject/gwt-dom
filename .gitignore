@@ -1,3 +1,10 @@
-/.gradle
-/.idea
-/build
+# NOTE: we don't include IDE-specific files (e.g. IntelliJ's *.iml and .idea/) on-purpose.
+# Those patterns should go in a global gitignore or repository-specific excludes.
+# See http://www.org.gwtproject.org/makinggwtbetter.html#global_gitignore
+
+target/
+.flattened-pom.xml
+
+# gwt caches and compiled units #
+war/
+gwt-unitCache/
