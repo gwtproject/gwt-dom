@@ -48,7 +48,6 @@ on the parent directory. This will build the artifact and run tests against the 
 
 **GWT DOM requires GWT 2.9.0 or newer!**
 
-
 ## Dependencies
 GWT DOM depends on the following modules:
 * gwt-core
