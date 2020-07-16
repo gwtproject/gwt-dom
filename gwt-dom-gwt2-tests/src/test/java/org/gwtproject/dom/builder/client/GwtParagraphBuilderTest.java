@@ -24,18 +24,4 @@ public class GwtParagraphBuilderTest extends HtmlParagraphBuilderTest {
   public String getModuleName() {
     return GWT_MODULE_NAME;
   }
-
-  /** Test that HTML can be set after ending one element and starting another. */
-  @Override
-  public void testHtmlAfterRestart() {
-    /*
-     * This test triggers an obscure bug in IE7 where you cannot set the
-     * innerHTML of a child element within a paragraph if the innerHTML contains
-     * a block element.
-     *
-     * Disabling the method would prevent users from setting innerHTML that does
-     * not contain block elements, which is allowed, and detecting when this
-     * will throw an error would be difficult.
-     */
-  }
 }

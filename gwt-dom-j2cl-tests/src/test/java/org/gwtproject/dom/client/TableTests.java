@@ -76,11 +76,10 @@ public class TableTests {
     assertEquals(cell2, row.getCells().getItem(2));
     assertEquals(cell3, row.getCells().getItem(3));
 
-    // TODO: TableCellElement.cellIndex is broken (always 0) on Safari 2 (bug 3295)
-    //    assertEquals(0, cell0.getCellIndex());
-    //    assertEquals(1, cell1.getCellIndex());
-    //    assertEquals(2, cell2.getCellIndex());
-    //    assertEquals(3, cell3.getCellIndex());
+    assertEquals(0, cell0.getCellIndex());
+    assertEquals(1, cell1.getCellIndex());
+    assertEquals(2, cell2.getCellIndex());
+    assertEquals(3, cell3.getCellIndex());
   }
 
   /**
