@@ -1,0 +1,467 @@
+/*
+ * Copyright © 2019 The GWT Project Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.gwtproject.canvas.dom.client;
+
+import com.google.gwt.junit.DoNotRunWith;
+import com.google.gwt.junit.Platform;
+import com.google.gwt.junit.client.GWTTestCase;
+import java.util.Locale;
+import java.util.Objects;
+import org.gwtproject.canvas.dom.client.Context2d.*;
+import org.gwtproject.dom.client.CanvasElement;
+import org.gwtproject.dom.client.Document;
+import org.gwtproject.dom.client.Style;
+import org.gwtproject.dom.style.shared.Unit;
+
+/**
+ * Tests {@link Context2d}.
+ *
+ * <p>Because HtmlUnit does not support HTML5, you will need to run these tests manually in order to
+ * have them run. To do that, go to "run configurations" or "debug configurations", select the test
+ * you would like to run, and put this line in the VM args under the arguments tab:
+ * -Dgwt.args="-runStyle Manual:1"
+ */
+@DoNotRunWith(Platform.HtmlUnitUnknown)
+public class Context2dTest extends GWTTestCase {
+
+  private static class Pixel {
+
+    private static final Pixel RED = new Pixel(255, 0, 0, 255);
+    private static final Pixel GREEN = new Pixel(0, 255, 0, 255);
+    private static final Pixel BLUE = new Pixel(0, 0, 255, 255);
+
+    private final int r;
+    private final int g;
+    private final int b;
+    private final int a;
+
+    private Pixel(int r, int g, int b, int a) {
+      this.r = r;
+      this.g = g;
+      this.b = b;
+      this.a = a;
+    }
+
+    private Pixel(CanvasPixelArray array, int index) {
+      r = array.get(index);
+      g = array.get(index + 1);
+      b = array.get(index + 2);
+      a = array.get(index + 3);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      Pixel pixel = (Pixel) o;
+      return r == pixel.r && g == pixel.g && b == pixel.b && a == pixel.a;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(r, g, b, a);
+    }
+
+    @Override
+    public String toString() {
+      return "Pixel [" + r + ", " + g + ", " + b + ", " + a + "]";
+    }
+  }
+
+  private static final int COORDINATE_SPACE_WIDTH = 120;
+  private static final int COORDINATE_SPACE_HEIGHT = 80;
+
+  private CanvasElement canvas1;
+  private CanvasElement canvas2;
+
+  @Override
+  public String getModuleName() {
+    return "org.gwtproject.dom.DOMTest";
+  }
+
+  @Override
+  protected void gwtSetUp() {
+    Document doc = Document.get();
+
+    canvas1 = doc.createCanvasElement();
+    // element size
+    Style style = canvas1.getStyle();
+    style.setHeight(40, Unit.PX);
+    style.setWidth(60, Unit.PX);
+    // coordinate space
+    canvas1.setHeight(COORDINATE_SPACE_HEIGHT);
+    canvas1.setWidth(COORDINATE_SPACE_WIDTH);
+
+    canvas2 = doc.createCanvasElement();
+
+    doc.getBody().appendChild(canvas1);
+    doc.getBody().appendChild(canvas2);
+  }
+
+  @Override
+  protected void gwtTearDown() {
+    canvas1.removeFromParent();
+    canvas2.removeFromParent();
+  }
+
+  public void testSizing() {
+    assertEquals(40, canvas1.getOffsetHeight());
+    assertEquals(60, canvas1.getOffsetWidth());
+    assertEquals(COORDINATE_SPACE_HEIGHT, canvas1.getHeight());
+    assertEquals(COORDINATE_SPACE_WIDTH, canvas1.getWidth());
+  }
+
+  public void testArc() {
+    // get a 2d context
+    Context2d context = canvas1.getContext2d();
+
+    // make sure there are no issues drawing an arc
+    try {
+      context.beginPath();
+      context.arc(50, 50, 40, 0, Math.PI);
+      context.closePath();
+      context.stroke();
+    } catch (Exception e) {
+      fail("Should not throw an exception drawing an arc: " + e.getMessage());
+    }
+  }
+
+  public void testFillRect() {
+    // get a 2d context
+    Context2d context = canvas1.getContext2d();
+
+    // draw green rectangle filling 1st half of canvas
+    context.setFillStyle(CssColor.make("#00fF00"));
+    int halfWidth = COORDINATE_SPACE_WIDTH / 2;
+    context.fillRect(0, 0, halfWidth, COORDINATE_SPACE_HEIGHT);
+    // draw red rectangle filling 2nd half of canvas
+    context.setFillStyle("#fF0000");
+    context.fillRect(halfWidth, 0, halfWidth, COORDINATE_SPACE_HEIGHT);
+
+    // test that the first pixel is green and the last pixel is red
+    ImageData imageData =
+        context.getImageData(0, 0, COORDINATE_SPACE_WIDTH, COORDINATE_SPACE_HEIGHT);
+    CanvasPixelArray pixelArray = imageData.getData();
+    int firstRowStart = 0;
+    int lastRowStart = (COORDINATE_SPACE_HEIGHT - 1) * COORDINATE_SPACE_WIDTH * 4;
+    int firstGreenPixel = 0;
+    int lastGreenPixel = (halfWidth - 1) * 4;
+    int firstRedPixel = halfWidth * 4;
+    int lastRedPixel = (COORDINATE_SPACE_WIDTH - 1) * 4;
+
+    assertEquals(Pixel.GREEN, new Pixel(pixelArray, firstRowStart + firstGreenPixel));
+    assertEquals(Pixel.GREEN, new Pixel(pixelArray, firstRowStart + lastGreenPixel));
+    assertEquals(Pixel.RED, new Pixel(pixelArray, firstRowStart + firstRedPixel));
+    assertEquals(Pixel.RED, new Pixel(pixelArray, firstRowStart + lastRedPixel));
+
+    assertEquals(Pixel.GREEN, new Pixel(pixelArray, lastRowStart + firstGreenPixel));
+    assertEquals(Pixel.GREEN, new Pixel(pixelArray, lastRowStart + lastGreenPixel));
+    assertEquals(Pixel.RED, new Pixel(pixelArray, lastRowStart + firstRedPixel));
+    assertEquals(Pixel.RED, new Pixel(pixelArray, lastRowStart + lastRedPixel));
+
+    // draw a blue square in the top left
+    context.setFillStyle("#0000fF");
+    context.fillRect(0, 0, 20, 20);
+    imageData = context.getImageData(0, 0, 20, 20);
+    pixelArray = imageData.getData();
+
+    // test that the first pixel is blue
+    assertEquals(Pixel.BLUE, new Pixel(pixelArray, 0));
+  }
+
+  public void testFillStyle() {
+    // get the 2d contexts
+    Context2d context1 = canvas1.getContext2d();
+    Context2d context2 = canvas2.getContext2d();
+
+    // test that a color can be set and is correct
+    context1.setFillStyle(CssColor.make("#ffff00"));
+    FillStrokeStyle fillStyleCol = context1.getFillStyle();
+    assertSame("fillStyleCol is a color", FillStrokeStyle.TYPE_CSSCOLOR, fillStyleCol.getType());
+    assertNotSame("fillStyleCol is a color", FillStrokeStyle.TYPE_GRADIENT, fillStyleCol.getType());
+    assertNotSame("fillStyleCol is a color", FillStrokeStyle.TYPE_PATTERN, fillStyleCol.getType());
+
+    // test that a gradient can be set and is correct
+    CanvasGradient gradient = context1.createLinearGradient(0, 0, 10, 20);
+    gradient.addColorStop(0.5f, "#ffaaff");
+    context1.setFillStyle(gradient);
+    FillStrokeStyle fillStyleGrad = context1.getFillStyle();
+    assertNotSame(
+        "fillStyleGrad is a gradient", FillStrokeStyle.TYPE_CSSCOLOR, fillStyleGrad.getType());
+    assertSame(
+        "fillStyleGrad is a gradient", FillStrokeStyle.TYPE_GRADIENT, fillStyleGrad.getType());
+    assertNotSame(
+        "fillStyleGrad is a gradient", FillStrokeStyle.TYPE_PATTERN, fillStyleGrad.getType());
+
+    // test that a pattern can be set and is correct
+    CanvasPattern pattern = context1.createPattern(canvas1, Repetition.REPEAT);
+    context1.setFillStyle(pattern);
+    FillStrokeStyle fillStylePat = context1.getFillStyle();
+    assertNotSame(
+        "fillStylePat is a pattern", FillStrokeStyle.TYPE_CSSCOLOR, fillStylePat.getType());
+    assertNotSame(
+        "fillStylePat is a pattern", FillStrokeStyle.TYPE_GRADIENT, fillStylePat.getType());
+    assertSame("fillStylePat is a pattern", FillStrokeStyle.TYPE_PATTERN, fillStylePat.getType());
+
+    // test that a StrokeStyle can be passed around w/o knowing what it is
+    FillStrokeStyle fillStyle = context1.getFillStyle();
+    context2.setFillStyle(fillStyle);
+    FillStrokeStyle fillStyle2 = context2.getFillStyle();
+    assertNotSame("fillStyle2 is a pattern", FillStrokeStyle.TYPE_CSSCOLOR, fillStyle2.getType());
+    assertNotSame("fillStyle2 is a pattern", FillStrokeStyle.TYPE_GRADIENT, fillStyle2.getType());
+    assertSame("fillStyle2 is a pattern", FillStrokeStyle.TYPE_PATTERN, fillStyle2.getType());
+  }
+
+  public void testFont() {
+    Context2d context = canvas1.getContext2d();
+    context.setFont("40px \"Times New Roman\"");
+    assertEquals("40px \"Times New Roman\"", context.getFont());
+  }
+
+  public void testGlobalAlpha() {
+    Context2d context = canvas1.getContext2d();
+    context.setGlobalAlpha(0.5);
+    assertEquals(0.5, context.getGlobalAlpha());
+  }
+
+  // This test currently fails on IE9 and is disabled.
+  public void testGlobalComposite() {
+    Context2d context = canvas1.getContext2d();
+    context.setGlobalCompositeOperation(Composite.SOURCE_OVER);
+    assertEquals(Composite.SOURCE_OVER.getValue(), context.getGlobalCompositeOperation());
+    context.setGlobalCompositeOperation(Composite.DESTINATION_OVER);
+    assertEquals(Composite.DESTINATION_OVER.getValue(), context.getGlobalCompositeOperation());
+  }
+
+  public void testGradient() {
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
+    Context2d context = canvas1.getContext2d();
+
+    // fill the canvas with black
+    context.setFillStyle("#000000");
+    context.fillRect(0, 0, 60, 40);
+
+    // create a linear gradient from the top-left to the bottom-right.
+    CanvasGradient linearGradient = context.createLinearGradient(0, 0, 60, 40);
+    linearGradient.addColorStop(0, "#ff0000");
+    linearGradient.addColorStop(1, "#00ffff");
+    context.setFillStyle(linearGradient);
+    context.fillRect(0, 0, 60, 40);
+
+    // test that the first pixel is ff0000, the last is 000fff, and the middle is something else
+    // isn't exact due to rounding, give 5px approx wiggle-room
+    int approx = 5;
+    ImageData imageData = context.getImageData(0, 0, 60, 40);
+    CanvasPixelArray pixelArray = imageData.getData();
+
+    assertTrue(255 - pixelArray.get(0) < approx);
+    assertTrue(pixelArray.get(1) < approx);
+    assertTrue(pixelArray.get(2) < approx);
+    assertTrue(255 - pixelArray.get(3) < approx);
+    assertFalse(0 == pixelArray.get((60 * 40 / 2) * 4));
+    assertFalse(255 == pixelArray.get((60 * 40 / 2) * 4));
+    assertTrue(pixelArray.get((60 * 40 - 1) * 4) < approx);
+    assertTrue(255 - pixelArray.get((60 * 40 - 1) * 4 + 1) < approx);
+    assertTrue(255 - pixelArray.get((60 * 40 - 1) * 4 + 2) < approx);
+    assertTrue(255 - pixelArray.get((60 * 40 - 1) * 4 + 3) < approx);
+  }
+
+  public void testImageData() {
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
+    Context2d context = canvas1.getContext2d();
+
+    // fill the canvas with ffff00
+    context.setFillStyle("#ffff00");
+    context.fillRect(0, 0, 60, 40);
+
+    // create a 1 x 1 image
+    ImageData onePx = context.createImageData(1, 1); // will fail on FF3.0 (not such method)
+    assertEquals(1, onePx.getHeight());
+    assertEquals(1, onePx.getWidth());
+
+    // set the image to a single blue pixel
+    CanvasPixelArray onePxArray = onePx.getData();
+    onePxArray.set(0, 0);
+    onePxArray.set(1, 0);
+    onePxArray.set(2, 255);
+    onePxArray.set(3, 255);
+
+    // put the pixel at location 10, 10 on the canvas
+    context.putImageData(onePx, 10, 10);
+    ImageData verifyPx = context.getImageData(10, 10, 1, 1);
+    assertEquals(1, verifyPx.getWidth());
+    assertEquals(1, verifyPx.getHeight());
+    CanvasPixelArray verifyPxArray = verifyPx.getData();
+    assertEquals(new Pixel(onePxArray, 0), new Pixel(verifyPxArray, 0));
+
+    // test that edge cases don't blow up: values outside the range 0...255
+    ImageData clampPixels = context.createImageData(3, 3); // will fail on FF3.0 (not such method)
+    CanvasPixelArray clampArraySet = clampPixels.getData();
+    try {
+      clampArraySet.set(2, -2);
+      clampArraySet.set(3, 270);
+      context.putImageData(clampPixels, 4, 4);
+    } catch (Exception e) {
+      fail("Should not throw exception when setting values outside the range of 0...255");
+    }
+    clampPixels = context.getImageData(4, 4, 3, 3);
+    CanvasPixelArray clampArrayGet = clampPixels.getData();
+
+    // test that edge cases don't blow up: fall off the CanvasPixelArray end
+    int aPixel = clampArrayGet.get(9999);
+    assertEquals("CanvasPixelArray should return 0 for values off its end", 0, aPixel);
+    int bPixel = clampArrayGet.get(-9999);
+    assertEquals("CanvasPixelArray should return 0 for values off its end", 0, bPixel);
+  }
+
+  public void testIsPointInPath() {
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
+
+    Context2d context = canvas1.getContext2d();
+    context.beginPath();
+    context.moveTo(10, 10);
+    context.lineTo(20, 20);
+    context.lineTo(20, 10);
+    context.closePath();
+
+    assertTrue("Point should be in path", context.isPointInPath(18, 12));
+    assertFalse("Point should not be in path", context.isPointInPath(1, 1));
+  }
+
+  public void testLines() {
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
+
+    Context2d context = canvas1.getContext2d();
+    context.setFillStyle("#ff00ff");
+    context.setLineCap(LineCap.BUTT);
+    context.setLineJoin(LineJoin.BEVEL);
+    context.setLineWidth(2);
+
+    context.beginPath();
+    context.moveTo(10, 10);
+    context.lineTo(20, 20);
+    context.lineTo(20, 10);
+    context.closePath();
+
+    assertEquals(LineCap.BUTT.getValue(), context.getLineCap());
+    assertEquals(LineJoin.BEVEL.getValue(), context.getLineJoin());
+    assertEquals(2.0, context.getLineWidth());
+  }
+
+  public void testMiter() {
+    Context2d context = canvas1.getContext2d();
+    context.setMiterLimit(3);
+    assertEquals(3.0, context.getMiterLimit());
+  }
+
+  public void testPixelManipulation() {
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
+    Context2d context = canvas1.getContext2d();
+
+    // fill the canvas with ff0000
+    context.setFillStyle("#ff0000");
+    context.fillRect(0, 0, 60, 40);
+    // fill the 1st and 2nd quadrants with green
+    context.setFillStyle("#00ff00");
+    context.fillRect(0, 0, 60, 20);
+
+    ImageData imageData = context.getImageData(0, 0, 60, 40);
+    assertEquals("Pixels in first quadrant should be green", 0, imageData.getRedAt(45, 10));
+    assertEquals("Pixels in first quadrant should be green", 255, imageData.getGreenAt(45, 10));
+    assertEquals("Pixels in third quadrant should be red", 255, imageData.getRedAt(15, 30));
+    assertEquals("Pixels in third quadrant should be red", 0, imageData.getGreenAt(15, 30));
+  }
+
+  public void testShadows() {
+    canvas1.setHeight(40);
+    canvas1.setWidth(60);
+
+    Context2d context = canvas1.getContext2d();
+    context.setShadowBlur(3);
+    context.setShadowColor("#ff00ff");
+    context.setShadowOffsetX(3);
+    context.setShadowOffsetY(4);
+    context.lineTo(60, 40);
+    assertEquals(3.0, context.getShadowBlur());
+    assertEquals("#ff00ff", context.getShadowColor().toLowerCase(Locale.ROOT));
+    assertEquals(3.0, context.getShadowOffsetX());
+    assertEquals(4.0, context.getShadowOffsetY());
+  }
+
+  public void testStrokeStyle() {
+    // get the 2d contexts
+    Context2d context1 = canvas1.getContext2d();
+    Context2d context2 = canvas2.getContext2d();
+
+    // test that a color can be set and is correct
+    context1.setStrokeStyle(CssColor.make("#ffff00"));
+    FillStrokeStyle strokeStyleCol = context1.getStrokeStyle();
+    assertSame(
+        "strokeStyleCol is a color", strokeStyleCol.getType(), FillStrokeStyle.TYPE_CSSCOLOR);
+    assertNotSame(
+        "strokeStyleCol is a color", strokeStyleCol.getType(), FillStrokeStyle.TYPE_GRADIENT);
+    assertNotSame(
+        "strokeStyleCol is a color", strokeStyleCol.getType(), FillStrokeStyle.TYPE_PATTERN);
+
+    // test that a gradient can be set and is correct
+    CanvasGradient gradient = context1.createLinearGradient(0, 0, 10, 20);
+    gradient.addColorStop(0.5, "#ff000f");
+    context1.setStrokeStyle(gradient);
+    FillStrokeStyle strokeStyleGrad = context1.getStrokeStyle();
+    assertNotSame(
+        "strokeStyleGrad is a gradient", strokeStyleGrad.getType(), FillStrokeStyle.TYPE_CSSCOLOR);
+    assertSame(
+        "strokeStyleGrad is a gradient", strokeStyleGrad.getType(), FillStrokeStyle.TYPE_GRADIENT);
+    assertNotSame(
+        "strokeStyleGrad is a gradient", strokeStyleGrad.getType(), FillStrokeStyle.TYPE_PATTERN);
+
+    // test that a pattern can be set and is correct
+    CanvasPattern pattern = context1.createPattern(canvas1, Repetition.REPEAT);
+    context1.setStrokeStyle(pattern);
+    FillStrokeStyle strokeStylePat = context1.getStrokeStyle();
+    assertNotSame(
+        "strokeStylePat is a pattern", strokeStylePat.getType(), FillStrokeStyle.TYPE_CSSCOLOR);
+    assertNotSame(
+        "strokeStylePat is a pattern", strokeStylePat.getType(), FillStrokeStyle.TYPE_GRADIENT);
+    assertSame(
+        "strokeStylePat is a pattern", strokeStylePat.getType(), FillStrokeStyle.TYPE_PATTERN);
+
+    // test that a StrokeStyle can be passed around w/o knowing what it is
+    FillStrokeStyle strokeStyle = context1.getStrokeStyle();
+    context2.setStrokeStyle(strokeStyle);
+    FillStrokeStyle strokeStyle2 = context2.getStrokeStyle();
+    assertNotSame(
+        "strokeStyle2 is a pattern", strokeStyle2.getType(), FillStrokeStyle.TYPE_CSSCOLOR);
+    assertNotSame(
+        "strokeStyle2 is a pattern", strokeStyle2.getType(), FillStrokeStyle.TYPE_GRADIENT);
+    assertSame("strokeStyle2 is a pattern", strokeStyle2.getType(), FillStrokeStyle.TYPE_PATTERN);
+  }
+
+  public void testText() {
+    Context2d context = canvas1.getContext2d();
+    context.setFont("bold 40px sans-serif");
+    context.setTextAlign(TextAlign.CENTER);
+    context.setTextBaseline(TextBaseline.HANGING);
+    context.fillText("GWT", 50, 60);
+    assertEquals(TextAlign.CENTER.getValue(), context.getTextAlign());
+    assertEquals(TextBaseline.HANGING.getValue(), context.getTextBaseline());
+  }
+}
