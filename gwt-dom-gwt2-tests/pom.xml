@@ -19,7 +19,6 @@
         <maven.gwt.plugin>1.0.0</maven.gwt.plugin>
 
         <gwt.version>2.9.0</gwt.version>
-        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
