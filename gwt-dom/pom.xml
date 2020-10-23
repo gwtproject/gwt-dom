@@ -13,7 +13,7 @@
     <packaging>gwt-lib</packaging>
 
     <name>GWT DOM</name>
-    <description>GWT Core</description>
+    <description>Collection of methods that allow you to manipulatethe browser's Document Object Model (DOM). It contains methods for manipulating both elements and events.</description>
     <url>https://github.com/org.gwtproject/gwt-dom</url>
     <organization>
         <name>The GWT Project Authors</name>
