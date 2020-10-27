@@ -13,7 +13,7 @@
     <packaging>gwt-lib</packaging>
 
     <name>GWT DOM</name>
-    <description>GWT Core</description>
+    <description>Collection of methods that allow you to manipulate the browser's Document Object Model (DOM). It contains methods for manipulating both elements and events.</description>
     <url>https://github.com/org.gwtproject/gwt-dom</url>
     <organization>
         <name>The GWT Project Authors</name>
@@ -48,37 +48,10 @@
         <maven.gpg.plugin>1.6</maven.gpg.plugin>
         <maven.javadoc.plugin>3.2.0</maven.javadoc.plugin>
         <maven.source.plugin>3.2.1</maven.source.plugin>
-
-        <gwt-core.version>HEAD-SNAPSHOT</gwt-core.version>
-        <gwt-dom-style-definitions.version>HEAD-SNAPSHOT</gwt-dom-style-definitions.version>
-        <gwt-regexp.version>HEAD-SNAPSHOT</gwt-regexp.version>
-        <gwt-safecss.version>HEAD-SNAPSHOT</gwt-safecss.version>
-        <gwt-safehtml.version>HEAD-SNAPSHOT</gwt-safehtml.version>
     </properties>
 
     <dependencies>
-        <!-- TODO hinterher wieder raus -->
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-            <version>2.9.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-dev</artifactId>
-            <version>2.9.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
+         <dependency>
             <groupId>org.gwtproject.core</groupId>
             <artifactId>gwt-core</artifactId>
             <version>${gwt-core.version}</version>
@@ -170,6 +143,14 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>${maven.deploy.plugin}</version>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
