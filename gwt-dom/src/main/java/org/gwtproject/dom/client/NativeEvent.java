@@ -163,7 +163,7 @@ public class NativeEvent extends JavaScriptObject {
    * Gets the key code (code associated with the physical key) associated with this event.
    *
    * @return the key code
-   * @see org.gwtproject.event.dom.client.KeyCodes
+   * @see "org.gwtproject.event.dom.client.KeyCodes in the gwt-event-dom project"
    */
   @JsOverlay
   @Deprecated

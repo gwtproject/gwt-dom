@@ -24,9 +24,9 @@ import org.gwtproject.core.client.JavaScriptObject;
 /**
  * Class representing touches.
  *
- * <p>See {@link <a
+ * <p>See <a
  * href="http://developer.apple.com/library/safari/#documentation/UserExperience/Reference/TouchClassReference/Touch/Touch.html">Safari
- * Touch Documentation</a>}
+ * Touch Documentation</a>
  */
 @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public class Touch extends JavaScriptObject {
