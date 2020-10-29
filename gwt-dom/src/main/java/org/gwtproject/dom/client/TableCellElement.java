@@ -89,6 +89,7 @@ public class TableCellElement extends Element {
    *     HTML Specification</a>
    */
   @JsProperty
+  @Deprecated
   public final native String getAlign();
 
   /**
@@ -105,6 +106,7 @@ public class TableCellElement extends Element {
    *     HTML Specification</a>
    */
   @JsProperty
+  @Deprecated
   public final native String getCh();
 
   /**
@@ -115,6 +117,7 @@ public class TableCellElement extends Element {
    *     HTML Specification</a>
    */
   @JsProperty
+  @Deprecated
   public final native String getChOff();
 
   /**
@@ -166,6 +169,7 @@ public class TableCellElement extends Element {
    *     HTML Specification</a>
    */
   @JsProperty
+  @Deprecated
   public final native void setAlign(String align);
 
   /**
@@ -175,6 +179,7 @@ public class TableCellElement extends Element {
    *     HTML Specification</a>
    */
   @JsProperty
+  @Deprecated
   public final native void setCh(String ch);
 
   /**
@@ -185,6 +190,7 @@ public class TableCellElement extends Element {
    *     HTML Specification</a>
    */
   @JsProperty
+  @Deprecated
   public final native void setChOff(String chOff);
 
   /**
@@ -225,5 +231,6 @@ public class TableCellElement extends Element {
    *     HTML Specification</a>
    */
   @JsProperty
+  @Deprecated
   public final native void setVAlign(String vAlign);
 }
