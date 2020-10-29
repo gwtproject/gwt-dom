@@ -30,26 +30,89 @@ import org.gwtproject.dom.builder.client.DomBuilderFactory;
  * <p>Element builder methods can be chained together as with a traditional builder:
  *
  * <pre>
+ * //
+ * // Create a builder for the outermost element. The initial state of the
+ * // builder is a started element ready for attributes (eg. "&lt;div").
+ * //
  * DivBuilder divBuilder = ElementBuilderFactory.get().createDivBuilder();
- * divBuilder.id("myId").text("Hello World!").endDiv();
- * </pre>
  *
- * <p>See this example: {@example
- * org.gwtproject.examples.dom.builder.ElementBuilderFactoryChainingExample}.
+ * //
+ * // Build the element.
+ * //
+ * // First, we set the element's id to "myId", then set its title to
+ * // "This is a div". Next, we set the background-color style property to
+ * // "red". Finally, we set some inner text to "Hello World!". When we are
+ * // finished, we end the div.
+ * //
+ * // When building elements, the order of methods matters. Attributes and
+ * // style properties must be added before setting inner html/text or
+ * // appending children. This is because the string implementation cannot
+ * // concatenate an attribute after child content has been added.
+ * //
+ * // Note that endStyle() takes the builder type that we want to return, which
+ * // must be the "parent" builder. endDiv() does not need the optional
+ * // argument because we are finished building the element.
+ * //
+ * divBuilder.id("myId").title("This is a div");
+ * divBuilder.style().trustedBackgroundColor("red").endStyle();
+ * divBuilder.text("Hello World!").endDiv();
+ *
+ * // Get the element out of the builder.
+ * Element div = divBuilder.finish();
+ *
+ * // Attach the element to the page.
+ * Document.get().getBody().appendChild(div);
+ * </pre>
  *
  * <p>Alternatively, builders can be used as separate objects and operated on individually. This may
  * be the preferred method if you are creating a complex or dynamic element. The code below produces
  * the same output as the code above.
  *
  * <pre>
+ * //
+ * // Create a builder for the outermost element. The initial state of the
+ * // builder is a started element ready for attributes (eg. "&lt;div").
+ * //
  * DivBuilder divBuilder = ElementBuilderFactory.get().createDivBuilder();
- * divBuilder.id("myId");
- * divBuilder.text("Hello World!");
- * divBuilder.endDiv();
- * </pre>
  *
- * <p>See an example: {@example
- * org.gwtproject.examples.dom.builder.ElementBuilderFactoryNonChainingExample}.
+ * // Add attributes to the div.
+ * divBuilder.id("myId");
+ * divBuilder.title("This is a div");
+ *
+ * // Add style properties to the div.
+ * StylesBuilder divStyle = divBuilder.style();
+ * divStyle.trustedBackgroundColor("red");
+ * divStyle.endStyle();
+ *
+ * // Append a child select element to the div.
+ * SelectBuilder selectBuilder = divBuilder.startSelect();
+ *
+ * // Append three options to the select element.
+ * for (int i = 0; i &lt; 3; i++) {
+ * OptionBuilder optionBuilder = selectBuilder.startOption();
+ * optionBuilder.value("value" + i);
+ * optionBuilder.text("Option " + i);
+ * optionBuilder.endOption();
+ * }
+ *
+ * //
+ * // End the select and div elements. Note that ending the remaining elements
+ * // before calling asElement() below is optional, but a good practice. If we
+ * // did not call endOption() above, we would append each option element to
+ * // the preceding option element, which is not what we want.
+ * //
+ * // In general, you must pay close attention to ensure that you close
+ * // elements correctly.
+ * //
+ * selectBuilder.endSelect();
+ * divBuilder.endDiv();
+ *
+ * // Get the element out of the builder.
+ * Element div = divBuilder.finish();
+ *
+ * // Attach the element to the page.
+ * Document.get().getBody().appendChild(div);
+ * </pre>
  *
  * <p>You can also mix chaining and non-chaining methods when appropriate. For example, you can add
  * attributes to an element by chaining methods, but use a separate builder object for each separate
