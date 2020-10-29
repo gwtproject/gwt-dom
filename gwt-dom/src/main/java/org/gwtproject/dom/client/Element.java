@@ -58,14 +58,24 @@ public class Element extends Node {
   /** Constant returned from {@link #getDraggable()}. */
   @JsOverlay public static final String DRAGGABLE_TRUE = "true";
 
-  /** Assert that the given {@link Node} is an {@link Element} and automatically typecast it. */
+  /**
+   * Assert that the given {@link Node} is an {@link Element} and automatically typecast it.
+   *
+   * @param o the object to assert is an element
+   * @return the object, cast to an element
+   */
   @JsOverlay
   public static Element as(JavaScriptObject o) {
     assert is(o);
     return (Element) o;
   }
 
-  /** Assert that the given {@link Node} is an {@link Element} and automatically typecast it. */
+  /**
+   * Assert that the given {@link Node} is an {@link Element} and automatically typecast it.
+   *
+   * @param node the node to assert is an element
+   * @return the node, cast to an element
+   */
   @JsOverlay
   public static Element as(Node node) {
     assert is(node);
@@ -75,6 +85,9 @@ public class Element extends Node {
   /**
    * Determines whether the given {@link JavaScriptObject} can be cast to an {@link Element}. A
    * <code>null</code> object will cause this method to return <code>false</code>.
+   *
+   * @param o the object to check if it is an instance of this type
+   * @return true of the object is an instance of this type, false otherwise
    */
   @JsOverlay
   public static boolean is(JavaScriptObject o) {
@@ -87,6 +100,9 @@ public class Element extends Node {
   /**
    * Determine whether the given {@link Node} can be cast to an {@link Element}. A <code>null</code>
    * node will cause this method to return <code>false</code>.
+   *
+   * @param node the node to check if it is an instance of this type
+   * @return true if the node is an instance of this type, false otherwise
    */
   @JsOverlay
   public static boolean is(Node node) {
@@ -151,13 +167,21 @@ public class Element extends Node {
   /** Gives keyboard focus to this element. */
   public final native void focus();
 
-  /** Gets an element's absolute bottom coordinate in the document's coordinate system. */
+  /**
+   * Gets an element's absolute bottom coordinate in the document's coordinate system.
+   *
+   * @return the element's absolute bottom coordinate
+   */
   @JsOverlay
   public final int getAbsoluteBottom() {
     return getAbsoluteTop() + getOffsetHeight();
   }
 
-  /** Gets an element's absolute left coordinate in the document's coordinate system. */
+  /**
+   * Gets an element's absolute left coordinate in the document's coordinate system.
+   *
+   * @return the element's absolute left coordinate
+   */
   @JsOverlay
   public final int getAbsoluteLeft() {
     HTMLElement e = Js.uncheckedCast(this);
@@ -166,13 +190,21 @@ public class Element extends Node {
     return Js.coerceToInt(subPixelAbsoluteLeft);
   }
 
-  /** Gets an element's absolute right coordinate in the document's coordinate system. */
+  /**
+   * Gets an element's absolute right coordinate in the document's coordinate system.
+   *
+   * @return the element's absolute right coordinate
+   */
   @JsOverlay
   public final int getAbsoluteRight() {
     return getAbsoluteLeft() + getOffsetWidth();
   }
 
-  /** Gets an element's absolute top coordinate in the document's coordinate system. */
+  /**
+   * Gets an element's absolute top coordinate in the document's coordinate system.
+   *
+   * @return the element's absolute top coordinate
+   */
   @JsOverlay
   public final int getAbsoluteTop() {
     HTMLElement e = Js.uncheckedCast(this);
@@ -201,6 +233,7 @@ public class Element extends Node {
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-class">W3C
    *     HTML Specification</a>
+   * @return the element's class attribute value or an empty string.
    */
   @JsOverlay
   public final String getClassName() {
@@ -232,6 +265,8 @@ public class Element extends Node {
 
   /**
    * Specifies the base direction of directionally neutral text and the directionality of tables.
+   *
+   * @return the element's base direction
    */
   @JsProperty
   public final native String getDir();
@@ -255,7 +290,11 @@ public class Element extends Node {
    */
   public final native NodeList<Element> getElementsByTagName(String name);
 
-  /** The first child of element this element. If there is no such element, this returns null. */
+  /**
+   * The first child of element this element. If there is no such element, this returns null.
+   *
+   * @return the first child element of this element, if any
+   */
   @JsOverlay
   public final Element getFirstChildElement() {
     elemental2.dom.Node child = Js.<HTMLElement>uncheckedCast(this).firstChild;
@@ -268,17 +307,26 @@ public class Element extends Node {
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-id">W3C
    *     HTML Specification</a>
+   * @return the element's id attribute
    */
   @JsProperty
   public final native String getId();
 
-  /** All of the markup and content within a given element. */
+  /**
+   * All of the markup and content within a given element.
+   *
+   * @return the element's innerHTML value
+   */
   @JsOverlay
   public final String getInnerHTML() {
     return Js.<HTMLElement>uncheckedCast(this).innerHTML;
   }
 
-  /** The text between the start and end tags of the object. */
+  /**
+   * The text between the start and end tags of the object.
+   *
+   * @return the element's innerText value
+   */
   @JsOverlay
   public final String getInnerText() {
     /*
@@ -291,12 +339,18 @@ public class Element extends Node {
     return Js.<HTMLElement>uncheckedCast(this).textContent;
   }
 
-  /** Language code defined in RFC 1766. */
+  /**
+   * Language code defined in RFC 1766.
+   *
+   * @return the element's lang value
+   */
   @JsProperty
   public final native String getLang();
 
   /**
    * The element immediately following this element. If there is no such element, this returns null.
+   *
+   * @return the element after this one in this node's parent, if any
    */
   @JsOverlay
   public final Element getNextSiblingElement() {
@@ -307,7 +361,11 @@ public class Element extends Node {
     return Js.uncheckedCast(sib);
   }
 
-  /** The height of an element relative to the layout. */
+  /**
+   * The height of an element relative to the layout.
+   *
+   * @return the element's offset height
+   */
   @JsOverlay
   public final int getOffsetHeight() {
     return toInt32(getSubPixelOffsetHeight());
@@ -316,6 +374,8 @@ public class Element extends Node {
   /**
    * The number of pixels that the upper left corner of the current element is offset to the left
    * within the offsetParent node.
+   *
+   * @return the element's offset left position
    */
   @JsOverlay
   public final int getOffsetLeft() {
@@ -325,6 +385,8 @@ public class Element extends Node {
   /**
    * Returns a reference to the object which is the closest (nearest in the containment hierarchy)
    * positioned containing element.
+   *
+   * @return the element's offset parent
    */
   @JsProperty
   public final native Element getOffsetParent();
@@ -332,13 +394,19 @@ public class Element extends Node {
   /**
    * The number of pixels that the upper top corner of the current element is offset to the top
    * within the offsetParent node.
+   *
+   * @return the element's offset top
    */
   @JsOverlay
   public final int getOffsetTop() {
     return toInt32(getSubPixelOffsetTop());
   }
 
-  /** The width of an element relative to the layout. */
+  /**
+   * The width of an element relative to the layout.
+   *
+   * @return the element's offset width
+   */
   @JsOverlay
   public final int getOffsetWidth() {
     return toInt32(getSubPixelOffsetWidth());
@@ -346,6 +414,8 @@ public class Element extends Node {
 
   /**
    * The element immediately preceding this element. If there is no such element, this returns null.
+   *
+   * @return the element before this one in this node's parent, if any
    */
   @JsOverlay
   public final Element getPreviousSiblingElement() {
@@ -423,7 +493,11 @@ public class Element extends Node {
     return value == null ? null : "" + value;
   }
 
-  /** The height of the scroll view of an element. */
+  /**
+   * The height of the scroll view of an element.
+   *
+   * @return the height of the scroll view of this element
+   */
   @JsOverlay
   public final int getScrollHeight() {
     return toInt32(getSubPixelScrollHeight());
@@ -434,6 +508,9 @@ public class Element extends Node {
    *
    * <p>If the element is in RTL mode, this method will return a negative value of the number of
    * pixels scrolled from the right.
+   *
+   * @return the number of pixels that the element's content is scrolled from the left, or from the
+   *     right if in RTL mode
    */
   @JsOverlay
   public final int getScrollLeft() {
@@ -446,13 +523,21 @@ public class Element extends Node {
     return scrollLeft;
   }
 
-  /** The number of pixels that an element's content is scrolled from the top. */
+  /**
+   * The number of pixels that an element's content is scrolled from the top.
+   *
+   * @return the number of pixels that this element's content is scrolled from the top
+   */
   @JsOverlay
   public final int getScrollTop() {
     return toInt32(getSubPixelScrollTop());
   }
 
-  /** The width of the scroll view of an element. */
+  /**
+   * The width of the scroll view of an element.
+   *
+   * @return the width of the scroll view of this element
+   */
   @JsOverlay
   public final int getScrollWidth() {
     return toInt32(getSubPixelScrollWidth());
@@ -471,7 +556,11 @@ public class Element extends Node {
     return Js.<JsPropertyMap<String>>uncheckedCast(this).get("outerHTML");
   }
 
-  /** Gets this element's {@link Style} object. */
+  /**
+   * Gets this element's {@link Style} object.
+   *
+   * @return the Style object for this element
+   */
   @JsProperty
   public final native Style getStyle();
 
@@ -481,6 +570,7 @@ public class Element extends Node {
    * @see <a
    *     href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-tabindex">W3C
    *     HTML Specification</a>
+   * @return the tab index of the element
    */
   @JsOverlay
   public final int getTabIndex() {
@@ -497,7 +587,11 @@ public class Element extends Node {
     return Js.<HTMLElement>uncheckedCast(this).tagName;
   }
 
-  /** The element's advisory title. */
+  /**
+   * The element's advisory title.
+   *
+   * @return the title attribute of this element
+   */
   @JsProperty
   public final native String getTitle();
 
@@ -540,7 +634,11 @@ public class Element extends Node {
     return tagName.equalsIgnoreCase(getTagName());
   }
 
-  /** Removes an attribute by name. */
+  /**
+   * Removes an attribute by name.
+   *
+   * @param name the name of the attribute to remove
+   */
   public final native void removeAttribute(String name);
 
   /**
@@ -701,6 +799,7 @@ public class Element extends Node {
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-class">W3C
    *     HTML Specification</a>
+   * @param className the new value to set to the element's class attribute
    */
   @JsOverlay
   public final void setClassName(String className) {
@@ -709,6 +808,8 @@ public class Element extends Node {
 
   /**
    * Specifies the base direction of directionally neutral text and the directionality of tables.
+   *
+   * @param dir the value to set on the element's dir attribute
    */
   @JsProperty
   public final native void setDir(String dir);
@@ -730,30 +831,47 @@ public class Element extends Node {
    *
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-id">W3C
    *     HTML Specification</a>
+   * @param id the value to set on the element's id attribute
    */
   @JsProperty
   public final native void setId(String id);
 
-  /** All of the markup and content within a given element. */
+  /**
+   * All of the markup and content within a given element.
+   *
+   * @param html the html string to use to replace the contents of this element
+   */
   @JsOverlay
   public final void setInnerHTML(@IsSafeHtml String html) {
     Js.<HTMLElement>uncheckedCast(this).innerHTML = html == null ? "" : html;
   }
 
-  /** All of the markup and content within a given element. */
+  /**
+   * All of the markup and content within a given element.
+   *
+   * @param html the SafeHtml object to use to replace the contents of this element
+   */
   @JsOverlay
   public final void setInnerSafeHtml(SafeHtml html) {
     setInnerHTML(html.asString());
   }
 
-  /** The text between the start and end tags of the object. */
+  /**
+   * The text between the start and end tags of the object.
+   *
+   * @param text the text to use to replace the contents of this element
+   */
   @JsOverlay
   public final void setInnerText(String text) {
     // See getInnerText for why textContent is used instead of innerText.
     Js.<HTMLElement>uncheckedCast(this).textContent = text != null ? text : "";
   }
 
-  /** Language code defined in RFC 1766. */
+  /**
+   * Language code defined in RFC 1766.
+   *
+   * @param lang the lang property to set on this element
+   */
   @JsProperty
   public final native void setLang(String lang);
 
@@ -823,7 +941,12 @@ public class Element extends Node {
     Js.asPropertyMap(this).set(name, value);
   };
 
-  /** The number of pixels that an element's content is scrolled to the left. */
+  /**
+   * The number of pixels that an element's content is scrolled from the left.
+   *
+   * @param scrollLeft the number of pixels that the element's content should be scrolled from the
+   *     left
+   */
   @JsOverlay
   public final void setScrollLeft(int scrollLeft) {
     if (UserAgentHolder.IS_SAFARI) {
@@ -834,7 +957,12 @@ public class Element extends Node {
     Js.<HTMLElement>uncheckedCast(this).scrollLeft = scrollLeft;
   }
 
-  /** The number of pixels that an element's content is scrolled to the top. */
+  /**
+   * The number of pixels that an element's content is scrolled from the top.
+   *
+   * @param scrollTop the number of pixels that the element's content should be scrolled from the
+   *     top
+   */
   @JsProperty
   public final native void setScrollTop(int scrollTop);
 
@@ -844,11 +972,16 @@ public class Element extends Node {
    * @see <a
    *     href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-tabindex">W3C
    *     HTML Specification</a>
+   * @param tabIndex the value to use for the tab index of the element
    */
   @JsProperty
   public final native void setTabIndex(int tabIndex);
 
-  /** The element's advisory title. */
+  /**
+   * The element's advisory title.
+   *
+   * @param title the value to use for the element's title attribute
+   */
   @JsOverlay
   public final void setTitle(String title) {
     // Setting the title to null results in the string "null" being displayed

@@ -44,7 +44,12 @@ public class Node extends JavaScriptObject {
   @JsProperty(namespace = JsPackage.GLOBAL, name = "Node.DOCUMENT_NODE")
   public static short DOCUMENT_NODE;
 
-  /** Assert that the given {@link JavaScriptObject} is a DOM node and automatically typecast it. */
+  /**
+   * Assert that the given {@link JavaScriptObject} is a DOM node and automatically typecast it.
+   *
+   * @param o the object to assert is a Node
+   * @return the object, cast to a Node
+   */
   @JsOverlay
   public static Node as(JavaScriptObject o) {
     assert is(o);
@@ -55,6 +60,9 @@ public class Node extends JavaScriptObject {
    * Determines whether the given {@link JavaScriptObject} is a DOM node. A <code>null</code> object
    * will cause this method to return <code>false</code>. The try catch is needed for the firefox
    * permission error: "Permission denied to access property 'nodeType'"
+   *
+   * @param o the object to check if it is an instance of this type
+   * @return true of the object is an instance of this type, false otherwise
    */
   @JsOverlay
   public static boolean is(JavaScriptObject o) {
@@ -71,6 +79,7 @@ public class Node extends JavaScriptObject {
    * Adds the node newChild to the end of the list of children of this node. If the newChild is
    * already in the tree, it is first removed.
    *
+   * @param <T> the type of the node being appended
    * @param newChild The node to add
    * @return The node added
    */
@@ -119,33 +128,57 @@ public class Node extends JavaScriptObject {
   /**
    * A NodeList that contains all children of this node. If there are no children, this is a
    * NodeList containing no nodes.
+   *
+   * @return the children of this node
    */
   @JsProperty
   public final native NodeList<Node> getChildNodes();
 
-  /** The first child of this node. If there is no such node, this returns null. */
+  /**
+   * The first child of this node. If there is no such node, this returns null.
+   *
+   * @return the first child of this node, if any
+   */
   @JsProperty
   public final native Node getFirstChild();
 
-  /** The last child of this node. If there is no such node, this returns null. */
+  /**
+   * The last child of this node. If there is no such node, this returns null.
+   *
+   * @return the last child of this node, if any
+   */
   @JsProperty
   public final native Node getLastChild();
 
-  /** The node immediately following this node. If there is no such node, this returns null. */
+  /**
+   * The node immediately following this node. If there is no such node, this returns null.
+   *
+   * @return the node after this one in this node's parent, if any
+   */
   @JsProperty
   public final native Node getNextSibling();
 
-  /** The name of this node, depending on its type; see the table above. */
+  /**
+   * The name of this node, depending on its type; see the table above.
+   *
+   * @return the name of this node
+   */
   @JsProperty
   public final native String getNodeName();
 
-  /** A code representing the type of the underlying object, as defined above. */
+  /**
+   * A code representing the type of the underlying object, as defined above.
+   *
+   * @return a number indicating the type of this node
+   */
   @JsProperty
   public final native short getNodeType();
 
   /**
    * The value of this node, depending on its type; see the table above. When it is defined to be
    * null, setting it has no effect.
+   *
+   * @return the value of this node
    */
   @JsProperty
   public final native String getNodeValue();
@@ -153,6 +186,8 @@ public class Node extends JavaScriptObject {
   /**
    * The Document object associated with this node. This is also the {@link Document} object used to
    * create new nodes.
+   *
+   * @return the document that this node belongs to
    */
   @JsProperty
   public final native Document getOwnerDocument();
@@ -175,15 +210,25 @@ public class Node extends JavaScriptObject {
    * The parent of this node. All nodes except Document may have a parent. However, if a node has
    * just been created and not yet added to the tree, or if it has been removed from the tree, this
    * is null.
+   *
+   * @return the parent node of this node
    */
   @JsProperty
   public final native Node getParentNode();
 
-  /** The node immediately preceding this node. If there is no such node, this returns null. */
+  /**
+   * The node immediately preceding this node. If there is no such node, this returns null.
+   *
+   * @return the node before this one in this node's parent, if any
+   */
   @JsProperty
   public final native Node getPreviousSibling();
 
-  /** Returns whether this node has any children. */
+  /**
+   * Returns whether this node has any children.
+   *
+   * @return true if this node has children, false otherwise
+   */
   public final native boolean hasChildNodes();
 
   /**
@@ -262,7 +307,11 @@ public class Node extends JavaScriptObject {
    */
   public final native Node removeChild(Node oldChild);
 
-  /** Remove all children of the node. */
+  /**
+   * Remove all children of the node.
+   *
+   * @return always returns null
+   */
   @JsOverlay
   public final Node removeAllChildren() {
     while (this.getLastChild() != null) {
@@ -293,6 +342,8 @@ public class Node extends JavaScriptObject {
   /**
    * The value of this node, depending on its type; see the table above. When it is defined to be
    * null, setting it has no effect.
+   *
+   * @param nodeValue the value to assign to the node
    */
   @JsProperty
   public final native void setNodeValue(String nodeValue);

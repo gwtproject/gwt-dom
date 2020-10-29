@@ -35,6 +35,9 @@ public class PreElement extends Element {
   /**
    * Assert that the given {@link Element} is compatible with this class and automatically typecast
    * it.
+   *
+   * @param elem the element to assert is an instance of this type
+   * @return the element, cast to this type
    */
   @JsOverlay
   public static PreElement as(Element elem) {
@@ -45,6 +48,9 @@ public class PreElement extends Element {
   /**
    * Determines whether the given {@link JavaScriptObject} can be cast to this class. A <code>null
    * </code> object will cause this method to return <code>false</code>.
+   *
+   * @param o the object to check if it is an instance of this type
+   * @return true of the object is an instance of this type, false otherwise
    */
   @JsOverlay
   public static boolean is(JavaScriptObject o) {
@@ -57,6 +63,9 @@ public class PreElement extends Element {
   /**
    * Determine whether the given {@link Node} can be cast to this class. A <code>null</code> node
    * will cause this method to return <code>false</code>.
+   *
+   * @param node the node to check if it is an instance of this type
+   * @return true if the node is an instance of this type, false otherwise
    */
   @JsOverlay
   public static boolean is(Node node) {
@@ -69,6 +78,9 @@ public class PreElement extends Element {
   /**
    * Determine whether the given {@link Element} can be cast to this class. A <code>null</code> node
    * will cause this method to return <code>false</code>.
+   *
+   * @param elem the element to check if it is an instance of this type
+   * @return true if the element is an instance of this type, false otherwise
    */
   @JsOverlay
   public static boolean is(Element elem) {

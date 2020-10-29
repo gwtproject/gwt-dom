@@ -27,6 +27,9 @@ public class Text extends Node {
   /**
    * Assert that the given {@link Node} is of type {@link Node#TEXT_NODE} and automatically typecast
    * it.
+   *
+   * @param node the node to assert is a text node
+   * @return the node, cast to a Text node
    */
   @JsOverlay
   public static Text as(Node node) {

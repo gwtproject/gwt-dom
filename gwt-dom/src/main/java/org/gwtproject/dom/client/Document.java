@@ -123,7 +123,11 @@ public class Document extends Node {
                 Js.<HTMLDocument>uncheckedCast(this).createElement(QuoteElement.TAG_BLOCKQUOTE);
   }
 
-  /** Creates a 'blur' event. */
+  /**
+   * Creates a 'blur' event.
+   *
+   * @return the newly created event
+   */
   @JsOverlay
   public final NativeEvent createBlurEvent() {
     return createHtmlEvent(BrowserEvents.BLUR, false, false);
@@ -173,7 +177,11 @@ public class Document extends Node {
             (Object) Js.<HTMLDocument>uncheckedCast(this).createElement(TableCaptionElement.TAG);
   }
 
-  /** Creates a 'change' event. */
+  /**
+   * Creates a 'change' event.
+   *
+   * @return the newly created event
+   */
   @JsOverlay
   public final NativeEvent createChangeEvent() {
     return createHtmlEvent(BrowserEvents.CHANGE, false, true);
@@ -545,7 +553,11 @@ public class Document extends Node {
     return createInputElement("image");
   }
 
-  /** Creates an 'input' event. */
+  /**
+   * Creates an 'input' event.
+   *
+   * @return the newly created event
+   */
   @JsOverlay
   public final NativeEvent createInputEvent() {
     return createHtmlEvent(BrowserEvents.INPUT, true, false);
