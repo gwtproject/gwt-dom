@@ -70,7 +70,7 @@
         <gwt-regexp.version>1.0.0-RC1</gwt-regexp.version>
         <gwt-safecss.version>1.0.0-RC1</gwt-safecss.version>
         <gwt-safehtml.version>1.0.0-RC1</gwt-safehtml.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <build>
