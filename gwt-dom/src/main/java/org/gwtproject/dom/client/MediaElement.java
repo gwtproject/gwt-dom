@@ -42,39 +42,39 @@ public class MediaElement extends Element {
   @JsOverlay public static final String CANNOT_PLAY = "";
 
   /** Constant returned from {@link #getReadyState()}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement")
   public static int HAVE_NOTHING;
 
   /** Constant returned from {@link #getReadyState()}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement")
   public static int HAVE_METADATA;
 
   /** Constant returned from {@link #getReadyState()}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement")
   public static int HAVE_CURRENT_DATA;
 
   /** Constant returned from {@link #getReadyState()}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement")
   public static int HAVE_FUTURE_DATA;
 
   /** Constant returned from {@link #getReadyState()}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement")
   public static int HAVE_ENOUGH_DATA;
 
   /** Constant returned from {@link #getNetworkState}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement")
   public static int NETWORK_EMPTY;
 
   /** Constant returned from {@link #getNetworkState}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement")
   public static int NETWORK_IDLE;
 
   /** Constant returned from {@link #getNetworkState}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement")
   public static int NETWORK_LOADING;
 
   /** Constant returned from {@link #getNetworkState}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement")
   public static int NETWORK_NO_SOURCE;
 
   /** Constant used by {@link #getPreload()} and {@link #setPreload(String)}. */
