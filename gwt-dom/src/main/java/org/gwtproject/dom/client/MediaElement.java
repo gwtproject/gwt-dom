@@ -42,39 +42,39 @@ public class MediaElement extends Element {
   @JsOverlay public static final String CANNOT_PLAY = "";
 
   /** Constant returned from {@link #getReadyState()}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement.HAVE_NOTHING")
   public static int HAVE_NOTHING;
 
   /** Constant returned from {@link #getReadyState()}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement.HAVE_METADATA")
   public static int HAVE_METADATA;
 
   /** Constant returned from {@link #getReadyState()}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement.HAVE_CURRENT_DATA")
   public static int HAVE_CURRENT_DATA;
 
   /** Constant returned from {@link #getReadyState()}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement.HAVE_FUTURE_DATA")
   public static int HAVE_FUTURE_DATA;
 
   /** Constant returned from {@link #getReadyState()}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement.HAVE_ENOUGH_DATA")
   public static int HAVE_ENOUGH_DATA;
 
   /** Constant returned from {@link #getNetworkState}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement.NETWORK_EMPTY")
   public static int NETWORK_EMPTY;
 
   /** Constant returned from {@link #getNetworkState}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement.NETWORK_IDLE")
   public static int NETWORK_IDLE;
 
   /** Constant returned from {@link #getNetworkState}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement.NETWORK_LOADING")
   public static int NETWORK_LOADING;
 
   /** Constant returned from {@link #getNetworkState}. */
-  @JsProperty(namespace = "HTMLMediaElement")
+  @JsProperty(namespace = JsPackage.GLOBAL, name = "HTMLMediaElement.NETWORK_NO_SOURCE")
   public static int NETWORK_NO_SOURCE;
 
   /** Constant used by {@link #getPreload()} and {@link #setPreload(String)}. */
