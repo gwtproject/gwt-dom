@@ -15,8 +15,7 @@
  */
 package org.gwtproject.dom.client;
 
-import org.gwtproject.core.client.JavaScriptObject;
-import org.gwtproject.core.client.JsArrayString;
+import elemental2.core.JsArray;
 import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.core.client.Scheduler.ScheduledCommand;
 
@@ -29,9 +28,9 @@ public class StyleInjector {
 
   private static HeadElement head;
 
-  private static final JsArrayString toInject = JavaScriptObject.createArray().cast();
-  private static final JsArrayString toInjectAtEnd = JavaScriptObject.createArray().cast();
-  private static final JsArrayString toInjectAtStart = JavaScriptObject.createArray().cast();
+  private static final JsArray<String> toInject = new JsArray<>();
+  private static final JsArray<String> toInjectAtEnd = new JsArray<>();
+  private static final JsArray<String> toInjectAtStart = new JsArray<>();
 
   private static ScheduledCommand flusher =
       new ScheduledCommand() {
@@ -173,11 +172,11 @@ public class StyleInjector {
   }
 
   /** The <code>which</code> parameter is used to support the injectStylesheet API. */
-  private static StyleElement flush(JavaScriptObject which) {
+  private static StyleElement flush(JsArray<String> which) {
     StyleElement toReturn = null;
     StyleElement maybeReturn;
 
-    if (toInjectAtStart.length() != 0) {
+    if (toInjectAtStart.length != 0) {
       String css = toInjectAtStart.join("");
       maybeReturn = injectStyleSheetAtStart(css);
       if (toInjectAtStart == which) {
@@ -186,7 +185,7 @@ public class StyleInjector {
       toInjectAtStart.setLength(0);
     }
 
-    if (toInject.length() != 0) {
+    if (toInject.length != 0) {
       String css = toInject.join("");
       maybeReturn = injectStyleSheet(css);
       if (toInject == which) {
@@ -195,7 +194,7 @@ public class StyleInjector {
       toInject.setLength(0);
     }
 
-    if (toInjectAtEnd.length() != 0) {
+    if (toInjectAtEnd.length != 0) {
       String css = toInjectAtEnd.join("");
       maybeReturn = injectStyleSheetAtEnd(css);
       if (toInjectAtEnd == which) {
