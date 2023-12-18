@@ -83,8 +83,8 @@ public class Element extends Node {
   }
 
   /**
-   * Determines whether the given object can be cast to an {@link Element}. A
-   * <code>null</code> object will cause this method to return <code>false</code>.
+   * Determines whether the given object can be cast to an {@link Element}. A <code>null</code>
+   * object will cause this method to return <code>false</code>.
    *
    * @param o the object to check if it is an instance of this type
    * @return true of the object is an instance of this type, false otherwise

@@ -57,9 +57,9 @@ public class Node extends JavaScriptObject {
   }
 
   /**
-   * Determines whether the given object is a DOM node. A <code>null</code> object
-   * will cause this method to return <code>false</code>. The try catch is needed for the firefox
-   * permission error: "Permission denied to access property 'nodeType'"
+   * Determines whether the given object is a DOM node. A <code>null</code> object will cause this
+   * method to return <code>false</code>. The try catch is needed for the firefox permission error:
+   * "Permission denied to access property 'nodeType'"
    *
    * @param o the object to check if it is an instance of this type
    * @return true of the object is an instance of this type, false otherwise
