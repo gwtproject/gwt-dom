@@ -45,19 +45,19 @@ public class Node extends JavaScriptObject {
   public static short DOCUMENT_NODE;
 
   /**
-   * Assert that the given {@link JavaScriptObject} is a DOM node and automatically typecast it.
+   * Assert that the given object is a DOM node and automatically typecast it.
    *
    * @param o the object to assert is a Node
    * @return the object, cast to a Node
    */
   @JsOverlay
-  public static Node as(JavaScriptObject o) {
+  public static Node as(Object o) {
     assert is(o);
     return (Node) o;
   }
 
   /**
-   * Determines whether the given {@link JavaScriptObject} is a DOM node. A <code>null</code> object
+   * Determines whether the given object is a DOM node. A <code>null</code> object
    * will cause this method to return <code>false</code>. The try catch is needed for the firefox
    * permission error: "Permission denied to access property 'nodeType'"
    *
@@ -65,7 +65,7 @@ public class Node extends JavaScriptObject {
    * @return true of the object is an instance of this type, false otherwise
    */
   @JsOverlay
-  public static boolean is(JavaScriptObject o) {
+  public static boolean is(Object o) {
     try {
       return Js.isTruthy(o) && Js.isTruthy(Js.asPropertyMap(o).get("nodeType"));
     } catch (Exception e) {

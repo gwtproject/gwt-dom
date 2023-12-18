@@ -19,7 +19,6 @@ import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
-import org.gwtproject.core.client.JavaScriptObject;
 
 /**
  * Form field label text.
@@ -47,14 +46,14 @@ public class LabelElement extends Element {
   }
 
   /**
-   * Determines whether the given {@link JavaScriptObject} can be cast to this class. A <code>null
+   * Determines whether the given object can be cast to this class. A <code>null
    * </code> object will cause this method to return <code>false</code>.
    *
    * @param o the object to check if it is an instance of this type
    * @return true of the object is an instance of this type, false otherwise
    */
   @JsOverlay
-  public static boolean is(JavaScriptObject o) {
+  public static boolean is(Object o) {
     if (Element.is(o)) {
       return is((Element) o);
     }

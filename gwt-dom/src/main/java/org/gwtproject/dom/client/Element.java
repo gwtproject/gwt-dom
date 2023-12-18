@@ -83,14 +83,14 @@ public class Element extends Node {
   }
 
   /**
-   * Determines whether the given {@link JavaScriptObject} can be cast to an {@link Element}. A
+   * Determines whether the given object can be cast to an {@link Element}. A
    * <code>null</code> object will cause this method to return <code>false</code>.
    *
    * @param o the object to check if it is an instance of this type
    * @return true of the object is an instance of this type, false otherwise
    */
   @JsOverlay
-  public static boolean is(JavaScriptObject o) {
+  public static boolean is(Object o) {
     if (Node.is(o)) {
       return is((Node) o);
     }

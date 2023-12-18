@@ -23,7 +23,7 @@ import org.gwtproject.core.client.JavaScriptObject;
  * Represents the target of a JavaScript event.
  *
  * <p>This type is returned from methods such as {@link NativeEvent#getEventTarget()}, and must
- * usually be cast to another type using methods such as {@link Element#is(JavaScriptObject)} and
+ * usually be cast to another type using methods such as {@link Element#is(Object)} and
  * {@link Element#as(JavaScriptObject)}.
  *
  * <p>This class intentionally does <em>not</em> specify the methods from the DOM IDL

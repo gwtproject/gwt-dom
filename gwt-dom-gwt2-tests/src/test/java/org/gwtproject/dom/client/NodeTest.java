@@ -19,7 +19,6 @@ import com.google.gwt.junit.DoNotRunWith;
 import com.google.gwt.junit.Platform;
 import com.google.gwt.junit.client.GWTTestCase;
 import java.util.Locale;
-import org.gwtproject.core.client.JavaScriptObject;
 
 /** Tests the {@link Node} class. */
 public class NodeTest extends GWTTestCase {
@@ -296,7 +295,7 @@ public class NodeTest extends GWTTestCase {
   public void testIsAndAs() {
     assertTrue(Node.is(Document.get()));
 
-    JavaScriptObject text = Document.get().createTextNode("foo");
+    Object text = Document.get().createTextNode("foo");
     assertTrue(Node.is(text));
 
     // Node.is(null) is allowed and should return false.
