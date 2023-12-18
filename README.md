@@ -33,7 +33,7 @@ A future-proof port of the `com.google.gwt.dom.DOM` GWT module, with no dependen
 3. Change the `import`s in your Java source files:
 
    ```java
-   import org.gwtproject.typedarrays.client.ArrayBufferNative;
+   import org.gwtproject.dom.*;
    ```
 
 ## Instructions
